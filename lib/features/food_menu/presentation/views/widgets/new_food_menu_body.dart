@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/router/app_router.dart';
 
+import '../../../../../core/utils/widgets/custom_text_form_field.dart';
+import 'add_category_alert_dialog.dart';
+
 class NewFoodMenuBody extends StatelessWidget {
   const NewFoodMenuBody({super.key});
 
@@ -23,16 +26,18 @@ class NewFoodMenuBody extends StatelessWidget {
               ),
               const Spacer(),
               Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey.shade200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey.shade200,
+                ),
+                child: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Import from CSV",
+                    style: TextStyle(fontSize: 16),
                   ),
-                  child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Import from CSV",
-                        style: TextStyle(fontSize: 16),
-                      ))),
+                ),
+              ),
               const SizedBox(
                 width: 5,
               ),
@@ -42,7 +47,13 @@ class NewFoodMenuBody extends StatelessWidget {
                     color: Colors.redAccent.shade200,
                   ),
                   child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AddCategoryAlertDialog();
+                            });
+                      },
                       child: const Text("Add New Category",
                           style: TextStyle(fontSize: 16)))),
             ],
@@ -57,23 +68,11 @@ class NewFoodMenuBody extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.green.withOpacity(0.3),
                     borderRadius: BorderRadius.only(
-                      topLeft: index % 2 != 0
-                          ? Radius.circular(100)
-                          : Radius.circular(0),
-                      bottomLeft: index % 2 != 0
-                          ? Radius.circular(100)
-                          : Radius.circular(0),
-                      topRight: index % 2 != 0
-                          ? Radius.circular(0)
-                          : Radius.circular(100),
-                      bottomRight: index % 2 != 0
-                          ? Radius.circular(0)
-                          : Radius.circular(100),
+                      topRight: Radius.circular(100),
+                      bottomRight: Radius.circular(100),
                     ),
                   ),
                   child: Row(
-                    textDirection:
-                        index % 2 != 0 ? TextDirection.rtl : TextDirection.ltr,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
@@ -81,18 +80,8 @@ class NewFoodMenuBody extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.orange,
                           borderRadius: BorderRadius.only(
-                            topLeft: index % 2 != 0
-                                ? Radius.circular(200)
-                                : Radius.circular(0),
-                            bottomLeft: index % 2 != 0
-                                ? Radius.circular(200)
-                                : Radius.circular(0),
-                            topRight: index % 2 != 0
-                                ? Radius.circular(0)
-                                : Radius.circular(200),
-                            bottomRight: index % 2 != 0
-                                ? Radius.circular(0)
-                                : Radius.circular(200),
+                            topRight: Radius.circular(200),
+                            bottomRight: Radius.circular(200),
                           ),
                         ),
                         child: CircleAvatar(
@@ -146,7 +135,8 @@ class NewFoodMenuBody extends StatelessWidget {
                                     hoverColor: Colors.transparent,
                                     onTap: () {
                                       BlocProvider.of<DashboardCubit>(context)
-                                          .changeView(AppRouter.kCategoryItemsView);
+                                          .changeView(
+                                              AppRouter.kCategoryItemsView);
                                     },
                                     child: const Row(
                                       children: [
@@ -203,3 +193,5 @@ class NewFoodMenuBody extends StatelessWidget {
     );
   }
 }
+
+
