@@ -1,17 +1,21 @@
 import 'dart:typed_data';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/logic/food_menu_cubit/food_menu_cubit.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/views/widgets/stepper_alert_dialog_buttons.dart';
 
-import '../../../data/models/ingredient.dart';
+import '../../../data/models/ingredient/ingredient.dart';
 import 'add_additional_ingredients.dart';
 import 'add_food_item_general_info.dart';
 
 class AddEditFoodItemDialog extends StatefulWidget {
   const AddEditFoodItemDialog({
     super.key,
+    required this.categoryId,
   });
+
+  final String categoryId;
 
   @override
   State<AddEditFoodItemDialog> createState() => _AddEditFoodItemDialogState();
@@ -118,34 +122,15 @@ class _AddEditFoodItemDialogState extends State<AddEditFoodItemDialog> {
                 firstStep: _currentStep == 0,
                 lastStep: _currentStep == headers.length - 1,
                 onFinish: () async {
-                  List<String> imagesUrls = [];
-                  for (int i = 0; i < images.length; i++) {
-                    Uint8List image = images[i];
-                    String fileName =
-                        'images/${DateTime.now().millisecondsSinceEpoch}_$i.jpg';
-                    UploadTask uploadTask = FirebaseStorage.instance
-                        .ref()
-                        .child(fileName)
-                        .putData(image);
-                    TaskSnapshot snapshot = await uploadTask;
-                    String downloadURL = await snapshot.ref.getDownloadURL();
-                    imagesUrls.add(downloadURL);
-                  }
-                  await FirebaseFirestore.instance.collection("foodItems").add(
-                    {
-                      "title": _titleController.text,
-                      "description": _descriptionController.text,
-                      "deliveryTime": _deliveryTimeController.text,
-                      "price": _priceController.text,
-                      "images": imagesUrls,
-                      "ingredients": ingredients
-                          .map((e) => {
-                                "name": e.title,
-                                "amount": e.price,
-                              })
-                          .toList(),
-                    },
-                  );
+                  BlocProvider.of<FoodMenuCubit>(context).addFoodItem(
+                      categoryId: widget.categoryId,
+                      title: _titleController.text,
+                      description: _descriptionController.text,
+                      deliveryTime: _deliveryTimeController.text,
+                      price: _priceController.text,
+                      images: images,
+                      ingredients: ingredients);
+
                   Navigator.of(context).pop();
                 },
               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_admin_panel/features/food_menu/data/models/ingredient.dart';
 
 import '../../../../../core/utils/widgets/custom_text_form_field.dart';
+import '../../../data/models/ingredient/ingredient.dart';
 
 class AddAdditionalIngredients extends StatefulWidget {
   const AddAdditionalIngredients({

@@ -5,7 +5,7 @@ import 'package:restaurant_admin_panel/core/router/app_router.dart';
 import 'package:restaurant_admin_panel/features/banner/presentation/views/banners_view.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/views/food_menu.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/views/widgets/category_food_items_view.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/views/widgets/new_food_menu_body.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/views/widgets/food_categories_view.dart';
 
 import '../../../../orders/presentation/views/orders_view.dart';
 
@@ -25,6 +25,12 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         padding: const EdgeInsets.all(12.0),
         child: BlocBuilder<DashboardCubit, DashboardState>(
           builder: (context, state) {
+            if (state is CategoryFoodItems) {
+              return CategoryFoodItemsView(
+                foodItems: state.foodItems,
+                categoryId: state.categoryId,
+              );
+            }
             if (state is DashboardChangeIndex) {
               return AppRouter.views[state.view]!;
             }
