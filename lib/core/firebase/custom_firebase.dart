@@ -17,7 +17,8 @@ class CustomFirebase {
     CollectionReference foodCategories =
         FirebaseFirestore.instance.collection("foodCategories");
 
-    QuerySnapshot querySnapshot = await foodCategories.get();
+    QuerySnapshot querySnapshot =
+        await foodCategories.orderBy('createdAt', descending: true).get();
     List<CategoryModel> categories = await Future.wait(
       querySnapshot.docs.map(
         (doc) async {
@@ -42,7 +43,10 @@ class CustomFirebase {
         .doc(categoryId)
         .collection("foodItems");
 
-    QuerySnapshot querySnapshot = await foodCategories.get();
+    QuerySnapshot querySnapshot = await foodCategories
+        .orderBy('createdAt', descending: true) // Sort by createdAt
+        .get();
+
     List<FoodItem> foodItems = await Future.wait(
       querySnapshot.docs.map(
         (doc) async {
@@ -69,25 +73,66 @@ class CustomFirebase {
         },
       ).toList(),
     );
-    //print(foodItems);
     return foodItems;
   }
 
   Future<void> addCategory(
       {required String title, required Uint8List imageFile}) async {
+    DocumentReference categoryRef =
+        await FirebaseFirestore.instance.collection("foodCategories").add(
+      {
+        "category": title,
+        "createdAt": DateTime.now(),
+        "image": "",
+      },
+    );
     Uint8List image = imageFile;
     String fileName =
-        'images/${DateTime.now().millisecondsSinceEpoch}.jpg';
+        'images/${categoryRef.id}/image_${DateTime.now().millisecondsSinceEpoch}.jpg';
     UploadTask uploadTask =
         FirebaseStorage.instance.ref().child(fileName).putData(image);
     TaskSnapshot snapshot = await uploadTask;
     String downloadURL = await snapshot.ref.getDownloadURL();
-    await FirebaseFirestore.instance.collection("foodCategories").add(
-      {
-        "category": title,
-        "image": downloadURL,
-      },
-    );
+    await categoryRef.update({
+      "image": downloadURL,
+    });
+  }
+
+  Future<void> updateCategory(
+      {required String categoryId, String? title, Uint8List? imageFile}) async {
+    if (title != null) {
+      await FirebaseFirestore.instance
+          .collection('foodCategories')
+          .doc(categoryId)
+          .update({'category': title});
+    }
+    if (imageFile != null) {
+      Uint8List image = imageFile;
+      String fileName =
+          'images/$categoryId/image_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      UploadTask uploadTask =
+          FirebaseStorage.instance.ref().child(fileName).putData(image);
+      TaskSnapshot snapshot = await uploadTask;
+      String downloadURL = await snapshot.ref.getDownloadURL();
+      await FirebaseFirestore.instance
+          .collection('foodCategories')
+          .doc(categoryId)
+          .update({'image': downloadURL});
+    }
+  }
+
+  Future<void> deleteCategory({required String categoryId}) async {
+    await FirebaseFirestore.instance
+        .collection('foodCategories')
+        .doc(categoryId)
+        .delete();
+    ListResult result = await FirebaseStorage.instance
+        .ref()
+        .child('images/$categoryId')
+        .listAll();
+    for (Reference imageRef in result.items) {
+      await imageRef.delete();
+    }
   }
 
   Future<void> addFoodItem(
@@ -98,18 +143,7 @@ class CustomFirebase {
       required String price,
       required List<Uint8List> images,
       required List<Ingredient> ingredients}) async {
-    List<String> imagesUrls = [];
-    for (int i = 0; i < images.length; i++) {
-      Uint8List image = images[i];
-      String fileName =
-          'images/$categoryId/${DateTime.now().millisecondsSinceEpoch}_$i.jpg';
-      UploadTask uploadTask =
-          FirebaseStorage.instance.ref().child(fileName).putData(image);
-      TaskSnapshot snapshot = await uploadTask;
-      String downloadURL = await snapshot.ref.getDownloadURL();
-      imagesUrls.add(downloadURL);
-    }
-    await FirebaseFirestore.instance
+    DocumentReference foodItemRef = await FirebaseFirestore.instance
         .collection('foodCategories')
         .doc(categoryId)
         .collection("foodItems")
@@ -119,7 +153,8 @@ class CustomFirebase {
         "description": description,
         "deliveryTime": deliveryTime,
         "price": price,
-        "images": imagesUrls,
+        "images": [],
+        "createdAt": DateTime.now(),
         "ingredients": ingredients
             .map((e) => {
                   "title": e.title,
@@ -128,6 +163,21 @@ class CustomFirebase {
             .toList(),
       },
     );
+    List<String> imagesUrls = [];
+    for (int i = 0; i < images.length; i++) {
+      Uint8List image = images[i];
+      String fileName =
+          'images/$categoryId/foodItemsImages/${foodItemRef.id}/image_$i.jpg';
+      UploadTask uploadTask =
+          FirebaseStorage.instance.ref().child(fileName).putData(image);
+      TaskSnapshot snapshot = await uploadTask;
+      String downloadURL = await snapshot.ref.getDownloadURL();
+      imagesUrls.add(downloadURL);
+    }
+
+    await foodItemRef.update({
+      "images": imagesUrls,
+    });
   }
 
   Future<void> deleteFoodItem(
@@ -138,5 +188,14 @@ class CustomFirebase {
         .collection("foodItems")
         .doc(foodId)
         .delete();
+
+    ListResult result = await FirebaseStorage.instance
+        .ref()
+        .child('images/$categoryId/foodItemsImages/$foodId')
+        .listAll();
+
+    for (Reference imageRef in result.items) {
+      await imageRef.delete();
+    }
   }
 }

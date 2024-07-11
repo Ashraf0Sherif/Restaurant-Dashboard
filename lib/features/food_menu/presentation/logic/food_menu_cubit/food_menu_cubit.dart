@@ -52,6 +52,36 @@ class FoodMenuCubit extends Cubit<FoodMenuState> {
     );
   }
 
+  Future<void> updateCategory(
+      {required String categoryId, String? title, Uint8List? imageFile}) async {
+    emit(FoodMenuLoading());
+    var response = await foodRepoImplementation.updateCategory(
+        categoryId: categoryId, title: title, imageFile: imageFile);
+    response.when(
+      success: (done) {
+        getCategories();
+      },
+      failure: (FirebaseExceptions firebaseExceptions) {
+        emit(FoodMenuFailure(
+            errorMessage:
+                FirebaseExceptions.getErrorMessage(firebaseExceptions)));
+      },
+    );
+  }
+  Future<void>deleteCategory({required String categoryId})async{
+    emit(FoodMenuLoading());
+    var response = await foodRepoImplementation.deleteCategory(categoryId: categoryId);
+    response.when(
+      success: (done) {
+        getCategories();
+      },
+      failure: (FirebaseExceptions firebaseExceptions) {
+        emit(FoodMenuFailure(
+            errorMessage:
+                FirebaseExceptions.getErrorMessage(firebaseExceptions)));
+      },
+    );
+  }
   Future<void> addFoodItem(
       {required String categoryId,
       required String title,

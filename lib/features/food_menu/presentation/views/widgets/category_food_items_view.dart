@@ -49,6 +49,7 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                   .collection("foodCategories")
                   .doc(widget.categoryId)
                   .collection("foodItems")
+                  .orderBy('createdAt', descending: true)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
@@ -172,7 +173,6 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
 
   List<Widget> buildFoodItemRow(
       String imageUrl, String name, String price, String foodId) {
-    print(foodItemsIndex);
     foodItemsIndex++;
     return [
       buildCell(foodItemsIndex.toString()),

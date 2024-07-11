@@ -4,8 +4,8 @@ import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart
 import 'package:restaurant_admin_panel/features/food_menu/data/models/category/category_model.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/logic/food_menu_cubit/food_menu_cubit.dart';
 
-import '../../../data/models/food_item/food_item.dart';
 import 'add_category_alert_dialog.dart';
+import 'edit_category_alert_dialog.dart';
 
 class FoodCategoriesView extends StatefulWidget {
   const FoodCategoriesView({super.key});
@@ -223,7 +223,40 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                                     ),
                                   ),
                                 ],
-                              )
+                              ),
+                              const Spacer(
+                                flex: 2,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return EditCategoryAlertDialog(
+                                                  category: categories[
+                                                      categoriesIndex]);
+                                            });
+                                      },
+                                      icon: const Icon(Icons.edit),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        BlocProvider.of<FoodMenuCubit>(context)
+                                            .deleteCategory(
+                                                categoryId:
+                                                    categories[categoriesIndex]
+                                                        .id);
+                                      },
+                                      icon: const Icon(Icons.delete),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const Spacer()
                             ],
                           ),
                         ),

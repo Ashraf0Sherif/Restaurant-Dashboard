@@ -8,9 +8,10 @@ abstract class FoodRepo {
   Future<void> addCategory(
       {required String title, required Uint8List? imageFile});
 
-  Future<void> deleteCategory();
+  Future<void> deleteCategory({required String categoryId});
 
-  Future<void> updateCategory();
+  Future<void> updateCategory(
+      {required String categoryId, String? title, Uint8List? imageFile});
 
   Future<void> addFoodItem(
       {required String categoryId,
@@ -21,7 +22,8 @@ abstract class FoodRepo {
       required List<Uint8List> images,
       required List<Ingredient> ingredients});
 
-  Future<void> deleteFoodItem({required String categoryId,required String foodId});
+  Future<void> deleteFoodItem(
+      {required String categoryId, required String foodId});
 
   Future<void> updateFoodItem();
 }
