@@ -61,11 +61,12 @@ class FoodRepoImplementation implements FoodRepo {
   }
 
   @override
-  Future<FirebaseResult<void>> deleteCategory({required String categoryId})async {
-    try{
+  Future<FirebaseResult<void>> deleteCategory(
+      {required String categoryId}) async {
+    try {
       await customFirebase.deleteCategory(categoryId: categoryId);
       return const FirebaseResult.success(null);
-    }catch(error){
+    } catch (error) {
       throw FirebaseExceptions.getFirebaseException(error);
     }
   }
@@ -98,8 +99,28 @@ class FoodRepoImplementation implements FoodRepo {
   }
 
   @override
-  Future<void> updateFoodItem() {
-    // TODO: implement updateFoodItem
-    throw UnimplementedError();
+  Future<FirebaseResult<void>> updateFoodItem(
+      {required String categoryId,
+      required String title,
+      required String description,
+      required String deliveryTime,
+      required String price,
+      required List<Uint8List> images,
+      required List<Ingredient> ingredients,
+      required String foodId}) async {
+    try {
+      await customFirebase.updateFoodItem(
+          categoryId: categoryId,
+          title: title,
+          description: description,
+          deliveryTime: deliveryTime,
+          price: price,
+          images: images,
+          ingredients: ingredients,
+          foodId: foodId);
+      return const FirebaseResult.success(null);
+    } catch (error) {
+      throw FirebaseExceptions.getFirebaseException(error);
+    }
   }
 }

@@ -37,7 +37,7 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
     return Scaffold(
       backgroundColor: Colors.white,
       body:
-          BlocBuilder<FoodMenuCubit, FoodMenuState>(builder: (context, state) {
+      BlocBuilder<FoodMenuCubit, FoodMenuState>(builder: (context, state) {
         if (state is FoodMenuLoading) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -124,7 +124,7 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 6,
                             mainAxisSpacing: 5,
                             crossAxisSpacing: 0,
@@ -133,7 +133,7 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                           children: [
                             ...List.generate(
                               headers.length,
-                              (index) {
+                                  (index) {
                                 return buildCell(headers[index],
                                     color: Colors.grey.shade200);
                               },
@@ -182,7 +182,7 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
           image: DecorationImage(
             image: NetworkImage(imageUrl),
             fit: BoxFit.fill,
-          ),
+          )
         ),
       ),
       buildCell(name),
@@ -195,6 +195,7 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
               builder: (context) {
                 return AddEditFoodItemDialog(
                   categoryId: widget.categoryId,
+                  foodItem: widget.foodItems[foodItemsIndex - 1],
                 );
               },
             );

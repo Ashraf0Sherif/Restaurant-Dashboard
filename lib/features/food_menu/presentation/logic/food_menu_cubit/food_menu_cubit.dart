@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
@@ -8,7 +7,6 @@ import 'package:restaurant_admin_panel/features/food_menu/data/models/category/c
 
 import '../../../data/models/ingredient/ingredient.dart';
 import '../../../repo/food_repo_implementation.dart';
-import '../../../../../core/firebase/custom_firebase.dart';
 
 part 'food_menu_state.dart';
 
@@ -68,9 +66,11 @@ class FoodMenuCubit extends Cubit<FoodMenuState> {
       },
     );
   }
-  Future<void>deleteCategory({required String categoryId})async{
+
+  Future<void> deleteCategory({required String categoryId}) async {
     emit(FoodMenuLoading());
-    var response = await foodRepoImplementation.deleteCategory(categoryId: categoryId);
+    var response =
+        await foodRepoImplementation.deleteCategory(categoryId: categoryId);
     response.when(
       success: (done) {
         getCategories();
@@ -82,6 +82,7 @@ class FoodMenuCubit extends Cubit<FoodMenuState> {
       },
     );
   }
+
   Future<void> addFoodItem(
       {required String categoryId,
       required String title,
@@ -116,6 +117,37 @@ class FoodMenuCubit extends Cubit<FoodMenuState> {
     emit(FoodMenuLoading());
     var response = await foodRepoImplementation.deleteFoodItem(
         categoryId: categoryId, foodId: foodId);
+    response.when(
+      success: (done) {
+        getCategories();
+      },
+      failure: (FirebaseExceptions firebaseExceptions) {
+        emit(FoodMenuFailure(
+            errorMessage:
+                FirebaseExceptions.getErrorMessage(firebaseExceptions)));
+      },
+    );
+  }
+
+  Future<void> updateFoodItem(
+      {required String categoryId,
+      required String title,
+      required String description,
+      required String deliveryTime,
+      required String price,
+      required List<Uint8List> images,
+      required List<Ingredient> ingredients,
+      required String foodId}) async {
+    emit(FoodMenuLoading());
+    var response = await foodRepoImplementation.updateFoodItem(
+        categoryId: categoryId,
+        title: title,
+        description: description,
+        deliveryTime: deliveryTime,
+        price: price,
+        images: images,
+        ingredients: ingredients,
+        foodId: foodId);
     response.when(
       success: (done) {
         getCategories();

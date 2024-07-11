@@ -25,5 +25,13 @@ abstract class FoodRepo {
   Future<void> deleteFoodItem(
       {required String categoryId, required String foodId});
 
-  Future<void> updateFoodItem();
+  Future<void> updateFoodItem(
+      {required String categoryId,
+      required String title,
+      required String description,
+      required String deliveryTime,
+      required String price,
+      required List<Uint8List> images,
+      required List<Ingredient> ingredients,
+      required String foodId});
 }

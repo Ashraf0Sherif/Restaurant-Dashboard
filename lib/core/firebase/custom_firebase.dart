@@ -198,4 +198,46 @@ class CustomFirebase {
       await imageRef.delete();
     }
   }
+
+  Future<void> updateFoodItem(
+      {required String categoryId,
+      required String title,
+      required String description,
+      required String deliveryTime,
+      required String price,
+      required List<Uint8List> images,
+      required List<Ingredient> ingredients,
+      required String foodId}) async {
+    DocumentReference foodItemRef =  FirebaseFirestore.instance
+        .collection('foodCategories')
+        .doc(categoryId)
+        .collection('foodItems')
+        .doc(foodId);
+    List<String> imagesUrls = [];
+    for (int i = 0; i < images.length; i++) {
+      Uint8List image = images[i];
+      String fileName =
+          'images/$categoryId/foodItemsImages/$foodId/image_$i.jpg';
+      UploadTask uploadTask =
+      FirebaseStorage.instance.ref().child(fileName).putData(image);
+      TaskSnapshot snapshot = await uploadTask;
+      String downloadURL = await snapshot.ref.getDownloadURL();
+      imagesUrls.add(downloadURL);
+    }
+    await foodItemRef
+        .update({
+      "title": title,
+      "description": description,
+      "deliveryTime": deliveryTime,
+      "price": price,
+      "images": imagesUrls,
+      "ingredients": ingredients
+          .map((e) => {
+                "title": e.title,
+                "price": e.price,
+              })
+          .toList(),
+    });
+
+  }
 }

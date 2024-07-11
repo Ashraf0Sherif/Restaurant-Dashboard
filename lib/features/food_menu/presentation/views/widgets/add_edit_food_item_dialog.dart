@@ -2,6 +2,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
+import 'package:restaurant_admin_panel/core/utils/widgets/show_snack_bar.dart';
+import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/logic/food_menu_cubit/food_menu_cubit.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/views/widgets/stepper_alert_dialog_buttons.dart';
 
@@ -10,11 +13,9 @@ import 'add_additional_ingredients.dart';
 import 'add_food_item_general_info.dart';
 
 class AddEditFoodItemDialog extends StatefulWidget {
-  const AddEditFoodItemDialog({
-    super.key,
-    required this.categoryId,
-  });
+  AddEditFoodItemDialog({super.key, required this.categoryId, this.foodItem});
 
+  FoodItem? foodItem;
   final String categoryId;
 
   @override
@@ -33,8 +34,38 @@ class _AddEditFoodItemDialogState extends State<AddEditFoodItemDialog> {
   final TextEditingController _priceController = TextEditingController();
   List<Ingredient> ingredients = [];
   List<Uint8List> images = [];
+  bool isLoading = true;
   final _formKey = GlobalKey<FormState>();
   AutovalidateMode dialogAutovalidateMode = AutovalidateMode.disabled;
+
+  @override
+  void initState() {
+    if (widget.foodItem != null) {
+      _titleController.text = widget.foodItem!.title;
+      _descriptionController.text = widget.foodItem!.description;
+      _deliveryTimeController.text = widget.foodItem!.deliverTime;
+      _priceController.text = widget.foodItem!.price.toString();
+      ingredients = widget.foodItem!.ingredients;
+      _fetchImages(widget.foodItem!.images);
+    } else {
+      isLoading = false;
+    }
+    super.initState();
+  }
+
+  Future<void> _fetchImages(List<String> imageUrls) async {
+    List<Uint8List> fetchedImages = [];
+    for (String url in imageUrls) {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        fetchedImages.add(response.bodyBytes);
+      }
+    }
+    setState(() {
+      images = fetchedImages;
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,13 +109,15 @@ class _AddEditFoodItemDialogState extends State<AddEditFoodItemDialog> {
                   steps: [
                     Step(
                       title: const Text("General"),
-                      content: AddFoodItemGeneralInfo(
-                        titleController: _titleController,
-                        descriptionController: _descriptionController,
-                        deliveryTimeController: _deliveryTimeController,
-                        priceController: _priceController,
-                        images: images,
-                      ),
+                      content: isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : AddFoodItemGeneralInfo(
+                              titleController: _titleController,
+                              descriptionController: _descriptionController,
+                              deliveryTimeController: _deliveryTimeController,
+                              priceController: _priceController,
+                              images: images,
+                            ),
                     ),
                     Step(
                       title: const Text("Additional Ingredients"),
@@ -108,6 +141,10 @@ class _AddEditFoodItemDialogState extends State<AddEditFoodItemDialog> {
                 },
                 onStepContinue: () {
                   if (_formKey.currentState!.validate()) {
+                    if (images.isEmpty) {
+                      showSnackBar(context, message: "Please add images");
+                      return;
+                    }
                     if (_currentStep < headers.length - 1) {
                       setState(() {
                         _currentStep += 1;
@@ -122,15 +159,28 @@ class _AddEditFoodItemDialogState extends State<AddEditFoodItemDialog> {
                 firstStep: _currentStep == 0,
                 lastStep: _currentStep == headers.length - 1,
                 onFinish: () async {
-                  BlocProvider.of<FoodMenuCubit>(context).addFoodItem(
+                  if (widget.foodItem != null) {
+                    BlocProvider.of<FoodMenuCubit>(context).updateFoodItem(
                       categoryId: widget.categoryId,
                       title: _titleController.text,
                       description: _descriptionController.text,
                       deliveryTime: _deliveryTimeController.text,
                       price: _priceController.text,
                       images: images,
-                      ingredients: ingredients);
-
+                      ingredients: ingredients,
+                      foodId: widget.foodItem!.id,
+                    );
+                  } else {
+                    BlocProvider.of<FoodMenuCubit>(context).addFoodItem(
+                      categoryId: widget.categoryId,
+                      title: _titleController.text,
+                      description: _descriptionController.text,
+                      deliveryTime: _deliveryTimeController.text,
+                      price: _priceController.text,
+                      images: images,
+                      ingredients: ingredients,
+                    );
+                  }
                   Navigator.of(context).pop();
                 },
               ),
