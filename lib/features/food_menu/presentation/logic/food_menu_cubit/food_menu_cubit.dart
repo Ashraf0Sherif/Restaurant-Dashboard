@@ -5,14 +5,14 @@ import 'package:meta/meta.dart';
 import 'package:restaurant_admin_panel/core/firebase/firebase_exceptions.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/category/category_model.dart';
 
-import '../../../data/models/ingredient/ingredient.dart';
+import '../../../data/models/food_item/food_item.dart';
 import '../../../repo/food_repo_implementation.dart';
 
 part 'food_menu_state.dart';
 
 class FoodMenuCubit extends Cubit<FoodMenuState> {
   final FoodRepoImplementation foodRepoImplementation;
-  List<CategoryModel>? categories;
+  List<CategoryModel> categories = [];
 
   FoodMenuCubit(this.foodRepoImplementation) : super(FoodMenuInitial());
 
@@ -23,7 +23,7 @@ class FoodMenuCubit extends Cubit<FoodMenuState> {
     response.when(
       success: (categories) {
         this.categories = categories;
-        emit(FoodMenuSuccess());
+        emit(FoodMenuSuccess(foodCategories: categories));
       },
       failure: (FirebaseExceptions firebaseExceptions) {
         emit(FoodMenuFailure(
@@ -39,8 +39,9 @@ class FoodMenuCubit extends Cubit<FoodMenuState> {
     var response = await foodRepoImplementation.addCategory(
         title: title, imageFile: imageFile!);
     response.when(
-      success: (done) {
-        getCategories();
+      success: (category) {
+        categories.insert(0, category);
+        emit(FoodMenuSuccess(foodCategories: categories));
       },
       failure: (FirebaseExceptions firebaseExceptions) {
         emit(FoodMenuFailure(
@@ -51,13 +52,16 @@ class FoodMenuCubit extends Cubit<FoodMenuState> {
   }
 
   Future<void> updateCategory(
-      {required String categoryId, String? title, Uint8List? imageFile}) async {
+      {required CategoryModel category,Uint8List? imageFile}) async {
     emit(FoodMenuLoading());
     var response = await foodRepoImplementation.updateCategory(
-        categoryId: categoryId, title: title, imageFile: imageFile);
+        category: category, imageFile: imageFile);
     response.when(
-      success: (done) {
-        getCategories();
+      success: (category) {
+        int categoryIndex =
+            categories.indexWhere((element) => element.id == category.id);
+        categories[categoryIndex] = category;
+        emit(FoodMenuSuccess(foodCategories: categories));
       },
       failure: (FirebaseExceptions firebaseExceptions) {
         emit(FoodMenuFailure(
@@ -73,7 +77,10 @@ class FoodMenuCubit extends Cubit<FoodMenuState> {
         await foodRepoImplementation.deleteCategory(categoryId: categoryId);
     response.when(
       success: (done) {
-        getCategories();
+        int categoryIndex =
+            categories.indexWhere((element) => element.id == categoryId);
+        categories.removeAt(categoryIndex);
+        emit(FoodMenuSuccess(foodCategories: categories));
       },
       failure: (FirebaseExceptions firebaseExceptions) {
         emit(FoodMenuFailure(
@@ -85,24 +92,17 @@ class FoodMenuCubit extends Cubit<FoodMenuState> {
 
   Future<void> addFoodItem(
       {required String categoryId,
-      required String title,
-      required String description,
-      required String deliveryTime,
-      required String price,
-      required List<Uint8List> images,
-      required List<Ingredient> ingredients}) async {
+      required FoodItem foodItem,
+      required List<Uint8List> images}) async {
     emit(FoodMenuLoading());
     var response = await foodRepoImplementation.addFoodItem(
-        categoryId: categoryId,
-        title: title,
-        description: description,
-        deliveryTime: deliveryTime,
-        price: price,
-        images: images,
-        ingredients: ingredients);
+        categoryId: categoryId, foodItem: foodItem, images: images);
     response.when(
-      success: (done) {
-        getCategories();
+      success: (foodItem) {
+        int categoryIndex =
+            categories.indexWhere((element) => element.id == categoryId);
+        categories[categoryIndex].foodItems.insert(0, foodItem);
+        emit(FoodMenuSuccess(foodCategories: categories));
       },
       failure: (FirebaseExceptions firebaseExceptions) {
         emit(FoodMenuFailure(
@@ -119,7 +119,13 @@ class FoodMenuCubit extends Cubit<FoodMenuState> {
         categoryId: categoryId, foodId: foodId);
     response.when(
       success: (done) {
-        getCategories();
+        int categoryIndex =
+            categories.indexWhere((element) => element.id == categoryId);
+        int foodIndex = categories[categoryIndex]
+            .foodItems
+            .indexWhere((element) => element.id == foodId);
+        categories[categoryIndex].foodItems.removeAt(foodIndex);
+        emit(FoodMenuSuccess(foodCategories: categories));
       },
       failure: (FirebaseExceptions firebaseExceptions) {
         emit(FoodMenuFailure(
@@ -131,26 +137,20 @@ class FoodMenuCubit extends Cubit<FoodMenuState> {
 
   Future<void> updateFoodItem(
       {required String categoryId,
-      required String title,
-      required String description,
-      required String deliveryTime,
-      required String price,
-      required List<Uint8List> images,
-      required List<Ingredient> ingredients,
-      required String foodId}) async {
+      required FoodItem foodItem,
+      required List<Uint8List> images}) async {
     emit(FoodMenuLoading());
     var response = await foodRepoImplementation.updateFoodItem(
-        categoryId: categoryId,
-        title: title,
-        description: description,
-        deliveryTime: deliveryTime,
-        price: price,
-        images: images,
-        ingredients: ingredients,
-        foodId: foodId);
+        categoryId: categoryId, foodItem: foodItem, images: images);
     response.when(
-      success: (done) {
-        getCategories();
+      success: (foodItem) {
+        int categoryIndex =
+            categories.indexWhere((element) => element.id == categoryId);
+        int foodIndex = categories[categoryIndex]
+            .foodItems
+            .indexWhere((element) => element.id == foodItem.id);
+        categories[categoryIndex].foodItems[foodIndex] = foodItem;
+        emit(FoodMenuSuccess(foodCategories: categories));
       },
       failure: (FirebaseExceptions firebaseExceptions) {
         emit(FoodMenuFailure(

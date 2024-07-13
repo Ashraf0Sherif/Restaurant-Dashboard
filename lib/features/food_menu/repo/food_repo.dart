@@ -1,9 +1,11 @@
 import 'dart:typed_data';
 
-import '../data/models/ingredient/ingredient.dart';
+import '../../../core/firebase/firebase_result.dart';
+import '../data/models/category/category_model.dart';
+import '../data/models/food_item/food_item.dart';
 
 abstract class FoodRepo {
-  Future<void> getCategories();
+  Future<FirebaseResult<List<CategoryModel>>> getCategories();
 
   Future<void> addCategory(
       {required String title, required Uint8List? imageFile});
@@ -11,27 +13,18 @@ abstract class FoodRepo {
   Future<void> deleteCategory({required String categoryId});
 
   Future<void> updateCategory(
-      {required String categoryId, String? title, Uint8List? imageFile});
+      {required CategoryModel category, required Uint8List imageFile});
 
-  Future<void> addFoodItem(
+  Future<FirebaseResult<FoodItem>> addFoodItem(
       {required String categoryId,
-      required String title,
-      required String description,
-      required String deliveryTime,
-      required String price,
-      required List<Uint8List> images,
-      required List<Ingredient> ingredients});
+      required FoodItem foodItem,
+      required List<Uint8List> images});
 
   Future<void> deleteFoodItem(
       {required String categoryId, required String foodId});
 
   Future<void> updateFoodItem(
       {required String categoryId,
-      required String title,
-      required String description,
-      required String deliveryTime,
-      required String price,
-      required List<Uint8List> images,
-      required List<Ingredient> ingredients,
-      required String foodId});
+      required FoodItem foodItem,
+      required List<Uint8List> images});
 }

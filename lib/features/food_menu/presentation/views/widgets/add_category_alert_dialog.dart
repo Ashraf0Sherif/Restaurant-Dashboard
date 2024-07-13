@@ -2,11 +2,9 @@ import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:typed_data';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/logic/food_menu_cubit/food_menu_cubit.dart';
 
 import '../../../../../core/utils/widgets/custom_text_form_field.dart';
@@ -22,7 +20,7 @@ class AddCategoryAlertDialog extends StatefulWidget {
 
 class _AddCategoryAlertDialogState extends State<AddCategoryAlertDialog> {
   final _formKey = GlobalKey<FormState>();
-  final dialogAutovalidateMode = AutovalidateMode.disabled;
+  AutovalidateMode dialogAutovalidateMode = AutovalidateMode.disabled;
   final titleController = TextEditingController();
   Uint8List? imageFile;
 
@@ -121,11 +119,17 @@ class _AddCategoryAlertDialogState extends State<AddCategoryAlertDialog> {
             child: const Text("Cancel")),
         TextButton(
             onPressed: () async {
-              BlocProvider.of<FoodMenuCubit>(context).addCategory(
-                title: titleController.text,
-                imageFile: imageFile,
-              );
-              Navigator.of(context).pop();
+              if (_formKey.currentState!.validate()) {
+                BlocProvider.of<FoodMenuCubit>(context).addCategory(
+                  title: titleController.text,
+                  imageFile: imageFile,
+                );
+                Navigator.of(context).pop();
+              } else {
+                setState(() {
+                  dialogAutovalidateMode = AutovalidateMode.always;
+                });
+              }
             },
             child: const Text("Add"))
       ],

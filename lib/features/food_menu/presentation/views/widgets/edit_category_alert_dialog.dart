@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:typed_data';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +26,7 @@ class EditCategoryAlertDialog extends StatefulWidget {
 class _EditCategoryAlertDialogState extends State<EditCategoryAlertDialog> {
   Uint8List? imageFile;
   final TextEditingController _titleController = TextEditingController();
+  bool isLoading = true;
 
   void selectImage() async {
     html.FileUploadInputElement uploadInput = html.FileUploadInputElement();
@@ -44,9 +46,22 @@ class _EditCategoryAlertDialogState extends State<EditCategoryAlertDialog> {
     });
   }
 
+  Future<void> _fetchImage(String imageUrl) async {
+    Uint8List fetchedImageFile = Uint8List(0);
+    final response = await http.get(Uri.parse(imageUrl));
+    if (response.statusCode == 200) {
+      fetchedImageFile = response.bodyBytes;
+    }
+    setState(() {
+      imageFile = fetchedImageFile;
+      isLoading = false;
+    });
+  }
+
   @override
   void initState() {
     _titleController.text = widget.category.title;
+    _fetchImage(widget.category.imageUrl);
     super.initState();
   }
 
@@ -58,52 +73,54 @@ class _EditCategoryAlertDialogState extends State<EditCategoryAlertDialog> {
         child: SizedBox(
           height: 200,
           width: 400,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 120,
-                width: 120,
-                child: Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: imageFile == null
-                          ? NetworkImage(widget.category.imageUrl)
-                          : MemoryImage(imageFile!),
-                      fit: BoxFit.cover,
-                    ),
-                    color: Colors.grey.withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Container(
-                    alignment: Alignment.topRight,
-                    padding: EdgeInsets.zero,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: IconButton(
-                        onPressed: selectImage,
-                        icon: const Icon(
-                          Icons.edit,
-                          color: Colors.white,
+          child: isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: 120,
+                      width: 120,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageFile == null
+                                ? NetworkImage(widget.category.imageUrl)
+                                : MemoryImage(imageFile!),
+                            fit: BoxFit.cover,
+                          ),
+                          color: Colors.grey.withOpacity(0.4),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Container(
+                          alignment: Alignment.topRight,
+                          padding: EdgeInsets.zero,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: IconButton(
+                              onPressed: selectImage,
+                              icon: const Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    CustomTextFormField(
+                      label: "Title",
+                      onChanged: (text) {},
+                      controller: _titleController,
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              CustomTextFormField(
-                label: "Title",
-                onChanged: (text) {},
-                controller: _titleController,
-              ),
-            ],
-          ),
         ),
       ),
       actions: [
@@ -114,10 +131,9 @@ class _EditCategoryAlertDialogState extends State<EditCategoryAlertDialog> {
             child: const Text("Cancel")),
         TextButton(
             onPressed: () async {
+              widget.category.title = _titleController.text;
               BlocProvider.of<FoodMenuCubit>(context).updateCategory(
-                  categoryId: widget.category.id,
-                  title: _titleController.text,
-                  imageFile: imageFile);
+                  category: widget.category, imageFile: imageFile);
               Navigator.of(context).pop();
             },
             child: const Text("Edit"))

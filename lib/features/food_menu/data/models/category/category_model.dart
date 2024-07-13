@@ -1,10 +1,10 @@
 import '../food_item/food_item.dart';
 
 class CategoryModel {
-  final String id;
-  final String title;
-  final String imageUrl;
-  final List<FoodItem> foodItems;
+  String id;
+  String title;
+  String imageUrl;
+  List<FoodItem> foodItems;
 
   CategoryModel(
       {required this.id,

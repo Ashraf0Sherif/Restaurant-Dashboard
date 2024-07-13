@@ -13,9 +13,9 @@ import 'add_additional_ingredients.dart';
 import 'add_food_item_general_info.dart';
 
 class AddEditFoodItemDialog extends StatefulWidget {
-  AddEditFoodItemDialog({super.key, required this.categoryId, this.foodItem});
+  const AddEditFoodItemDialog({super.key, required this.categoryId, this.foodItem});
 
-  FoodItem? foodItem;
+  final FoodItem? foodItem;
   final String categoryId;
 
   @override
@@ -160,25 +160,27 @@ class _AddEditFoodItemDialogState extends State<AddEditFoodItemDialog> {
                 lastStep: _currentStep == headers.length - 1,
                 onFinish: () async {
                   if (widget.foodItem != null) {
+                    widget.foodItem!.title = _titleController.text;
+                    widget.foodItem!.description = _descriptionController.text;
+                    widget.foodItem!.deliverTime = _deliveryTimeController.text;
+                    widget.foodItem!.price = _priceController.text;
+                    widget.foodItem!.ingredients = ingredients;
                     BlocProvider.of<FoodMenuCubit>(context).updateFoodItem(
-                      categoryId: widget.categoryId,
-                      title: _titleController.text,
-                      description: _descriptionController.text,
-                      deliveryTime: _deliveryTimeController.text,
-                      price: _priceController.text,
-                      images: images,
-                      ingredients: ingredients,
-                      foodId: widget.foodItem!.id,
-                    );
+                        categoryId: widget.categoryId,
+                        foodItem: widget.foodItem!,
+                        images: images);
                   } else {
                     BlocProvider.of<FoodMenuCubit>(context).addFoodItem(
                       categoryId: widget.categoryId,
-                      title: _titleController.text,
-                      description: _descriptionController.text,
-                      deliveryTime: _deliveryTimeController.text,
-                      price: _priceController.text,
+                      foodItem: FoodItem(
+                          id: '',
+                          title: _titleController.text,
+                          description: _descriptionController.text,
+                          price: _priceController.text,
+                          deliverTime: _deliveryTimeController.text,
+                          images: [],
+                          ingredients: ingredients),
                       images: images,
-                      ingredients: ingredients,
                     );
                   }
                   Navigator.of(context).pop();

@@ -15,6 +15,8 @@ class FoodCategoriesView extends StatefulWidget {
 }
 
 class _FoodCategoriesViewState extends State<FoodCategoriesView> {
+  List<CategoryModel> categories = [];
+
   @override
   void initState() {
     BlocProvider.of<FoodMenuCubit>(context).getCategories();
@@ -32,8 +34,7 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
               child: CircularProgressIndicator(),
             );
           } else if (state is FoodMenuSuccess) {
-            final List<CategoryModel> categories =
-                BlocProvider.of<FoodMenuCubit>(context).categories!;
+            categories = state.foodCategories;
             return ListView(
               children: [
                 const SizedBox(
@@ -73,7 +74,7 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return AddCategoryAlertDialog();
+                                    return const AddCategoryAlertDialog();
                                   });
                             },
                             child: const Text("Add New Category",
@@ -84,7 +85,7 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                   height: 10,
                 ),
                 ...List.generate(
-                  categories.length,
+                  categories.length >= 5 ? 5 : categories.length,
                   (categoriesIndex) {
                     return Column(
                       children: [
@@ -160,9 +161,10 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                                       itemBuilder:
                                           (BuildContext context, int index) {
                                         if (index ==
-                                            categories[categoriesIndex]
-                                                .foodItems
-                                                .length) {
+                                                categories[categoriesIndex]
+                                                    .foodItems
+                                                    .length ||
+                                            index == 5) {
                                           return InkWell(
                                             highlightColor: Colors.transparent,
                                             splashColor: Colors.transparent,
