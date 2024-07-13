@@ -22,7 +22,6 @@ class _SideMenuState extends State<SideMenu> {
         horizontal: 20,
         vertical: 80,
       ),
-      color: Colors.white,
       child: ListView.builder(
         itemCount: menu.length,
         itemBuilder: (BuildContext context, int index) {

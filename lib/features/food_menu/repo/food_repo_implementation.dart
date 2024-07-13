@@ -18,6 +18,7 @@ class FoodRepoImplementation implements FoodRepo {
       var response = await customFirebase.getCategories();
       return FirebaseResult.success(response);
     } catch (error) {
+      print(error);
       return FirebaseResult.failure(
           FirebaseExceptions.getFirebaseException(error));
     }

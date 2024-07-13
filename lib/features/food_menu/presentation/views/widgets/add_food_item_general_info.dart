@@ -119,7 +119,6 @@ class _AddFoodItemGeneralInfoState extends State<AddFoodItemGeneralInfo> {
         ),
         widget.images.isEmpty
             ? Card(
-                color: Colors.grey.shade300,
                 elevation: 0,
                 child: Center(
                   child: Column(

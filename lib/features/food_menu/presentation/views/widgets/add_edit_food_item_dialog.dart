@@ -13,7 +13,8 @@ import 'add_additional_ingredients.dart';
 import 'add_food_item_general_info.dart';
 
 class AddEditFoodItemDialog extends StatefulWidget {
-  const AddEditFoodItemDialog({super.key, required this.categoryId, this.foodItem});
+  const AddEditFoodItemDialog(
+      {super.key, required this.categoryId, this.foodItem});
 
   final FoodItem? foodItem;
   final String categoryId;
@@ -68,9 +69,17 @@ class _AddEditFoodItemDialogState extends State<AddEditFoodItemDialog> {
   }
 
   @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _deliveryTimeController.dispose();
+    _priceController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Colors.white,
       content: Form(
         key: _formKey,
         autovalidateMode: dialogAutovalidateMode,

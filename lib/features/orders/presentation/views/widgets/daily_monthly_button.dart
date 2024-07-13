@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'custom_button.dart';
+
 class DailyMonthlyButton extends StatefulWidget {
   const DailyMonthlyButton({
     super.key,
@@ -17,9 +18,9 @@ class _DailyMonthlyButtonState extends State<DailyMonthlyButton> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text("Orders",
+        const Text("Orders",
             style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold)),
-        SizedBox(
+        const SizedBox(
           width: 40,
         ),
         Container(
@@ -35,25 +36,24 @@ class _DailyMonthlyButtonState extends State<DailyMonthlyButton> {
                 Expanded(
                     child: CustomButton(
                         borderRadius: BorderRadius.circular(10),
-                        textColor: Colors.black,
                         backgroundColor:
-                        isDaily ? Colors.white : Colors.transparent,
-                        text: "Daily",
+                            isDaily ? Colors.blueAccent : Colors.transparent,
+                        text: Text("Daily", style: TextStyle(fontSize: 16)),
                         onPressed: () {
                           setState(() {
                             isDaily = true;
                           });
                         })),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 Expanded(
                     child: CustomButton(
                         borderRadius: BorderRadius.circular(10),
-                        textColor: Colors.black,
                         backgroundColor:
-                        !isDaily ? Colors.white : Colors.transparent,
-                        text: "Monthly",
+                            !isDaily ? Colors.blueAccent : Colors.transparent,
+                        text: const Text("Monthly",
+                            style: TextStyle(fontSize: 16)),
                         onPressed: () {
                           setState(() {
                             isDaily = false;

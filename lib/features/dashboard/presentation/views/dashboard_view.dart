@@ -7,9 +7,8 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      body: const SafeArea(
+    return const Scaffold(
+      body: SafeArea(
         child: Row(
           children: [
             Expanded(

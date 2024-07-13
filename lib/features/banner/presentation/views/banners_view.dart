@@ -20,7 +20,6 @@ class _BannersViewState extends State<BannersView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: BlocBuilder<BannersCubit, BannersState>(
         builder: (context, state) {
           if (state is BannersLoading) {

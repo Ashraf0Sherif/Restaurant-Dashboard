@@ -21,7 +21,11 @@ class SuccessBannersView extends StatefulWidget {
 
 class _SuccessBannersViewState extends State<SuccessBannersView> {
   final TextEditingController _searchController = TextEditingController();
-
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(

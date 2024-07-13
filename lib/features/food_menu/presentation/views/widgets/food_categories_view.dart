@@ -26,7 +26,7 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
       body: BlocBuilder<FoodMenuCubit, FoodMenuState>(
         builder: (context, state) {
           if (state is FoodMenuLoading) {

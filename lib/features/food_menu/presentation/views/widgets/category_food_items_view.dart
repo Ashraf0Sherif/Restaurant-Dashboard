@@ -41,7 +41,6 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body:
           BlocBuilder<FoodMenuCubit, FoodMenuState>(builder: (context, state) {
         if (state is FoodMenuLoading) {
@@ -96,7 +95,6 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                 ),
                 const SizedBox(height: 20),
                 Card(
-                  color: Colors.white,
                   child: GridView(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -112,7 +110,7 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                         headers.length,
                         (index) {
                           return buildCell(headers[index],
-                              color: Colors.grey.shade200);
+                              color: Colors.black12);
                         },
                       ),
                       for (var foodItem in foodItems)

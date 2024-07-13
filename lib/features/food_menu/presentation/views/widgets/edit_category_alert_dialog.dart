@@ -66,6 +66,12 @@ class _EditCategoryAlertDialogState extends State<EditCategoryAlertDialog> {
   }
 
   @override
+  void dispose() {
+    _titleController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text("Edit Category ${widget.category.title}"),

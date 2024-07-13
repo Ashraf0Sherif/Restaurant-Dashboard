@@ -4,15 +4,14 @@ class CustomButton extends StatelessWidget {
   const CustomButton(
       {super.key,
       required this.borderRadius,
-      required this.textColor,
       required this.backgroundColor,
       required this.text,
       this.fontSize,
       required this.onPressed});
 
   final BorderRadiusGeometry borderRadius;
-  final Color textColor, backgroundColor;
-  final String text;
+  final Color backgroundColor;
+  final Text text;
   final double? fontSize;
   final void Function() onPressed;
 
@@ -28,9 +27,7 @@ class CustomButton extends StatelessWidget {
             borderRadius: borderRadius,
           ),
         ),
-        child: Text(
-          text,
-        ),
+        child: text,
       ),
     );
   }

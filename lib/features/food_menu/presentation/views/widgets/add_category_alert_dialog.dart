@@ -21,7 +21,7 @@ class AddCategoryAlertDialog extends StatefulWidget {
 class _AddCategoryAlertDialogState extends State<AddCategoryAlertDialog> {
   final _formKey = GlobalKey<FormState>();
   AutovalidateMode dialogAutovalidateMode = AutovalidateMode.disabled;
-  final titleController = TextEditingController();
+  final _titleController = TextEditingController();
   Uint8List? imageFile;
 
   void selectImage() async {
@@ -43,10 +43,18 @@ class _AddCategoryAlertDialogState extends State<AddCategoryAlertDialog> {
   }
 
   @override
+  void dispose() {
+    _titleController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Add New Category"),
+      title: const Text("Add New Category"),
       content: Form(
+        key: _formKey,
+        autovalidateMode: dialogAutovalidateMode,
         child: SizedBox(
           height: 200,
           width: 400,
@@ -105,7 +113,7 @@ class _AddCategoryAlertDialogState extends State<AddCategoryAlertDialog> {
               CustomTextFormField(
                 label: "Title",
                 onChanged: (text) {},
-                controller: titleController,
+                controller: _titleController,
               ),
             ],
           ),
@@ -121,7 +129,7 @@ class _AddCategoryAlertDialogState extends State<AddCategoryAlertDialog> {
             onPressed: () async {
               if (_formKey.currentState!.validate()) {
                 BlocProvider.of<FoodMenuCubit>(context).addCategory(
-                  title: titleController.text,
+                  title: _titleController.text,
                   imageFile: imageFile,
                 );
                 Navigator.of(context).pop();

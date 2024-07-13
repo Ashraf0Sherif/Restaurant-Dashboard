@@ -116,10 +116,6 @@ class _OrdersViewState extends State<OrdersView> {
             height: 16,
           ),
           const CustomOrdersGridView()
-          // SizedBox(
-          //   width: double.infinity,
-          //   child: CustomTable(),
-          // )
         ],
       ),
     );

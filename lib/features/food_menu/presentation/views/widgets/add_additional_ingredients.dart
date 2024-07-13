@@ -21,7 +21,12 @@ class _AddAdditionalIngredientsState extends State<AddAdditionalIngredients> {
   final _priceController = TextEditingController();
   final _dialogFormKey = GlobalKey<FormState>();
   AutovalidateMode dialogAutovalidateMode = AutovalidateMode.disabled;
-
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _priceController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -43,7 +48,6 @@ class _AddAdditionalIngredientsState extends State<AddAdditionalIngredients> {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        backgroundColor: Colors.white,
                         title: const Text('Add Ingredient'),
                         actions: [
                           ElevatedButton(

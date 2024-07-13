@@ -128,7 +128,12 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
       isLoading = false;
     });
   }
-
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -175,7 +180,6 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                                 );
                               } else {
                                 return Card(
-                                  color: Colors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     side: BorderSide(

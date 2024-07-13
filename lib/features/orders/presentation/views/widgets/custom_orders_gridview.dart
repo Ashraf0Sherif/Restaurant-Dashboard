@@ -44,30 +44,33 @@ class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
   }
 
   Widget buildOrderInfo(String text, Icon icon) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-            padding: EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: icon),
-        const SizedBox(
-          width: 5,
-        ),
-        Text(
-          text,
-          style: TextStyle(fontSize: 16),
-        )
-      ],
+    return Container(
+      color: Colors.blueGrey.shade500,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+              padding: EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: icon),
+          const SizedBox(
+            width: 5,
+          ),
+          Text(
+            text,
+            style: TextStyle(fontSize: 16),
+          )
+        ],
+      ),
     );
   }
 
   Widget buildOrderDetails(String text, {Icon? icon}) {
     return Container(
-      color: Colors.blue.shade50,
+      color: Colors.blue.shade300.withOpacity(0.6),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -93,7 +96,6 @@ class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 5,
-        mainAxisSpacing: 3,
         crossAxisSpacing: 0,
         childAspectRatio: 4.5,
       ),

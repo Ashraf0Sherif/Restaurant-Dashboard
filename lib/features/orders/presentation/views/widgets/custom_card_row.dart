@@ -16,7 +16,7 @@ class CustomCardRow extends StatelessWidget {
           title: 'New Orders',
           value: '245',
           percentage: '20%',
-          color: Colors.blue.shade100,
+          color: Colors.blue.shade900.withOpacity(0.6),
           verticalDividerColor: Colors.blue.shade300,
         )),
         const SizedBox(
@@ -27,7 +27,7 @@ class CustomCardRow extends StatelessWidget {
           title: 'Pending Orders',
           value: '245',
           percentage: '20%',
-          color: Colors.purple.shade100,
+          color: Colors.purple.shade900.withOpacity(0.6),
           verticalDividerColor: Colors.purple.shade300,
         )),
         const SizedBox(
@@ -38,7 +38,7 @@ class CustomCardRow extends StatelessWidget {
           title: 'Delivered Orders',
           value: '245',
           percentage: '20%',
-          color: Colors.orange.shade100,
+          color: Colors.orange.shade800.withOpacity(0.6),
           verticalDividerColor: Colors.orange.shade300,
         )),
       ],
