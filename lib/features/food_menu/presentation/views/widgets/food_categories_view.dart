@@ -4,6 +4,7 @@ import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart
 import 'package:restaurant_admin_panel/features/food_menu/data/models/category/category_model.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/logic/food_menu_cubit/food_menu_cubit.dart';
 
+import '../../../../../constants.dart';
 import 'add_category_alert_dialog.dart';
 import 'edit_category_alert_dialog.dart';
 
@@ -48,19 +49,6 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                           TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
                     ),
                     const Spacer(),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.grey.shade200,
-                      ),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          "Import from CSV",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ),
                     const SizedBox(
                       width: 5,
                     ),
@@ -70,6 +58,12 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                           color: Colors.redAccent.shade200,
                         ),
                         child: TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: kPrimaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
                             onPressed: () {
                               showDialog(
                                   context: context,
@@ -78,7 +72,10 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                                   });
                             },
                             child: const Text("Add New Category",
-                                style: TextStyle(fontSize: 16)))),
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold)))),
                   ],
                 ),
                 const SizedBox(
@@ -91,7 +88,7 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            color: Colors.green.withOpacity(0.3),
+                            color: Color(0xFF2697FF).withOpacity(0.6),
                             borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(100),
                               bottomRight: Radius.circular(100),
@@ -103,7 +100,7 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                               Container(
                                 padding: const EdgeInsets.all(26),
                                 decoration: const BoxDecoration(
-                                  color: Colors.orange,
+                                  color: Color(0xFF21222D),
                                   borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(200),
                                     bottomRight: Radius.circular(200),
@@ -130,7 +127,7 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                                         horizontal: 22),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
-                                        color: Colors.orange),
+                                        color: const Color(0xFF15131C)),
                                     child: Text(
                                       categories[categoriesIndex].title,
                                       style: const TextStyle(

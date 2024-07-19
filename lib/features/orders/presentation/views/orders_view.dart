@@ -15,26 +15,19 @@ class OrdersView extends StatefulWidget {
 
 class _OrdersViewState extends State<OrdersView> {
   final List<Widget> appBarActions = [
-    const Icon(
-      Icons.notifications_none_sharp,
-      size: 32,
-    ),
     const SizedBox(
-      width: 10,
+      width: 20,
     ),
-    SizedBox(
-      width: 10,
-      height: 50,
-      child: VerticalDivider(
-        color: Colors.grey.shade300,
+    IconButton(
+      icon: const Icon(
+        Icons.notifications_none_sharp,
+        color: Colors.white,
+        size: 32,
       ),
+      onPressed: () {},
     ),
     const SizedBox(
-      width: 10,
-    ),
-    const Icon(
-      Icons.account_circle_sharp,
-      size: 32,
+      width: 20,
     ),
   ];
 
@@ -50,12 +43,12 @@ class _OrdersViewState extends State<OrdersView> {
                 color: Colors.deepPurple,
                 size: 32,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
-              const Text(
-                "June 30, 2024",
-                style: TextStyle(fontSize: 22),
+              Text(
+                DateTime.now().toString().substring(0, 10),
+                style: const TextStyle(fontSize: 22),
               ),
               const Spacer(),
               SizedBox(
@@ -64,38 +57,26 @@ class _OrdersViewState extends State<OrdersView> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey.shade700),
-                      borderRadius: BorderRadius.all(Radius.circular(32.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(32.0)),
                     ),
                     border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade700),
                       borderRadius: BorderRadius.circular(32.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(32.0),
                       borderSide:
-                          BorderSide(color: Theme.of(context).primaryColor),
+                          BorderSide(color: Colors.grey.shade200, width: 1.5),
                     ),
                     contentPadding:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     hintText: 'Search',
-                    suffixIcon: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white12,
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey.shade300,
-                              borderRadius: BorderRadius.circular(30)),
-                          child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.search,
-                              size: 21,
-                            ),
-                          ),
-                        ),
+                    suffixIcon: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.search,
+                        size: 21,
                       ),
                     ),
                   ),
@@ -107,11 +88,11 @@ class _OrdersViewState extends State<OrdersView> {
           const SizedBox(
             height: 16,
           ),
-          const DailyMonthlyButton(),
+          //const DailyMonthlyButton(),
           const SizedBox(
             height: 16,
           ),
-          const CustomCardRow(),
+          //const CustomCardRow(),
           const SizedBox(
             height: 16,
           ),

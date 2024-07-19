@@ -12,21 +12,17 @@ class DashboardView extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: SideMenu(),
               flex: 2,
+              child: SideMenu(),
             ),
-
+            VerticalDivider(thickness: 2, color: Colors.blueGrey,indent: 100,endIndent:100,),
             Expanded(
-              child: DashboardWidget(),
               flex: 12,
+              child: DashboardWidget(),
             ),
             SizedBox(
               width: 10,
             ),
-            // Expanded(
-            //   child: SummaryWidget(),
-            //   flex: 3,
-            // ),
           ],
         ),
       ),

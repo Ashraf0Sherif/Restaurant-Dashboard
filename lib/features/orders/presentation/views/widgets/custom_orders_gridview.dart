@@ -11,13 +11,13 @@ class CustomOrdersGridView extends StatefulWidget {
 
 class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
   int selectedIndex = 0;
-  final List<String> orders = [
-    "All Orders",
-    "Pending Orders",
-    "Delivered Orders",
-    "Booked Orders",
-    "Cancelled Orders"
-  ];
+  // final List<String> orders = [
+  //   "All Orders",
+  //   "Pending Orders",
+  //   "Delivered Orders",
+  //   "Booked Orders",
+  //   "Cancelled Orders"
+  // ];
 
   Widget buildOrder(String text, void Function() onPressed, int index) {
     return Column(
@@ -68,23 +68,26 @@ class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
     );
   }
 
-  Widget buildOrderDetails(String text, {Icon? icon}) {
-    return Container(
-      color: Colors.blue.shade300.withOpacity(0.6),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          icon ?? Container(),
-          icon != null
-              ? const SizedBox(
-                  width: 5,
-                )
-              : Container(),
-          Text(
-            text,
-            style: const TextStyle(fontSize: 16),
-          ),
-        ],
+  Widget buildOrderDetails(String text, {Icon? icon, void Function()? onTap}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        color: Colors.blue.shade300.withOpacity(0.6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            icon ?? Container(),
+            icon != null
+                ? const SizedBox(
+                    width: 5,
+                  )
+                : Container(),
+            Text(
+              text,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -100,31 +103,6 @@ class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
         childAspectRatio: 4.5,
       ),
       children: [
-        buildOrder(orders[0], () {
-          setState(() {
-            selectedIndex = 0;
-          });
-        }, 0),
-        buildOrder(orders[1], () {
-          setState(() {
-            selectedIndex = 1;
-          });
-        }, 1),
-        buildOrder(orders[2], () {
-          setState(() {
-            selectedIndex = 2;
-          });
-        }, 2),
-        buildOrder(orders[3], () {
-          setState(() {
-            selectedIndex = 3;
-          });
-        }, 3),
-        buildOrder(orders[4], () {
-          setState(() {
-            selectedIndex = 4;
-          });
-        }, 4),
         buildOrderInfo(
             "Order ID",
             const Icon(
@@ -153,14 +131,20 @@ class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
             )),
         buildOrderDetails("#12345"),
         buildOrderDetails("14-12-2020"),
-        InkWell(
-            onTap: () {
-              //TODO show other orders
-            },
-            child: buildOrderDetails("Pizza")),
+        buildOrderDetails(
+          "Pizza",
+          onTap: () {
+            //Show order details
+          },
+        ),
         buildOrderDetails("₹ 200"),
-        buildOrderDetails("Delivered",
-            icon: const Icon(Icons.done_outline_rounded)),
+        buildOrderDetails(
+          "Delivered",
+          icon: const Icon(Icons.done_outline_rounded),
+          onTap: () {
+            //TODO change status
+          },
+        ),
       ],
     );
   }

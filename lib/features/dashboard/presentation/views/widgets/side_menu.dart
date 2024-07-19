@@ -51,7 +51,7 @@ class _SideMenuState extends State<SideMenu> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-        color: isSelected ? kSelectionColor : Colors.grey,
+        color: isSelected ? kPrimaryColor : Colors.grey,
         borderRadius: const BorderRadius.all(
           Radius.circular(6),
         ),
@@ -67,7 +67,7 @@ class _SideMenuState extends State<SideMenu> {
               ),
               child: Text(
                 data,
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: const TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
             const SizedBox(width: 10),

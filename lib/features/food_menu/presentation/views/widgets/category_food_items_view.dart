@@ -110,7 +110,7 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                         headers.length,
                         (index) {
                           return buildCell(headers[index],
-                              color: Colors.black12);
+                              color: Colors.blueGrey.shade500);
                         },
                       ),
                       for (var foodItem in foodItems)
@@ -137,7 +137,7 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
 
   Container buildCell(String title, {Color? color}) {
     return Container(
-      color: color ?? Colors.transparent,
+      color: color ?? Colors.blue.shade300,
       child: Center(
         child: Text(
           title,
@@ -153,39 +153,56 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
     return [
       buildCell(foodItemsIndex.toString()),
       Container(
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.all(4.0),
+        color: Colors.blue.shade300,
+        child: Container(
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
               image: NetworkImage(imageUrl),
               fit: BoxFit.fill,
-            )),
+            ),
+          ),
+        ),
       ),
       buildCell(name),
       buildCell(price),
-      Center(
-        child: IconButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AddEditFoodItemDialog(
-                  categoryId: widget.categoryId,
-                  foodItem: foodItems[foodItemsIndex - 1],
-                );
-              },
-            );
-          },
-          icon: const Icon(Icons.edit_note_sharp),
+      Container(
+        color: Colors.blue.shade300,
+        child: Center(
+          child: IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AddEditFoodItemDialog(
+                    categoryId: widget.categoryId,
+                    foodItem: foodItems[foodItemsIndex - 1],
+                  );
+                },
+              );
+            },
+            icon: const Icon(
+              Icons.edit_note_sharp,
+              color: Colors.white,
+            ),
+          ),
         ),
       ),
-      Center(
-        child: IconButton(
-          onPressed: () {
-            BlocProvider.of<FoodMenuCubit>(context)
-                .deleteFoodItem(categoryId: widget.categoryId, foodId: foodId);
-            foodItemsIndex = 0;
-          },
-          icon: const Icon(Icons.delete_sharp),
+      Container(
+        color: Colors.blue.shade300,
+        child: Center(
+          child: IconButton(
+            onPressed: () {
+              BlocProvider.of<FoodMenuCubit>(context).deleteFoodItem(
+                  categoryId: widget.categoryId, foodId: foodId);
+              foodItemsIndex = 0;
+            },
+            icon: const Icon(
+              Icons.delete_sharp,
+              color: Colors.red,
+            ),
+          ),
         ),
       ),
     ];

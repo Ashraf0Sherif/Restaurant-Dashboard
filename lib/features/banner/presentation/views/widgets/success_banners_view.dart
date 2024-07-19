@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../constants.dart';
 import '../../../../../core/dashboard_cubit/dashboard_cubit.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/utils/widgets/custom_text_form_field.dart';
@@ -59,7 +60,7 @@ class _SuccessBannersViewState extends State<SuccessBannersView> {
                 const Spacer(),
                 TextButton(
                   style: TextButton.styleFrom(
-                    backgroundColor: Colors.blue.shade200,
+                    backgroundColor: kPrimaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -70,7 +71,7 @@ class _SuccessBannersViewState extends State<SuccessBannersView> {
                   },
                   child: const Text(
                     "+ Banner",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,color: Colors.black),
                   ),
                 ),
               ],
@@ -89,6 +90,7 @@ class _SuccessBannersViewState extends State<SuccessBannersView> {
               itemBuilder: (context, index) {
                 final banner = widget.banners[index];
                 return Card(
+                  color: kCardBackgroundColor,
                   child: Column(
                     children: [
                       Stack(
@@ -107,9 +109,9 @@ class _SuccessBannersViewState extends State<SuccessBannersView> {
                           Align(
                             alignment: Alignment.topLeft,
                             child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.lightBlue.withOpacity(0.6),
-                                borderRadius: const BorderRadius.only(
+                              decoration: const BoxDecoration(
+                                color: kCardBackgroundColor,
+                                borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(16),
                                   topRight: Radius.circular(12),
                                 ),

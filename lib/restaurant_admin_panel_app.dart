@@ -32,7 +32,11 @@ class RestaurantAdminPanelApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         scrollBehavior: MyCustomScrollBehavior(),
-        theme: ThemeData.dark(
+        theme: ThemeData.dark().copyWith(
+          textTheme: const TextTheme(
+            bodyLarge: TextStyle(color: Colors.white),
+            bodyMedium: TextStyle(color: Colors.white),
+          ),
         ),
         home: const DashboardView(),
       ),

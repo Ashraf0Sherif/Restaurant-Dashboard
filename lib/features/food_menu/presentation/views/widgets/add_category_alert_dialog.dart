@@ -51,7 +51,7 @@ class _AddCategoryAlertDialogState extends State<AddCategoryAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Add New Category"),
+      title: const Text("Add New Category",),
       content: Form(
         key: _formKey,
         autovalidateMode: dialogAutovalidateMode,

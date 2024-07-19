@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:restaurant_admin_panel/constants.dart';
 import 'package:restaurant_admin_panel/core/utils/widgets/show_snack_bar.dart';
 import 'package:restaurant_admin_panel/features/banner/data/models/banner_model.dart';
 import 'package:restaurant_admin_panel/features/banner/presentation/logic/banners_cubit/banners_cubit.dart';
@@ -101,6 +102,17 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
     });
   }
 
+  Future<void> _fetchImage(String imageUrl) async {
+    Uint8List fetchedImageFile = Uint8List(0);
+    final response = await http.get(Uri.parse(imageUrl));
+    if (response.statusCode == 200) {
+      fetchedImageFile = response.bodyBytes;
+    }
+    setState(() {
+      imageFile = fetchedImageFile;
+      isLoading = false;
+    });
+  }
   @override
   void initState() {
     startDate = DateFormat('dd/MM/yyyy').format(selectedStartDate);
@@ -117,17 +129,6 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
     super.initState();
   }
 
-  Future<void> _fetchImage(String imageUrl) async {
-    Uint8List fetchedImageFile = Uint8List(0);
-    final response = await http.get(Uri.parse(imageUrl));
-    if (response.statusCode == 200) {
-      fetchedImageFile = response.bodyBytes;
-    }
-    setState(() {
-      imageFile = fetchedImageFile;
-      isLoading = false;
-    });
-  }
   @override
   void dispose() {
     _titleController.dispose();
@@ -180,6 +181,7 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                                 );
                               } else {
                                 return Card(
+                                  color: kCardBackgroundColor,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     side: BorderSide(
@@ -247,8 +249,8 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                                                         ),
                                                       ),
                                                       onPressed: selectImage,
-                                                      child: const Text(
-                                                          "Choose Banner Image")),
+                                                      child:  Text(
+                                                          "Choose Banner Image",)),
                                                 )
                                               : SizedBox(
                                                   width: 300,

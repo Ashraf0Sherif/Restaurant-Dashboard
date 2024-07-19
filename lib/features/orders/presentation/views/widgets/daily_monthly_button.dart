@@ -27,23 +27,25 @@ class _DailyMonthlyButtonState extends State<DailyMonthlyButton> {
           width: 200,
           padding: EdgeInsets.all(3),
           decoration: BoxDecoration(
-              color: Colors.grey.shade200,
+              color: Colors.grey.shade800,
               borderRadius: BorderRadius.circular(10)),
           child: SizedBox(
             height: 32,
             child: Row(
               children: [
                 Expanded(
-                    child: CustomButton(
-                        borderRadius: BorderRadius.circular(10),
-                        backgroundColor:
-                            isDaily ? Colors.blueAccent : Colors.transparent,
-                        text: Text("Daily", style: TextStyle(fontSize: 16)),
-                        onPressed: () {
-                          setState(() {
-                            isDaily = true;
-                          });
-                        })),
+                  child: CustomButton(
+                    borderRadius: BorderRadius.circular(10),
+                    backgroundColor:
+                        isDaily ? Colors.blueAccent : Colors.transparent,
+                    text: Text("Daily", style: TextStyle(fontSize: 16)),
+                    onPressed: () {
+                      setState(() {
+                        isDaily = true;
+                      });
+                    },
+                  ),
+                ),
                 const SizedBox(
                   width: 5,
                 ),
