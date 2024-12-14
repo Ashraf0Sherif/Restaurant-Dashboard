@@ -27,12 +27,7 @@ class _AddAdditionalIngredientsState extends State<AddAdditionalIngredients> {
   final _dialogFormKey = GlobalKey<FormState>();
   AutovalidateMode dialogAutovalidateMode = AutovalidateMode.disabled;
   String currentType = 'Main Ingredient';
-@override
-  void initState() {
-    super.initState();
-    print(widget.extraIngredients);
-    print(widget.ingredients);
-  }
+
   @override
   void dispose() {
     _titleController.dispose();

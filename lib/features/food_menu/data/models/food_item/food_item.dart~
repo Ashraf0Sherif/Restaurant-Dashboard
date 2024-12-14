@@ -20,6 +20,5 @@ class FoodItem {
     required this.deliverTime,
     required this.images,
     required this.ingredients,
-    required this.extraIngredients,
   });
 }

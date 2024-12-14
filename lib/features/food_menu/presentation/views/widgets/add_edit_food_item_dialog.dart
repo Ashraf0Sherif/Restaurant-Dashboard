@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:restaurant_admin_panel/core/utils/widgets/show_snack_bar.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
+import 'package:restaurant_admin_panel/features/food_menu/data/models/ingredient/extra_ingredient.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/logic/additional_ingredient_cubit/additional_ingredient_cubit.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/logic/food_menu_cubit/food_menu_cubit.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/views/widgets/stepper_alert_dialog_buttons.dart';
 
@@ -34,6 +36,7 @@ class _AddEditFoodItemDialogState extends State<AddEditFoodItemDialog> {
   final TextEditingController _deliveryTimeController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
   List<Ingredient> ingredients = [];
+  List<ExtraIngredient> extraIngredients = [];
   List<Uint8List> images = [];
   bool isLoading = true;
   final _formKey = GlobalKey<FormState>();
@@ -47,6 +50,7 @@ class _AddEditFoodItemDialogState extends State<AddEditFoodItemDialog> {
       _deliveryTimeController.text = widget.foodItem!.deliverTime;
       _priceController.text = widget.foodItem!.price.toString();
       ingredients = widget.foodItem!.ingredients;
+      extraIngredients = widget.foodItem!.extraIngredients;
       _fetchImages(widget.foodItem!.images);
     } else {
       isLoading = false;
@@ -130,8 +134,12 @@ class _AddEditFoodItemDialogState extends State<AddEditFoodItemDialog> {
                     ),
                     Step(
                       title: const Text("Additional Ingredients"),
-                      content: AddAdditionalIngredients(
-                        ingredients: ingredients,
+                      content: BlocProvider(
+                        create: (context) => AdditionalIngredientCubit(),
+                        child: AddAdditionalIngredients(
+                          ingredients: ingredients,
+                          extraIngredients: extraIngredients,
+                        ),
                       ),
                       isActive: _currentStep == 1,
                     )
@@ -188,7 +196,8 @@ class _AddEditFoodItemDialogState extends State<AddEditFoodItemDialog> {
                           price: _priceController.text,
                           deliverTime: _deliveryTimeController.text,
                           images: [],
-                          ingredients: ingredients),
+                          ingredients: ingredients,
+                          extraIngredients: extraIngredients),
                       images: images,
                     );
                   }

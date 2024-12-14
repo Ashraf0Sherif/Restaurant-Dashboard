@@ -60,7 +60,6 @@ class CustomFirebase {
           String id = doc.id;
           Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
           List<Ingredient> ingredients = [];
-          List<ExtraIngredient> extraIngredients = [];
           for (var ingredient in doc[FirebaseConstants.ingredients]) {
             ingredients.add(
               Ingredient(
@@ -69,7 +68,7 @@ class CustomFirebase {
             );
           }
           for (var ingredient in doc[FirebaseConstants.extraIngredients]) {
-            extraIngredients.add(
+            ingredients.add(
               ExtraIngredient(
                 title: ingredient[FirebaseConstants.title],
                 price: ingredient[FirebaseConstants.price],
@@ -88,7 +87,7 @@ class CustomFirebase {
             title: data[FirebaseConstants.title],
             description: data[FirebaseConstants.description],
             id: id,
-            extraIngredients: extraIngredients,
+            extraIngredients: [],
           );
         },
       ).toList(),

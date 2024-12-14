@@ -88,7 +88,7 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            color: Color(0xFF2697FF).withOpacity(0.6),
+                            color: const Color(0xFF2697FF).withOpacity(0.6),
                             borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(100),
                               bottomRight: Radius.circular(100),
