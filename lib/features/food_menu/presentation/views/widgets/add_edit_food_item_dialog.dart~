@@ -50,8 +50,6 @@ class _AddEditFoodItemDialogState extends State<AddEditFoodItemDialog> {
     if (widget.foodItem != null) {
       _titleController.text = widget.foodItem!.title;
       _descriptionController.text = widget.foodItem!.description;
-      _arabicTitleController.text = widget.foodItem!.arabicTitle;
-      _arabicDescriptionController.text = widget.foodItem!.arabicDescription;
       _deliveryTimeController.text = widget.foodItem!.deliverTime;
       _priceController.text = widget.foodItem!.price.toString();
       ingredients = widget.foodItem!.ingredients;

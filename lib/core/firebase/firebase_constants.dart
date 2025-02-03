@@ -10,6 +10,8 @@ class FirebaseConstants {
   static const String images = "images";
   static const String category = "category";
   static const String title = "title";
+  static const String arabicTitle = "arabicTitle";
+  static const String arabicDescription = "arabicDescription";
   static const String price = "price";
   static const String type = "type";
   static const String deliveryTime = "deliveryTime";

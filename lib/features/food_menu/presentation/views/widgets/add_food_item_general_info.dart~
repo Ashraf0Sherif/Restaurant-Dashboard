@@ -85,17 +85,6 @@ class _AddFoodItemGeneralInfoState extends State<AddFoodItemGeneralInfo> {
         const SizedBox(
           height: 10,
         ),
-        const Text("Arabic Description"),
-        CustomTextFormField(
-          maxLines: 5,
-          minLines: 5,
-          label: '',
-          onChanged: (text) {},
-          controller: widget.arabicDescriptionController,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
         Row(
           children: [
             SizedBox(

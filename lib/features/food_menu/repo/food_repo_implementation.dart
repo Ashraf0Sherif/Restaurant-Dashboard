@@ -26,10 +26,12 @@ class FoodRepoImplementation implements FoodRepo {
 
   @override
   Future<FirebaseResult<CategoryModel>> addCategory(
-      {required String title, required Uint8List? imageFile}) async {
+      {required String title,
+      required String arabicTitle,
+      required Uint8List? imageFile}) async {
     try {
-      var response =
-          await customFirebase.addCategory(title: title, imageFile: imageFile!);
+      var response = await customFirebase.addCategory(
+          title: title, imageFile: imageFile!, arabicTitle: arabicTitle);
       return FirebaseResult.success(response);
     } catch (error) {
       throw FirebaseExceptions.getFirebaseException(error);
@@ -77,7 +79,7 @@ class FoodRepoImplementation implements FoodRepo {
 
   @override
   Future<FirebaseResult<CategoryModel>> updateCategory(
-      {required CategoryModel category,Uint8List? imageFile}) async {
+      {required CategoryModel category, Uint8List? imageFile}) async {
     try {
       var response = await customFirebase.updateCategory(
           category: category, imageFile: imageFile);

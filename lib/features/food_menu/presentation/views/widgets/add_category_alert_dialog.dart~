@@ -60,7 +60,7 @@ class _AddCategoryAlertDialogState extends State<AddCategoryAlertDialog> {
         key: _formKey,
         autovalidateMode: dialogAutovalidateMode,
         child: SizedBox(
-          height: 300,
+          height: 200,
           width: 400,
           child: Column(
             mainAxisSize: MainAxisSize.min,

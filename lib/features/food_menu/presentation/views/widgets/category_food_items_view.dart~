@@ -114,7 +114,12 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                         },
                       ),
                       for (var foodItem in foodItems)
-                        ...buildFoodItemRow(foodItem),
+                        ...buildFoodItemRow(
+                          foodItem.images[0],
+                          foodItem.title,
+                          foodItem.price,
+                          foodItem.id,
+                        ),
                     ],
                   ),
                 )
@@ -142,7 +147,8 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
     );
   }
 
-  List<Widget> buildFoodItemRow(FoodItem foodItem) {
+  List<Widget> buildFoodItemRow(
+      String imageUrl, String name, String price, String foodId) {
     foodItemsIndex++;
     return [
       buildCell(foodItemsIndex.toString()),
@@ -153,14 +159,14 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: NetworkImage(foodItem.images[0]),
+              image: NetworkImage(imageUrl),
               fit: BoxFit.fill,
             ),
           ),
         ),
       ),
-      buildCell(foodItem.title),
-      buildCell(foodItem.price),
+      buildCell(name),
+      buildCell(price),
       Container(
         color: Colors.blue.shade300,
         child: Center(
@@ -171,7 +177,7 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                 builder: (context) {
                   return AddEditFoodItemDialog(
                     categoryId: widget.categoryId,
-                    foodItem: foodItem,
+                    foodItem: foodItems[foodItemsIndex],
                   );
                 },
               );
@@ -189,7 +195,7 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
           child: IconButton(
             onPressed: () {
               BlocProvider.of<FoodMenuCubit>(context).deleteFoodItem(
-                  categoryId: widget.categoryId, foodId: foodItem.id);
+                  categoryId: widget.categoryId, foodId: foodId);
               foodItemsIndex = 0;
             },
             icon: const Icon(

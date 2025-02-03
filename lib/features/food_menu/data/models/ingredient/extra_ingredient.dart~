@@ -1,5 +1,0 @@
-import 'ingredient.dart';
-
-class ExtraIngredient extends Ingredient {
-
-}

@@ -37,6 +37,7 @@ class CustomFirebase {
             title: data[FirebaseConstants.category],
             imageUrl: data[FirebaseConstants.image],
             foodItems: foodItems,
+            arabicTitle: data[FirebaseConstants.arabicTitle],
           );
         },
       ).toList(),
@@ -65,6 +66,7 @@ class CustomFirebase {
             ingredients.add(
               Ingredient(
                 title: ingredient[FirebaseConstants.title],
+                arabicTitle: ingredient[FirebaseConstants.arabicTitle],
               ),
             );
           }
@@ -73,6 +75,7 @@ class CustomFirebase {
               ExtraIngredient(
                 title: ingredient[FirebaseConstants.title],
                 price: ingredient[FirebaseConstants.price],
+                arabicTitle: ingredient[FirebaseConstants.arabicTitle],
               ),
             );
           }
@@ -89,6 +92,8 @@ class CustomFirebase {
             description: data[FirebaseConstants.description],
             id: id,
             extraIngredients: extraIngredients,
+            arabicTitle: data[FirebaseConstants.arabicTitle],
+            arabicDescription: data[FirebaseConstants.arabicDescription],
           );
         },
       ).toList(),
@@ -122,12 +127,15 @@ class CustomFirebase {
   }
 
   Future<CategoryModel> addCategory(
-      {required String title, required Uint8List imageFile}) async {
+      {required String title,
+      required String arabicTitle,
+      required Uint8List imageFile}) async {
     DocumentReference categoryRef = await FirebaseFirestore.instance
         .collection(FirebaseConstants.foodCategoriesCollection)
         .add(
       {
         FirebaseConstants.category: title,
+        FirebaseConstants.arabicTitle: arabicTitle,
         FirebaseConstants.createdAt: DateTime.now(),
         FirebaseConstants.image: "",
       },
@@ -143,7 +151,11 @@ class CustomFirebase {
       FirebaseConstants.image: downloadURL,
     });
     return CategoryModel(
-        id: categoryRef.id, title: title, imageUrl: downloadURL, foodItems: []);
+        id: categoryRef.id,
+        title: title,
+        imageUrl: downloadURL,
+        foodItems: [],
+        arabicTitle: arabicTitle);
   }
 
   Future<CategoryModel> updateCategory(
@@ -165,7 +177,10 @@ class CustomFirebase {
     await FirebaseFirestore.instance
         .collection(FirebaseConstants.foodCategoriesCollection)
         .doc(category.id)
-        .update({FirebaseConstants.category: category.title});
+        .update({
+      FirebaseConstants.category: category.title,
+      FirebaseConstants.arabicTitle: category.arabicTitle
+    });
     return category;
   }
 
@@ -194,7 +209,9 @@ class CustomFirebase {
         .add(
       {
         FirebaseConstants.title: foodItem.title,
+        FirebaseConstants.arabicTitle: foodItem.arabicTitle,
         FirebaseConstants.description: foodItem.description,
+        FirebaseConstants.arabicDescription: foodItem.arabicDescription,
         FirebaseConstants.deliveryTime: foodItem.deliverTime,
         FirebaseConstants.price: foodItem.price,
         FirebaseConstants.images: [],
@@ -203,10 +220,12 @@ class CustomFirebase {
             foodItem.extraIngredients.map((e) => {
                   FirebaseConstants.title: e.title,
                   FirebaseConstants.price: e.price,
+                  FirebaseConstants.arabicTitle: e.arabicTitle,
                 }),
         FirebaseConstants.ingredients: foodItem.ingredients
             .map((e) => {
                   FirebaseConstants.title: e.title,
+                  FirebaseConstants.arabicTitle: e.arabicTitle,
                 })
             .toList(),
       },
@@ -224,6 +243,7 @@ class CustomFirebase {
     }
     await foodItemRef.update({
       FirebaseConstants.images: imagesUrls,
+      'id': foodItemRef.id
     });
     foodItem.id = foodItemRef.id;
     foodItem.images = imagesUrls;
@@ -271,6 +291,7 @@ class CustomFirebase {
     }
     await foodItemRef.update({
       FirebaseConstants.title: foodItem.title,
+      FirebaseConstants.arabicTitle: foodItem.arabicTitle,
       FirebaseConstants.description: foodItem.description,
       FirebaseConstants.deliveryTime: foodItem.deliverTime,
       FirebaseConstants.price: foodItem.price,
@@ -279,6 +300,7 @@ class CustomFirebase {
           .map(
             (e) => {
               FirebaseConstants.title: e.title,
+              FirebaseConstants.arabicTitle: e.arabicTitle,
               FirebaseConstants.price: e.price,
             },
           )
@@ -287,6 +309,7 @@ class CustomFirebase {
           .map(
             (e) => {
               FirebaseConstants.title: e.title,
+              FirebaseConstants.arabicTitle: e.arabicTitle,
             },
           )
           .toList(),

@@ -8,7 +8,9 @@ abstract class FoodRepo {
   Future<FirebaseResult<List<CategoryModel>>> getCategories();
 
   Future<void> addCategory(
-      {required String title, required Uint8List? imageFile});
+      {required String title,
+      required String arabicTitle,
+      required Uint8List? imageFile});
 
   Future<void> deleteCategory({required String categoryId});
 

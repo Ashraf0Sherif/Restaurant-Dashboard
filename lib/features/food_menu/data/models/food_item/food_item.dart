@@ -5,7 +5,9 @@ import '../ingredient/ingredient.dart';
 class FoodItem {
   String id;
   String title;
+  String arabicTitle;
   String description;
+  String arabicDescription;
   String price;
   String deliverTime;
   List<String> images;
@@ -21,5 +23,7 @@ class FoodItem {
     required this.images,
     required this.ingredients,
     required this.extraIngredients,
+    required this.arabicTitle,
+    required this.arabicDescription,
   });
 }

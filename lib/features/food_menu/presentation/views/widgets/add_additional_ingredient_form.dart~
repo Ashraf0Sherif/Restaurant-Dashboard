@@ -30,7 +30,7 @@ class AddAdditionalIngredientForm extends StatelessWidget {
       key: _dialogFormKey,
       autovalidateMode: dialogAutovalidateMode,
       child: SizedBox(
-        height: 300,
+        height: 200,
         width: 200,
         child: Column(
           children: [

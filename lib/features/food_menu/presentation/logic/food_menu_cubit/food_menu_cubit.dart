@@ -34,10 +34,12 @@ class FoodMenuCubit extends Cubit<FoodMenuState> {
   }
 
   Future<void> addCategory(
-      {required String title, required Uint8List? imageFile}) async {
+      {required String title,
+      required String arabicTitle,
+      required Uint8List? imageFile}) async {
     emit(FoodMenuLoading());
     var response = await foodRepoImplementation.addCategory(
-        title: title, imageFile: imageFile!);
+        title: title, imageFile: imageFile!, arabicTitle: arabicTitle);
     response.when(
       success: (category) {
         categories.insert(0, category);
@@ -52,7 +54,7 @@ class FoodMenuCubit extends Cubit<FoodMenuState> {
   }
 
   Future<void> updateCategory(
-      {required CategoryModel category,Uint8List? imageFile}) async {
+      {required CategoryModel category, Uint8List? imageFile}) async {
     emit(FoodMenuLoading());
     var response = await foodRepoImplementation.updateCategory(
         category: category, imageFile: imageFile);

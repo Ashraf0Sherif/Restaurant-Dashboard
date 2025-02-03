@@ -23,26 +23,31 @@ class AddAdditionalIngredients extends StatefulWidget {
 
 class _AddAdditionalIngredientsState extends State<AddAdditionalIngredients> {
   final _titleController = TextEditingController();
+  final _arabicTitleController = TextEditingController();
   final _priceController = TextEditingController();
   final _dialogFormKey = GlobalKey<FormState>();
   AutovalidateMode dialogAutovalidateMode = AutovalidateMode.disabled;
   String currentType = 'Main Ingredient';
-@override
+
+  @override
   void initState() {
     super.initState();
     print(widget.extraIngredients);
     print(widget.ingredients);
   }
+
   @override
   void dispose() {
     _titleController.dispose();
     _priceController.dispose();
+    _arabicTitleController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final totalItems = widget.ingredients.length + widget.extraIngredients.length + 1;
+    final totalItems =
+        widget.ingredients.length + widget.extraIngredients.length + 1;
     return Stack(
       children: [
         GridView.builder(
@@ -83,7 +88,7 @@ class _AddAdditionalIngredientsState extends State<AddAdditionalIngredients> {
                                 AdditionalIngredientState>(
                               listener: (context, state) {
                                 if (state
-                                is AdditionalIngredientCurrentTypeChanged) {
+                                    is AdditionalIngredientCurrentTypeChanged) {
                                   currentType = state.currentType;
                                 }
                               },
@@ -101,17 +106,22 @@ class _AddAdditionalIngredientsState extends State<AddAdditionalIngredients> {
                                         ExtraIngredient(
                                           title: _titleController.text,
                                           price: _priceController.text,
+                                          arabicTitle:
+                                              _arabicTitleController.text,
                                         ),
                                       );
                                     } else {
                                       widget.ingredients.add(
                                         Ingredient(
                                           title: _titleController.text,
+                                          arabicTitle:
+                                              _arabicTitleController.text,
                                         ),
                                       );
                                     }
                                     _titleController.clear();
                                     _priceController.clear();
+                                    _arabicTitleController.clear();
                                     setState(() {});
                                     Navigator.of(context).pop();
                                   }
@@ -121,10 +131,12 @@ class _AddAdditionalIngredientsState extends State<AddAdditionalIngredients> {
                             ),
                           ],
                           content: AddAdditionalIngredientForm(
-                              dialogFormKey: _dialogFormKey,
-                              dialogAutovalidateMode: dialogAutovalidateMode,
-                              titleController: _titleController,
-                              priceController: _priceController),
+                            dialogFormKey: _dialogFormKey,
+                            dialogAutovalidateMode: dialogAutovalidateMode,
+                            titleController: _titleController,
+                            priceController: _priceController,
+                            arabicTitleController: _arabicTitleController,
+                          ),
                         ),
                       );
                     },
@@ -205,9 +217,7 @@ class _AddAdditionalIngredientsState extends State<AddAdditionalIngredients> {
                           Text(
                             '\$${widget.extraIngredients[extraIndex].price}',
                             style: const TextStyle(
-                                color: Colors.white70,
-                                fontSize: 12
-                            ),
+                                color: Colors.white70, fontSize: 12),
                           ),
                         ],
                       ),
