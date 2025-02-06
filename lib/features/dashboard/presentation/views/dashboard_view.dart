@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_admin_panel/features/dashboard/presentation/views/widgets/dashboard_widget.dart';
-import 'package:restaurant_admin_panel/features/dashboard/presentation/views/widgets/side_menu.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/dashboard_widget.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/side_menu.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});

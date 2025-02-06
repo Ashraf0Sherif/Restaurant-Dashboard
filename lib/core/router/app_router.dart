@@ -3,7 +3,7 @@ import 'package:restaurant_admin_panel/features/food_menu/presentation/views/foo
 import 'package:restaurant_admin_panel/features/orders/presentation/views/orders_view.dart';
 
 import '../../features/banner/presentation/views/banners_view.dart';
-import '../../features/banner/presentation/views/widgets/add_banner_view.dart';
+import '../../features/banner/presentation/widgets/add_banner_view.dart';
 
 abstract class AppRouter {
   static const kOrdersView = "/ordersView";

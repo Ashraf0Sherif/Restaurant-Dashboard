@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_admin_panel/features/banner/presentation/logic/banners_cubit/banners_cubit.dart';
-import 'package:restaurant_admin_panel/features/banner/presentation/views/widgets/success_banners_view.dart';
+import 'package:restaurant_admin_panel/features/banner/logic/banners_cubit/banners_cubit.dart';
+import 'package:restaurant_admin_panel/features/banner/presentation/widgets/success_banners_view.dart';
 
 class BannersView extends StatefulWidget {
   const BannersView({super.key});

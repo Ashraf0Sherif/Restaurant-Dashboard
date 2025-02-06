@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/views/widgets/food_categories_view.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/food_categories_view.dart';
 
 class FoodMenu extends StatelessWidget {
   const FoodMenu(

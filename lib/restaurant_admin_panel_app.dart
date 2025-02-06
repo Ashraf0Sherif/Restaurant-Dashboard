@@ -2,14 +2,15 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_admin_panel/features/banner/repo/banner_repo_implementation.dart';
+import 'package:restaurant_admin_panel/core/theming/foodie_theme.dart';
+import 'package:restaurant_admin_panel/features/banner/data/repos/banner_repo_implementation.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/views/dashboard_view.dart';
 
 import 'core/dashboard_cubit/dashboard_cubit.dart';
 import 'core/firebase/custom_firebase.dart';
-import 'features/banner/presentation/logic/banners_cubit/banners_cubit.dart';
-import 'features/food_menu/presentation/logic/food_menu_cubit/food_menu_cubit.dart';
-import 'features/food_menu/repo/food_repo_implementation.dart';
+import 'features/banner/logic/banners_cubit/banners_cubit.dart';
+import 'features/food_menu/logic/food_menu_cubit/food_menu_cubit.dart';
+import 'features/food_menu/data/repos/food_repo_implementation.dart';
 
 class RestaurantAdminPanelApp extends StatelessWidget {
   const RestaurantAdminPanelApp({super.key});
@@ -32,12 +33,7 @@ class RestaurantAdminPanelApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         scrollBehavior: MyCustomScrollBehavior(),
-        theme: ThemeData.dark().copyWith(
-          textTheme: const TextTheme(
-            bodyLarge: TextStyle(color: Colors.white),
-            bodyMedium: TextStyle(color: Colors.white),
-          ),
-        ),
+        theme: foodieTheme(context),
         home: const DashboardView(),
       ),
     );
