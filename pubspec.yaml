@@ -51,6 +51,7 @@ dependencies:
   json_annotation: ^4.8.1
   json_serializable: ^6.7.1
   flutter_screenutil: ^5.9.0
+  fl_chart: ^0.63.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

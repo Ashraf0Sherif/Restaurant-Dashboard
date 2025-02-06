@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/theming/foodie_theme.dart';
+import 'package:restaurant_admin_panel/dashboard.dart';
 import 'package:restaurant_admin_panel/features/banner/data/repos/banner_repo_implementation.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/views/dashboard_view.dart';
 
@@ -34,7 +35,7 @@ class RestaurantAdminPanelApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         scrollBehavior: MyCustomScrollBehavior(),
         theme: foodieTheme(context),
-        home: const DashboardView(),
+        home: Dashboard(),
       ),
     );
   }
