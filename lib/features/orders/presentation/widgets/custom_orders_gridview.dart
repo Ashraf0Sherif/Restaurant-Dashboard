@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 
 class CustomOrdersGridView extends StatefulWidget {
   const CustomOrdersGridView({
@@ -26,7 +27,7 @@ class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
           onPressed: onPressed,
           child: Text(
             text,
-            style: const TextStyle(fontSize: 18),
+            style: TextStyle(fontSize: FontStyles.getResponsiveFontSize(context, 18)),
           ),
         ),
         const SizedBox(
@@ -61,7 +62,7 @@ class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
           ),
           Text(
             text,
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: FontStyles.getResponsiveFontSize(context, 16)),
           )
         ],
       ),
@@ -84,7 +85,7 @@ class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
                 : Container(),
             Text(
               text,
-              style: const TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: FontStyles.getResponsiveFontSize(context, 16)),
             ),
           ],
         ),

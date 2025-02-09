@@ -1,29 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_admin_panel/adaptive_layout.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/desktop_layout.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/mobile_layout.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/custom_drawer.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/tabalet_layout.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
 
   @override
+  State<Dashboard> createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: MobileLayout(),
-
-      //   AdaptiveLayout(
-      //     mobileLayout: (context) {
-      //       return const MobileLayout();
-      //     },
-      //     tabletLayout: (context) {
-      //       return Text('Tablet');
-      //     },
-      //     desktopLayout: (context) {
-      //       return Text('Desktop');
-      //     },
-      //   ),
-      // ),
-    ));
+      key: _scaffoldKey,
+      drawer: const CustomDrawer(),
+      appBar: MediaQuery.sizeOf(context).width < 900
+          ? AppBar(
+              leading: IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  _scaffoldKey.currentState?.openDrawer();
+                },
+              ),
+            )
+          : null,
+      body: AdaptiveLayout(
+        mobileLayout: (context) {
+          return const MobileLayout();
+        },
+        tabletLayout: (context) {
+          return const TabaletLayout();
+        },
+        desktopLayout: (context) {
+          return const DesktopLayout();
+        },
+      ),
+    );
   }
 }

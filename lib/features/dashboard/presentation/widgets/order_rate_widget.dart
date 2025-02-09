@@ -1,5 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin_panel/core/theming/colors.dart';
+import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 
 class OrderRateWidget extends StatelessWidget {
   const OrderRateWidget({super.key});
@@ -15,22 +17,22 @@ class OrderRateWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'Order',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: FontStyles.getResponsiveFontSize(context, 18),
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ],
           ),
-          const Text(
+           Text(
             '2,568',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: FontStyles.getResponsiveFontSize(context, 24),
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -41,11 +43,12 @@ class OrderRateWidget extends StatelessWidget {
                 color: Colors.red,
                 size: 16,
               ),
-              const Text(
+               Text(
                 '2.1%',
                 style: TextStyle(
                   color: Colors.red,
                   fontWeight: FontWeight.bold,
+                  fontSize: FontStyles.getResponsiveFontSize(context, 14),
                 ),
               ),
               const SizedBox(width: 4),
@@ -53,7 +56,7 @@ class OrderRateWidget extends StatelessWidget {
                 'vs last week',
                 style: TextStyle(
                   color: Colors.grey[400],
-                  fontSize: 14,
+                  fontSize: FontStyles.getResponsiveFontSize(context, 14),
                 ),
               ),
             ],
@@ -63,7 +66,7 @@ class OrderRateWidget extends StatelessWidget {
             'Sales from 1-6 Dec, 2020',
             style: TextStyle(
               color: Colors.grey[400],
-              fontSize: 14,
+              fontSize: FontStyles.getResponsiveFontSize(context, 14),
             ),
           ),
           const SizedBox(height: 20),
@@ -100,7 +103,7 @@ class OrderRateWidget extends StatelessWidget {
                               days[value.toInt()],
                               style: TextStyle(
                                 color: Colors.grey[400],
-                                fontSize: 12,
+                                fontSize: FontStyles.getResponsiveFontSize(context, 12),
                               ),
                             ),
                           );
@@ -119,7 +122,6 @@ class OrderRateWidget extends StatelessWidget {
                   ),
                   borderData: FlBorderData(show: false),
                   lineBarsData: [
-                    // Current week line
                     LineChartBarData(
                       spots: const [
                         FlSpot(0, 30),
@@ -130,11 +132,10 @@ class OrderRateWidget extends StatelessWidget {
                         FlSpot(5, 45),
                       ],
                       isCurved: true,
-                      color: const Color.fromARGB(255, 48, 160, 240),
+                      color: ColorsStyles.kPrimaryColor, 
                       barWidth: 2,
-                      dotData: const FlDotData(show: false),
+                      dotData: FlDotData(show: false),
                     ),
-                    // Last week line
                     LineChartBarData(
                       spots: const [
                         FlSpot(0, 35),
@@ -145,9 +146,9 @@ class OrderRateWidget extends StatelessWidget {
                         FlSpot(5, 38),
                       ],
                       isCurved: true,
-                      color: Colors.grey[400],
+                      color: ColorsStyles.kSecondaryColor, 
                       barWidth: 2,
-                      dotData: const FlDotData(show: false),
+                      dotData: FlDotData(show: false),
                     ),
                   ],
                   minX: 0,
@@ -161,9 +162,9 @@ class OrderRateWidget extends StatelessWidget {
           const SizedBox(height: 16),
           Row(
             children: [
-              _buildLegendItem('Last 6 days', const Color(0xFF4A5BF6)),
+              _buildLegendItem(context,'Last 6 days', ColorsStyles.kPrimaryColor), 
               const SizedBox(width: 16),
-              _buildLegendItem('Last Week', Colors.grey[400]!),
+              _buildLegendItem(context,'Last Week', ColorsStyles.kSecondaryColor), 
             ],
           ),
         ],
@@ -171,7 +172,7 @@ class OrderRateWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildLegendItem(String title, Color color) {
+  Widget _buildLegendItem(BuildContext context,String title, Color color) {
     return Row(
       children: [
         Container(
@@ -187,7 +188,7 @@ class OrderRateWidget extends StatelessWidget {
           title,
           style: TextStyle(
             color: Colors.grey[400],
-            fontSize: 12,
+            fontSize: FontStyles.getResponsiveFontSize(context, 12),
           ),
         ),
       ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theming/font_styles.dart';
 import 'custom_button.dart';
 
 class DailyMonthlyButton extends StatefulWidget {
@@ -18,8 +19,11 @@ class _DailyMonthlyButtonState extends State<DailyMonthlyButton> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Text("Orders",
-            style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold)),
+        Text("Orders",
+            style: TextStyle(
+              fontSize: FontStyles.getResponsiveFontSize(context, 36),
+              fontWeight: FontWeight.bold
+            )),
         const SizedBox(
           width: 40,
         ),
@@ -38,7 +42,10 @@ class _DailyMonthlyButtonState extends State<DailyMonthlyButton> {
                     borderRadius: BorderRadius.circular(10),
                     backgroundColor:
                         isDaily ? Colors.blueAccent : Colors.transparent,
-                    text: Text("Daily", style: TextStyle(fontSize: 16)),
+                    text: Text("Daily", 
+                       style: TextStyle(
+                         fontSize: FontStyles.getResponsiveFontSize(context, 16)
+                       )),
                     onPressed: () {
                       setState(() {
                         isDaily = true;
@@ -54,8 +61,10 @@ class _DailyMonthlyButtonState extends State<DailyMonthlyButton> {
                         borderRadius: BorderRadius.circular(10),
                         backgroundColor:
                             !isDaily ? Colors.blueAccent : Colors.transparent,
-                        text: const Text("Monthly",
-                            style: TextStyle(fontSize: 16)),
+                        text: Text("Monthly",
+                             style: TextStyle(
+                               fontSize: FontStyles.getResponsiveFontSize(context, 16)
+                             )),
                         onPressed: () {
                           setState(() {
                             isDaily = false;

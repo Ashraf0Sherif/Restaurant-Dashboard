@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:restaurant_admin_panel/constants.dart';
+import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/utils/widgets/show_snack_bar.dart';
 import 'package:restaurant_admin_panel/features/banner/data/models/banner_model.dart';
 import 'package:restaurant_admin_panel/features/banner/logic/banners_cubit/banners_cubit.dart';
@@ -181,7 +181,7 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                                 );
                               } else {
                                 return Card(
-                                  color: kCardBackgroundColor,
+                                  color: ColorsStyles.kCustomRedColor,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     side: BorderSide(

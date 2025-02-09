@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 
 import '../../../../core/utils/widgets/custom_text_form_field.dart';
 import '../../data/models/category/category_model.dart';
@@ -74,7 +75,12 @@ class _EditCategoryAlertDialogState extends State<EditCategoryAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Edit Category ${widget.category.title}"),
+      title: Text(
+        "Edit Category ${widget.category.title}",
+        style: TextStyle(
+          fontSize: FontStyles.getResponsiveFontSize(context, 20)
+        )
+      ),
       content: Form(
         child: SizedBox(
           height: 200,
@@ -134,7 +140,12 @@ class _EditCategoryAlertDialogState extends State<EditCategoryAlertDialog> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text("Cancel")),
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                fontSize: FontStyles.getResponsiveFontSize(context, 16)
+              )
+            )),
         TextButton(
             onPressed: () async {
               widget.category.title = _titleController.text;
@@ -142,7 +153,12 @@ class _EditCategoryAlertDialogState extends State<EditCategoryAlertDialog> {
                   category: widget.category, imageFile: imageFile);
               Navigator.of(context).pop();
             },
-            child: const Text("Edit"))
+            child: Text(
+              "Edit",
+              style: TextStyle(
+                fontSize: FontStyles.getResponsiveFontSize(context, 16)
+              )
+            ))
       ],
     );
   }

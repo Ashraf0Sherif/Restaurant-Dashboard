@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin_panel/core/theming/colors.dart';
 
 class RevenueWidget extends StatelessWidget {
   const RevenueWidget({super.key});
@@ -7,12 +8,14 @@ class RevenueWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 500,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: const Color(0xFF2C2C2C),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Row(
@@ -23,6 +26,15 @@ class RevenueWidget extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
+                  color: ColorsStyles.kPrimaryColor, // Update text color
+                ),
+              ),
+              Text(
+                '3,456',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: ColorsStyles.kPrimaryColor,
                 ),
               ),
             ],
@@ -130,7 +142,7 @@ class RevenueWidget extends StatelessWidget {
       barRods: [
         BarChartRodData(
           toY: value1,
-          color: const Color(0xFF4A5BF6),
+          color: ColorsStyles.kPrimaryColor,
           width: 6,
           borderRadius: BorderRadius.zero,
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurant_admin_panel/core/theming/colors.dart';
 
-import '../../../../constants.dart';
 import '../../../../core/dashboard_cubit/dashboard_cubit.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/widgets/custom_text_form_field.dart';
@@ -61,7 +61,7 @@ class _SuccessBannersViewState extends State<SuccessBannersView> {
                 const Spacer(),
                 TextButton(
                   style: TextButton.styleFrom(
-                    backgroundColor: kPrimaryColor,
+                    backgroundColor: ColorsStyles.kSecondaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -94,7 +94,7 @@ class _SuccessBannersViewState extends State<SuccessBannersView> {
               itemBuilder: (context, index) {
                 final banner = widget.banners[index];
                 return Card(
-                  color: kCardBackgroundColor,
+                  color: ColorsStyles.kCustomRedColor,
                   child: Column(
                     children: [
                       Stack(
@@ -114,7 +114,7 @@ class _SuccessBannersViewState extends State<SuccessBannersView> {
                             alignment: Alignment.topLeft,
                             child: Container(
                               decoration: const BoxDecoration(
-                                color: kCardBackgroundColor,
+                                color: ColorsStyles.kPrimaryColor,
                                 borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(16),
                                   topRight: Radius.circular(12),

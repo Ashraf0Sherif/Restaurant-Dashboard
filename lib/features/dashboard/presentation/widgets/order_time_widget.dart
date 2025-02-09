@@ -1,5 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin_panel/core/theming/colors.dart';
+import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 
 class OrderTimeWidget extends StatelessWidget {
   const OrderTimeWidget({super.key});
@@ -18,20 +20,20 @@ class OrderTimeWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Order Time',
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: FontStyles.getResponsiveFontSize(context, 18),
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ],
           ),
-          const Text(
+          Text(
             'From 1-6 Dec, 2020',
             style: TextStyle(
+              fontSize: FontStyles.getResponsiveFontSize(context, 14),
               color: Colors.grey,
-              fontSize: 14,
             ),
           ),
           const SizedBox(height: 20),
@@ -40,24 +42,24 @@ class OrderTimeWidget extends StatelessWidget {
             child: PieChart(
               PieChartData(
                 sectionsSpace: 0,
-                centerSpaceRadius: 60,
+                centerSpaceRadius: 65,
                 sections: [
                   PieChartSectionData(
                     value: 40,
                     title: '',
-                    color: const Color(0xFF4A5BF6),
+                    color: ColorsStyles.kPrimaryColor,
                     radius: 40,
                   ),
                   PieChartSectionData(
                     value: 32,
                     title: '',
-                    color: const Color(0xFF8E96FF),
+                    color: ColorsStyles.kSecondaryColor,
                     radius: 40,
                   ),
                   PieChartSectionData(
                     value: 28,
                     title: '',
-                    color: const Color(0xFFE2E4FF),
+                    color: ColorsStyles.kPassiveColor,
                     radius: 40,
                   ),
                 ],
@@ -65,17 +67,19 @@ class OrderTimeWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          _buildLegendItem('Afternoon', '40%', const Color(0xFF4A5BF6)),
+          _buildLegendItem(
+              context, 'Afternoon', '40%', const Color(0xFF4A5BF6)),
           const SizedBox(height: 8),
-          _buildLegendItem('Evening', '32%', const Color(0xFF8E96FF)),
+          _buildLegendItem(context, 'Evening', '32%', const Color(0xFF8E96FF)),
           const SizedBox(height: 8),
-          _buildLegendItem('Morning', '28%', const Color(0xFFE2E4FF)),
+          _buildLegendItem(context, 'Morning', '28%', const Color(0xFFE2E4FF)),
         ],
       ),
     );
   }
 
-  Widget _buildLegendItem(String title, String percentage, Color color) {
+  Widget _buildLegendItem(
+      BuildContext context, String title, String percentage, Color color) {
     return Row(
       children: [
         Container(
@@ -89,17 +93,17 @@ class OrderTimeWidget extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
+            fontSize: FontStyles.getResponsiveFontSize(context, 14),
             color: Colors.grey,
-            fontSize: 14,
           ),
         ),
         const SizedBox(width: 8),
         Text(
           percentage,
-          style: const TextStyle(
+          style: TextStyle(
+            fontSize: FontStyles.getResponsiveFontSize(context, 16),
             fontWeight: FontWeight.bold,
-            fontSize: 14,
           ),
         ),
       ],

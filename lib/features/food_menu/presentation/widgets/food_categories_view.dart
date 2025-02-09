@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
+import 'package:restaurant_admin_panel/core/theming/colors.dart';
+import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/category/category_model.dart';
 import 'package:restaurant_admin_panel/features/food_menu/logic/food_menu_cubit/food_menu_cubit.dart';
 
-import '../../../../constants.dart';
 import 'add_category_alert_dialog.dart';
 import 'edit_category_alert_dialog.dart';
 
@@ -43,10 +44,12 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                 ),
                 Row(
                   children: [
-                    const Text(
+                    Text(
                       "Food Menu",
-                      style:
-                          TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: FontStyles.getResponsiveFontSize(context, 36),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const Spacer(),
                     const SizedBox(
@@ -59,7 +62,7 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                         ),
                         child: TextButton(
                             style: TextButton.styleFrom(
-                              backgroundColor: kPrimaryColor,
+                              backgroundColor: ColorsStyles.kCustomRedColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -71,11 +74,12 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                                     return const AddCategoryAlertDialog();
                                   });
                             },
-                            child: const Text("Add New Category",
+                            child: Text("Add New Category",
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold)))),
+                                  fontSize: FontStyles.getResponsiveFontSize(context, 16),
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                )))),
                   ],
                 ),
                 const SizedBox(
@@ -130,9 +134,10 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                                         color: const Color(0xFF15131C)),
                                     child: Text(
                                       categories[categoriesIndex].title,
-                                      style: const TextStyle(
-                                          fontSize: 34,
-                                          fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                        fontSize: FontStyles.getResponsiveFontSize(context, 34),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(
@@ -177,19 +182,19 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                                                               categoriesIndex]
                                                           .foodItems);
                                             },
-                                            child: const Row(
+                                            child: Row(
                                               children: [
                                                 Text(
                                                   "Show Items",
                                                   style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                    fontSize: FontStyles.getResponsiveFontSize(context, 18),
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 5,
                                                 ),
-                                                Icon(Icons.arrow_forward)
+                                                const Icon(Icons.arrow_forward)
                                               ],
                                             ),
                                           );
@@ -200,20 +205,20 @@ class _FoodCategoriesViewState extends State<FoodCategoriesView> {
                                                 categories[categoriesIndex]
                                                     .foodItems[index]
                                                     .title,
-                                                style: const TextStyle(
-                                                    fontSize: 24,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                style: TextStyle(
+                                                  fontSize: FontStyles.getResponsiveFontSize(context, 24),
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                               const SizedBox(
                                                 width: 40,
                                               ),
                                               Text(
                                                 "\$${categories[categoriesIndex].foodItems[index].price}",
-                                                style: const TextStyle(
-                                                    fontSize: 24,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                style: TextStyle(
+                                                  fontSize: FontStyles.getResponsiveFontSize(context, 24),
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               )
                                             ],
                                           );

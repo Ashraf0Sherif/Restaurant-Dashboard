@@ -5,10 +5,34 @@ import 'package:restaurant_admin_panel/core/theming/font_weight_helper.dart';
 import 'colors.dart';
 
 abstract class FontStyles {
+  static double getScaleFactor(BuildContext context) {
+    double width = MediaQuery.sizeOf(context).width;
+    if (width < 600) {
+      return width / 400;
+    } else if (width < 900) {
+      return width / 700;
+    } else {
+      return width / 1000;
+    }
+  }
+
+  static double getResponsiveFontSize(BuildContext context, double fontSize) {
+    double scaleFactor = getScaleFactor(context);
+    double responseFontSize = fontSize * scaleFactor;
+    double lowerLimit = fontSize * 0.8;
+    double upperLimit = fontSize * 1.2;
+    return responseFontSize.clamp(lowerLimit, upperLimit);
+  }
+
   static TextStyle font20BlackBold = TextStyle(
-      fontSize: 20.sp, fontWeight: FontWeightHelper.bold, color: Colors.black);
+    fontSize: 20.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: Colors.black,
+  );
   static TextStyle font24BlackMedium = TextStyle(
-      fontSize: 24.sp, fontWeight: FontWeightHelper.medium, color: Colors.black);
+      fontSize: 24.sp,
+      fontWeight: FontWeightHelper.medium,
+      color: Colors.black);
   static TextStyle font20BlackMedium = TextStyle(
       fontSize: 20.sp,
       fontWeight: FontWeightHelper.medium,
@@ -151,5 +175,23 @@ abstract class FontStyles {
     color: ColorsStyles.kCustomRedColor,
     fontSize: 13.sp,
     fontWeight: FontWeightHelper.bold,
+  );
+
+  static TextStyle font18PrimaryColorBold = TextStyle(
+    color: ColorsStyles.kPrimaryColor,
+    fontSize: 18.sp,
+    fontWeight: FontWeightHelper.bold,
+  );
+
+  static TextStyle font24PrimaryColorBold = TextStyle(
+    color: ColorsStyles.kPrimaryColor,
+    fontSize: 24.sp,
+    fontWeight: FontWeightHelper.bold,
+  );
+
+  static TextStyle font12GreyRegular = TextStyle(
+    color: Colors.grey[400],
+    fontSize: 12.sp,
+    fontWeight: FontWeightHelper.regular,
   );
 }

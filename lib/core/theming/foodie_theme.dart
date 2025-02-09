@@ -4,6 +4,11 @@ import 'colors.dart';
 ThemeData foodieTheme(context) {
   return ThemeData.dark().copyWith(
     scaffoldBackgroundColor: const Color(0xFF1E1E1E),
+    textTheme: Theme.of(context).textTheme.apply(
+          fontFamily: 'Poppins',
+          bodyColor: Colors.white,
+          displayColor: Colors.white,
+        ),
     colorScheme: const ColorScheme.dark().copyWith(
       primary: ColorsStyles.kPrimaryColor,
       secondary: ColorsStyles.kSecondaryColor,

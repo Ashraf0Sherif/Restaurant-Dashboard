@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 import 'package:restaurant_admin_panel/features/orders/presentation/widgets/custom_orders_gridview.dart';
 
 class OrdersView extends StatefulWidget {
@@ -45,7 +46,7 @@ class _OrdersViewState extends State<OrdersView> {
               ),
               Text(
                 DateTime.now().toString().substring(0, 10),
-                style: const TextStyle(fontSize: 22),
+                style: TextStyle(fontSize: FontStyles.getResponsiveFontSize(context, 22)),
               ),
               const Spacer(),
               SizedBox(

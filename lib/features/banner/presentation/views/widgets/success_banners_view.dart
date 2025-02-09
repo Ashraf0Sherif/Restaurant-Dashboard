@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_admin_panel/constants.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/router/app_router.dart';
+import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/utils/widgets/custom_text_form_field.dart';
 import 'package:restaurant_admin_panel/features/banner/data/models/banner_model.dart';
 import 'package:restaurant_admin_panel/features/banner/logic/banners_cubit/banners_cubit.dart';
@@ -60,7 +60,7 @@ class _SuccessBannersViewState extends State<SuccessBannersView> {
                 const Spacer(),
                 TextButton(
                   style: TextButton.styleFrom(
-                    backgroundColor: kPrimaryColor,
+                    backgroundColor: ColorsStyles.kPrimaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -93,7 +93,7 @@ class _SuccessBannersViewState extends State<SuccessBannersView> {
               itemBuilder: (context, index) {
                 final banner = widget.banners[index];
                 return Card(
-                  color: kCardBackgroundColor,
+                  color: ColorsStyles.kCustomRedColor,
                   child: Column(
                     children: [
                       Stack(
@@ -113,7 +113,7 @@ class _SuccessBannersViewState extends State<SuccessBannersView> {
                             alignment: Alignment.topLeft,
                             child: Container(
                               decoration: const BoxDecoration(
-                                color: kCardBackgroundColor,
+                                color: ColorsStyles.kCustomRedColor,
                                 borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(16),
                                   topRight: Radius.circular(12),

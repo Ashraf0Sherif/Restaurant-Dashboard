@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 
 class CustomInfoCard extends StatelessWidget {
   const CustomInfoCard({
@@ -26,8 +27,8 @@ class CustomInfoCard extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 22,
+            style: TextStyle(
+              fontSize: FontStyles.getResponsiveFontSize(context, 22),
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -38,8 +39,10 @@ class CustomInfoCard extends StatelessWidget {
             children: [
               Text(
                 value,
-                style:
-                    const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: FontStyles.getResponsiveFontSize(context, 36),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(
                 width: 10,
@@ -56,13 +59,17 @@ class CustomInfoCard extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              const Text(
+              Text(
                 "Impressions - ",
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(
+                  fontSize: FontStyles.getResponsiveFontSize(context, 18),
+                ),
               ),
               Text(
                 percentage,
-                style: const TextStyle(fontSize: 18),
+                style: TextStyle(
+                  fontSize: FontStyles.getResponsiveFontSize(context, 18),
+                ),
               ),
             ],
           ),
