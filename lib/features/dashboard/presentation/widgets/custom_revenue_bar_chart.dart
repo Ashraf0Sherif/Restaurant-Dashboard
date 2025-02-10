@@ -27,7 +27,8 @@ class _CustomRevenueBarChartState extends State<CustomRevenueBarChart> {
         barTouchData: BarTouchData(
           touchCallback: (FlTouchEvent event, barTouchResponse) {
             setState(() {
-              touchedIndex = barTouchResponse?.spot?.touchedBarGroupIndex ?? -1;
+              touchedIndex =
+                  barTouchResponse?.spot?.touchedBarGroupIndex ?? -1;
             });
           },
           enabled: true,

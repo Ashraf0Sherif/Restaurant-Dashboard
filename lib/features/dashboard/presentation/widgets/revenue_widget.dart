@@ -1,11 +1,10 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:restaurant_admin_panel/core/theming/colors.dart';
-import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
+import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/dashboard/data/models/revenue_model.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/custom_revenue_bar_chart.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/revenue_header.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/this_last_week.dart';
 
 class RevenueWidget extends StatelessWidget {
   final RevenueModel revenueData;
@@ -42,17 +41,31 @@ class RevenueWidget extends StatelessWidget {
       ],
     ),
   });
+  double getResponsiveHeight(BuildContext context) {
+    if (MediaQuery.sizeOf(context).width > 1450) {
+      return MediaQuery.sizeOf(context).width * 0.25;
+    } else if (MediaQuery.sizeOf(context).width > 1000) {
+      return MediaQuery.sizeOf(context).width * 0.35;
+    } else {
+      return MediaQuery.sizeOf(context).width * 0.5;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return BackGroundContainer(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           const RevenueHeader(),
-          const SizedBox(height: 10),
-          Expanded(
-            child: CustomRevenueBarChart(revenueData: revenueData),
+          verticalSpace(10),
+          Flexible(
+            child: SizedBox(
+                height: getResponsiveHeight(context),
+                child: CustomRevenueBarChart(revenueData: revenueData)),
           ),
+          verticalSpace(10),
+          const ThisLastWeek(),
         ],
       ),
     );

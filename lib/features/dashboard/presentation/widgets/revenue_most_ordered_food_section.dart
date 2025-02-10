@@ -1,10 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/most_order_food_widget.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/revenue_widget.dart';
 
-class RevenueAndMostOrderFoodSection extends StatelessWidget {
-  const RevenueAndMostOrderFoodSection({
+class RevenueMostOrderedFoodSection extends StatelessWidget {
+  const RevenueMostOrderedFoodSection({
     super.key,
   });
 
@@ -13,7 +14,7 @@ class RevenueAndMostOrderFoodSection extends StatelessWidget {
     return Column(
       children: [
         verticalSpace(10),
-        const RevenueWidget(),
+        const Expanded(child: RevenueWidget()),
         verticalSpace(10),
         const MostOrderFoodWidget(),
         verticalSpace(10),
