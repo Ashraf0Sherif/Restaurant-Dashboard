@@ -16,6 +16,7 @@ class RevenueAndMostOrderFoodSection extends StatelessWidget {
         const Expanded(child: RevenueWidget()),
         verticalSpace(10),
         const MostOrderFoodWidget(),
+        verticalSpace(10),
       ],
     );
   }

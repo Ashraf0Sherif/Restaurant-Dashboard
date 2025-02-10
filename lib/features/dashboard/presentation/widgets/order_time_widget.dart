@@ -40,9 +40,7 @@ class OrderTimeWidget extends StatelessWidget {
       children: [
         OrderTimeHeader(orderTimeData: orderTimeData),
         const SizedBox(height: 20),
-        Expanded(
-          child: CustomOrderTimePieChart(orderTimeData: orderTimeData),
-        ),
+        Expanded(child: CustomOrderTimePieChart(orderTimeData: orderTimeData)),
         const SizedBox(height: 20),
         ...orderTimeData.timeSlots.map(
           (slot) => Padding(

@@ -18,9 +18,11 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: const CustomDrawer(),
-      appBar: MediaQuery.sizeOf(context).width < 900
+      drawer:
+          MediaQuery.sizeOf(context).width < 1200 ? const CustomDrawer() : null,
+      appBar: MediaQuery.sizeOf(context).width < 1200
           ? AppBar(
+              elevation: 0,
               leading: IconButton(
                 icon: const Icon(Icons.menu),
                 onPressed: () {

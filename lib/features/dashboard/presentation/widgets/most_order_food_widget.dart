@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/dashboard/data/models/most_ordered_food_model.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 
 class MostOrderFoodWidget extends StatelessWidget {
   final List<FoodItem> foodData;
@@ -44,13 +45,7 @@ class MostOrderFoodWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.only(bottom: 10),
-      decoration: BoxDecoration(
-        color: const Color(0xFF2C2C2C),
-        borderRadius: BorderRadius.circular(12),
-      ),
+    return BackGroundContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

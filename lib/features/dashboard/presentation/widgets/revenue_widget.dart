@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 import 'package:restaurant_admin_panel/features/dashboard/data/models/revenue_model.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/custom_revenue_bar_chart.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/revenue_header.dart';
 
@@ -44,12 +45,7 @@ class RevenueWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color(0xFF2C2C2C),
-        borderRadius: BorderRadius.circular(8),
-      ),
+    return BackGroundContainer(
       child: Column(
         children: [
           const RevenueHeader(),
