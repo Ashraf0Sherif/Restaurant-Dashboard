@@ -1,7 +1,7 @@
-import 'dart:html' as html;
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/utils/widgets/custom_text_form_field.dart';
 
@@ -31,23 +31,25 @@ class AddFoodItemGeneralInfo extends StatefulWidget {
 
 class _AddFoodItemGeneralInfoState extends State<AddFoodItemGeneralInfo> {
   void selectImages() async {
-    html.FileUploadInputElement uploadInput = html.FileUploadInputElement();
-    uploadInput.multiple = true;
-    uploadInput.accept = 'image/*';
-    uploadInput.click();
-    uploadInput.onChange.listen((event) {
-      final files = uploadInput.files;
-      if (files == null) return;
-      for (var file in files) {
-        final reader = html.FileReader();
-        reader.readAsArrayBuffer(file);
-        reader.onLoadEnd.listen((event) {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final List<XFile> images = await picker.pickMultiImage();
+      
+      if (images.isNotEmpty) {
+        for (var image in images) {
+          final bytes = await image.readAsBytes();
           setState(() {
-            widget.images.add(reader.result as Uint8List);
+            widget.images.add(bytes);
           });
-        });
+        }
       }
-    });
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error selecting images: $e')),
+        );
+      }
+    }
   }
 
   @override

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_admin_panel/core/theming/colors.dart';
-import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
-import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/menu_foodie_header.dart';
-import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/menu_sliver_list.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/foodie_header.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/drawer_sliver_list.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -24,7 +22,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             child: verticalSpace(30),
           ),
           const SliverToBoxAdapter(
-            child: MenuFoodieHeader(),
+            child: FoodieHeader(),
           ),
           SliverToBoxAdapter(
             child: verticalSpace(8),
@@ -38,7 +36,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           SliverToBoxAdapter(
             child: verticalSpace(8),
           ),
-          const MenuSliverList(),
+          const DrawerSliverList(),
         ],
       ),
     );

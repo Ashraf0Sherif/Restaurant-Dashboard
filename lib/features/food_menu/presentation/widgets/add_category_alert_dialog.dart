@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:html' as html;
 import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:restaurant_admin_panel/features/food_menu/logic/food_menu_cubit/food_menu_cubit.dart';
 
 import '../../../../core/utils/widgets/custom_text_form_field.dart';
@@ -26,21 +26,23 @@ class _AddCategoryAlertDialogState extends State<AddCategoryAlertDialog> {
   Uint8List? imageFile;
 
   void selectImage() async {
-    html.FileUploadInputElement uploadInput = html.FileUploadInputElement();
-    uploadInput.multiple = false;
-    uploadInput.draggable = true;
-    uploadInput.accept = 'image/*';
-    uploadInput.click();
-    uploadInput.onChange.listen((event) {
-      final file = uploadInput.files?.first;
-      final reader = html.FileReader();
-      reader.readAsDataUrl(file!);
-      reader.onLoadEnd.listen((event) async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      
+      if (image != null) {
+        final bytes = await image.readAsBytes();
         setState(() {
-          imageFile = base64Decode(reader.result!.toString().split(',')[1]);
+          imageFile = bytes;
         });
-      });
-    });
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error selecting image: $e')),
+        );
+      }
+    }
   }
 
   @override

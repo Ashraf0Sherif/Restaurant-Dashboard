@@ -8,7 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:restaurant_admin_panel/main.dart';
 import 'package:restaurant_admin_panel/restaurant_admin_panel_app.dart';
 
 void main() {

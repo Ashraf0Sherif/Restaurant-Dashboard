@@ -1,11 +1,10 @@
-import 'dart:convert';
-import 'dart:html' as html;
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/utils/widgets/show_snack_bar.dart';
 import 'package:restaurant_admin_panel/features/banner/data/models/banner_model.dart';
@@ -85,21 +84,21 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
   }
 
   void selectImage() async {
-    html.FileUploadInputElement uploadInput = html.FileUploadInputElement();
-    uploadInput.multiple = false;
-    uploadInput.draggable = true;
-    uploadInput.accept = 'image/*';
-    uploadInput.click();
-    uploadInput.onChange.listen((event) {
-      final file = uploadInput.files?.first;
-      final reader = html.FileReader();
-      reader.readAsDataUrl(file!);
-      reader.onLoadEnd.listen((event) async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      
+      if (image != null) {
+        final bytes = await image.readAsBytes();
         setState(() {
-          imageFile = base64Decode(reader.result!.toString().split(',')[1]);
+          imageFile = bytes;
         });
-      });
-    });
+      }
+    } catch (e) {
+      if (mounted) {
+        //showSnackBar( message: 'Error selecting image: $e');
+      }
+    }
   }
 
   Future<void> _fetchImage(String imageUrl) async {

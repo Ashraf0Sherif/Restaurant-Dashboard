@@ -3,8 +3,8 @@ import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 
-class MenuFoodieHeader extends StatelessWidget {
-  const MenuFoodieHeader({
+class FoodieHeader extends StatelessWidget {
+  const FoodieHeader({
     super.key,
   });
 
