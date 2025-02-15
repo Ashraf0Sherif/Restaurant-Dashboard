@@ -29,7 +29,6 @@ class BannerRepoImplementation implements BannerRepo {
       await customFirebase.deleteBanner(bannerId: bannerId);
       return const FirebaseResult.success(null);
     } catch (error) {
-      print(error);
       return FirebaseResult.failure(
           FirebaseExceptions.getFirebaseException(error));
     }

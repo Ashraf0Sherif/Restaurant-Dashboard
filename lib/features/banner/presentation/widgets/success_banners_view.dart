@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/theming/colors.dart';
 
 import '../../../../core/dashboard_cubit/dashboard_cubit.dart';
-import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/widgets/custom_text_form_field.dart';
 import '../../data/models/banner_model.dart';
 import '../../logic/banners_cubit/banners_cubit.dart';
@@ -67,8 +66,8 @@ class _SuccessBannersViewState extends State<SuccessBannersView> {
                     ),
                   ),
                   onPressed: () {
-                    BlocProvider.of<DashboardCubit>(context)
-                        .changeView(AppRouter.kAddBannerView);
+                    // BlocProvider.of<DashboardCubit>(context)
+                    //     .changeView();
                   },
                   child: const Text(
                     "+ Banner",

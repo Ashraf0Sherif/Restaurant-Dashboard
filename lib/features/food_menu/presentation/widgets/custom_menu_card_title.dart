@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 
 class CustomMenuCardTitle extends StatelessWidget {
   const CustomMenuCardTitle({
@@ -14,17 +15,15 @@ class CustomMenuCardTitle extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(
-          width: 10,
-        ),
+        horizontalSpace(10),
         Text(
           "$itemCount items",
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         ),
       ],
     );

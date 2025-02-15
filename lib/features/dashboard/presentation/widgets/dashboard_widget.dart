@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/router/app_router.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/category_food_items_view.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/views/category_food_items_view.dart';
 
 import '../../../banner/presentation/widgets/add_banner_view.dart';
 import '../../../orders/presentation/views/orders_view.dart';
@@ -25,14 +25,15 @@ class _DashboardWidgetState extends State<DashboardWidget> {
           builder: (context, state) {
             if (state is CategoryFoodItems) {
               return CategoryFoodItemsView(
+                foodItems: state.foodItems,
                 categoryId: state.categoryId,
               );
             } else if (state is EditBannerView) {
               return AddEditBannerView(
                 banner: state.banner,
               );
-            } else if (state is DashboardChangeIndex) {
-              return AppRouter.views[state.view]!;
+            } else if (state is ChangeView) {
+              return AppRouter.views[state.widget]!;
             }
             return const OrdersView();
           },

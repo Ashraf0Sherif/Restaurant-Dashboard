@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 
 class CustomTable extends StatefulWidget {
   const CustomTable({
@@ -16,15 +17,13 @@ class _CustomTableState extends State<CustomTable> {
         Row(
           children: [
             Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                     color: Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(16)),
-                child: Icon(Icons.date_range, color: Colors.deepOrange)),
-            SizedBox(
-              width: 5,
-            ),
-            Text("Order Date"),
+                child: const Icon(Icons.date_range, color: Colors.deepOrange)),
+           horizontalSpace(5),
+            const Text("Order Date"),
           ],
         ),
       ),
@@ -32,15 +31,13 @@ class _CustomTableState extends State<CustomTable> {
         Row(
           children: [
             Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                     color: Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(16)),
-                child: Icon(Icons.date_range, color: Colors.deepOrange)),
-            SizedBox(
-              width: 5,
-            ),
-            Text("Order Date"),
+                child: const Icon(Icons.date_range, color: Colors.deepOrange)),
+            horizontalSpace(5),
+            const Text("Order Date"),
           ],
         ),
       ),
@@ -48,15 +45,13 @@ class _CustomTableState extends State<CustomTable> {
         Row(
           children: [
             Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                     color: Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(16)),
-                child: Icon(Icons.date_range, color: Colors.deepOrange)),
-            SizedBox(
-              width: 5,
-            ),
-            Text("Order Date"),
+                child: const Icon(Icons.date_range, color: Colors.deepOrange)),
+            horizontalSpace(5),
+            const Text("Order Date"),
           ],
         ),
       ),
@@ -64,15 +59,13 @@ class _CustomTableState extends State<CustomTable> {
         Row(
           children: [
             Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                     color: Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(16)),
-                child: Icon(Icons.date_range, color: Colors.deepOrange)),
-            SizedBox(
-              width: 5,
-            ),
-            Text("Order Date"),
+                child: const Icon(Icons.date_range, color: Colors.deepOrange)),
+            horizontalSpace(5),
+            const Text("Order Date"),
           ],
         ),
       ),
@@ -80,15 +73,13 @@ class _CustomTableState extends State<CustomTable> {
         Row(
           children: [
             Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                     color: Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(16)),
-                child: Icon(Icons.date_range, color: Colors.deepOrange)),
-            SizedBox(
-              width: 5,
-            ),
-            Text("Order Date"),
+                child: const Icon(Icons.date_range, color: Colors.deepOrange)),
+            horizontalSpace(5),
+            const Text("Order Date"),
           ],
         ),
       ),
@@ -136,7 +127,7 @@ class _CustomTableState extends State<CustomTable> {
       ],
       rows: [
         dataRow,
-        DataRow(
+        const DataRow(
           cells: [
             DataCell(
               Text("#12345"),

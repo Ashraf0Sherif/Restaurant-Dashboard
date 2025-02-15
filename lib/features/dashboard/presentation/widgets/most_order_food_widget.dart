@@ -4,36 +4,36 @@ import 'package:restaurant_admin_panel/features/dashboard/data/models/most_order
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 
 class MostOrderFoodWidget extends StatelessWidget {
-  final List<FoodItem> foodData;
+  final List<MostOrderedFoodModel> foodData;
 
   const MostOrderFoodWidget({
     super.key,
     this.foodData = const [
-      FoodItem(
+      MostOrderedFoodModel(
         name: 'Fresh Salad Bowl',
         price: 'IDR 45.000',
         imageUrl: 'assets/images/turkey-burger-index-64873e8770b34.jpg',
         orderCount: 120,
       ),
-      FoodItem(
+      MostOrderedFoodModel(
         name: 'Fresh Salad Bowl',
         price: 'IDR 45.000',
         imageUrl: 'assets/images/turkey-burger-index-64873e8770b34.jpg',
         orderCount: 120,
       ),
-      FoodItem(
+      MostOrderedFoodModel(
         name: 'Fresh Salad Bowl',
         price: 'IDR 45.000',
         imageUrl: 'assets/images/turkey-burger-index-64873e8770b34.jpg',
         orderCount: 120,
       ),
-      FoodItem(
+      MostOrderedFoodModel(
         name: 'Fresh Salad Bowl',
         price: 'IDR 45.000',
         imageUrl: 'assets/images/turkey-burger-index-64873e8770b34.jpg',
         orderCount: 120,
       ),
-      FoodItem(
+      MostOrderedFoodModel(
         name: 'Fresh Sa2xlad Bowl',
         price: 'IDR 45.000',
         imageUrl: 'assets/images/turkey-burger-index-64873e8770b34.jpg',

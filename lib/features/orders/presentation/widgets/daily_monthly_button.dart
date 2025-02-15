@@ -29,7 +29,7 @@ class _DailyMonthlyButtonState extends State<DailyMonthlyButton> {
         ),
         Container(
           width: 200,
-          padding: EdgeInsets.all(3),
+          padding: const EdgeInsets.all(3),
           decoration: BoxDecoration(
               color: Colors.grey.shade800,
               borderRadius: BorderRadius.circular(10)),
