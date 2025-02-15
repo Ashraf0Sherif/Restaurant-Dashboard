@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
-import 'package:restaurant_admin_panel/core/router/app_router.dart';
 import 'package:restaurant_admin_panel/features/food_menu/logic/food_menu_cubit/food_menu_cubit.dart';
 
 import '../../data/models/food_item/food_item.dart';
@@ -65,8 +63,8 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                       const Spacer(),
                       TextButton(
                         onPressed: () {
-                          BlocProvider.of<DashboardCubit>(context)
-                              .changeView(AppRouter.kFoodMenuView);
+                          // BlocProvider.of<DashboardCubit>(context)
+                          //     .changeView(AppRouter.kFoodMenuView);
                         },
                         child: const Row(
                           children: [

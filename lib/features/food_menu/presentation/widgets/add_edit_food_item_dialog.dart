@@ -207,7 +207,8 @@ class _AddEditFoodItemDialogState extends State<AddEditFoodItemDialog> {
                           ingredients: ingredients,
                           extraIngredients: extraIngredients,
                           arabicTitle: _arabicTitleController.text,
-                          arabicDescription: _arabicDescriptionController.text),
+                          arabicDescription: _arabicDescriptionController.text,
+                          available: true),
                       images: images,
                     );
                   }

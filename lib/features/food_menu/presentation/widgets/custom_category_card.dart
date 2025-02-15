@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/scroll_button.dart';
 
 import 'add_item_widget.dart';
@@ -122,7 +123,7 @@ class _CustomCategoryCardState extends State<CustomCategoryCard> {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                FoodItemPricing(),
+                                const FoodItemPricing(),
                                 const Spacer(
                                   flex: 2,
                                 ),
@@ -195,9 +196,7 @@ class FoodItemPricing extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            width: 5,
-          ),
+          horizontalSpace(5),
           Container(
             padding: const EdgeInsets.all(4.0),
             decoration: BoxDecoration(

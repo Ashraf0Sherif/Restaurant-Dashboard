@@ -9,9 +9,9 @@ import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/utils/widgets/show_snack_bar.dart';
 import 'package:restaurant_admin_panel/features/banner/data/models/banner_model.dart';
 import 'package:restaurant_admin_panel/features/banner/logic/banners_cubit/banners_cubit.dart';
+import 'package:restaurant_admin_panel/features/banner/presentation/views/banners_view.dart';
 
 import '../../../../core/dashboard_cubit/dashboard_cubit.dart';
-import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/widgets/custom_text_form_field.dart';
 
 class AddEditBannerView extends StatefulWidget {
@@ -87,7 +87,7 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
     try {
       final ImagePicker picker = ImagePicker();
       final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-      
+
       if (image != null) {
         final bytes = await image.readAsBytes();
         setState(() {
@@ -112,6 +112,7 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
       isLoading = false;
     });
   }
+
   @override
   void initState() {
     startDate = DateFormat('dd/MM/yyyy').format(selectedStartDate);
@@ -134,6 +135,7 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
     _descriptionController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -149,8 +151,12 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                       const Spacer(),
                       TextButton(
                         onPressed: () {
-                          BlocProvider.of<DashboardCubit>(context)
-                              .changeView(AppRouter.kBannersView);
+                          context.read<DashboardCubit>().changeView(
+                                const ResponsiveWidget(
+                                  mobile: BannersView(),
+                                  tablet: BannersView(),
+                                ),
+                              );
                         },
                         child: const Row(
                           children: [
@@ -248,8 +254,9 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                                                         ),
                                                       ),
                                                       onPressed: selectImage,
-                                                      child:  Text(
-                                                          "Choose Banner Image",)),
+                                                      child: const Text(
+                                                        "Choose Banner Image",
+                                                      )),
                                                 )
                                               : SizedBox(
                                                   width: 300,
@@ -294,7 +301,7 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                                                   subtitle: Text(
                                                     startDate,
                                                     style:
-                                                        TextStyle(fontSize: 18),
+                                                        const TextStyle(fontSize: 18),
                                                   ),
                                                   trailing: const Icon(
                                                       Icons.date_range),
@@ -329,7 +336,7 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                                                   subtitle: Text(
                                                     endDate,
                                                     style:
-                                                        TextStyle(fontSize: 18),
+                                                        const TextStyle(fontSize: 18),
                                                   ),
                                                   trailing: const Icon(
                                                       Icons.date_range),

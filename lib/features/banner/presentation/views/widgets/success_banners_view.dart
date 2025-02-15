@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
-import 'package:restaurant_admin_panel/core/router/app_router.dart';
 import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/utils/widgets/custom_text_form_field.dart';
 import 'package:restaurant_admin_panel/features/banner/data/models/banner_model.dart';
 import 'package:restaurant_admin_panel/features/banner/logic/banners_cubit/banners_cubit.dart';
+import 'package:restaurant_admin_panel/features/banner/presentation/widgets/add_banner_view.dart';
 
 class SuccessBannersView extends StatefulWidget {
   const SuccessBannersView({
@@ -66,8 +66,12 @@ class _SuccessBannersViewState extends State<SuccessBannersView> {
                     ),
                   ),
                   onPressed: () {
-                    BlocProvider.of<DashboardCubit>(context)
-                        .changeView(AppRouter.kAddBannerView);
+                    context.read<DashboardCubit>().changeView(
+                          const ResponsiveWidget(
+                            mobile: AddEditBannerView(),
+                            tablet: AddEditBannerView(),
+                          ),
+                        );
                   },
                   child: const Text(
                     "+ Banner",

@@ -30,13 +30,6 @@ class _AddAdditionalIngredientsState extends State<AddAdditionalIngredients> {
   String currentType = 'Main Ingredient';
 
   @override
-  void initState() {
-    super.initState();
-    print(widget.extraIngredients);
-    print(widget.ingredients);
-  }
-
-  @override
   void dispose() {
     _titleController.dispose();
     _priceController.dispose();

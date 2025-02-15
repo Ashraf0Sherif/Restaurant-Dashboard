@@ -10,6 +10,7 @@ class FoodItem {
   String arabicDescription;
   String price;
   String deliverTime;
+  bool available;
   List<String> images;
   List<Ingredient> ingredients;
   List<ExtraIngredient> extraIngredients;
@@ -25,5 +26,6 @@ class FoodItem {
     required this.extraIngredients,
     required this.arabicTitle,
     required this.arabicDescription,
+    required this.available,
   });
 }

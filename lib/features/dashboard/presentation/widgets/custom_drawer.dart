@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
-import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/foodie_header.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/drawer_sliver_list.dart';
 
@@ -15,8 +14,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: BackGroundContainer(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+      backgroundColor: const Color(0xFF2C2C2C),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(

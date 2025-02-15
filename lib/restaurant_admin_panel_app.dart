@@ -1,12 +1,9 @@
 import 'dart:ui';
-
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/theming/foodie_theme.dart';
-import 'package:restaurant_admin_panel/dashboard.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/views/landing_view.dart';
 import 'package:restaurant_admin_panel/features/banner/data/repos/banner_repo_implementation.dart';
-
 import 'core/dashboard_cubit/dashboard_cubit.dart';
 import 'core/firebase/custom_firebase.dart';
 import 'features/banner/logic/banners_cubit/banners_cubit.dart';
@@ -37,7 +34,7 @@ class RestaurantAdminPanelApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         scrollBehavior: MyCustomScrollBehavior(),
         theme: foodieTheme(context),
-        home: SafeArea(child: Dashboard()),
+        home: const SafeArea(child: LandingView()),
       ),
     );
   }

@@ -20,9 +20,17 @@ class CategoryFoodItems extends DashboardState {
   CategoryFoodItems({required this.foodItems, required this.categoryId});
 }
 
-class DashboardChangeIndex extends DashboardState {
-  final String view;
-  final List<dynamic>? args;
+class ChangeView extends DashboardState {
+  final ResponsiveWidget widget;
 
-  DashboardChangeIndex({required this.view, this.args});
+  ChangeView({required this.widget});
+}
+class ResponsiveWidget {
+  final Widget mobile;
+  final Widget tablet;
+
+  const ResponsiveWidget({
+    required this.mobile,
+    required this.tablet,
+  });
 }

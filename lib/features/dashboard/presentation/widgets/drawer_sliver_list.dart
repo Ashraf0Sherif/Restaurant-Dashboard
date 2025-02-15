@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
-import 'package:restaurant_admin_panel/core/router/app_router.dart';
+import 'package:restaurant_admin_panel/features/banner/presentation/views/banners_view.dart';
 import 'package:restaurant_admin_panel/features/dashboard/data/models/drawer_item_model.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/drawer_item.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/mobile_layout.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/tabalet_layout.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/views/food_categories_view.dart';
+import 'package:restaurant_admin_panel/features/orders/presentation/views/orders_view.dart';
+
 
 class DrawerSliverList extends StatefulWidget {
   const DrawerSliverList({super.key});
@@ -36,25 +41,48 @@ class _DrawerSliverListState extends State<DrawerSliverList> {
 
   void _handleMenuItemTap(int index) {
     if (selectedIndex != index) {
-      setState(() {
-        selectedIndex = index;
-        if (menuItems[selectedIndex].title == "Dashboard") {
-          BlocProvider.of<DashboardCubit>(context)
-              .changeView(AppRouter.kOrdersView);
-        } else if (menuItems[selectedIndex].title == "Food Order") {
-          BlocProvider.of<DashboardCubit>(context)
-              .changeView(AppRouter.kFoodMenuView);
-        } else if (menuItems[selectedIndex].title == "Menu") {
-          BlocProvider.of<DashboardCubit>(context)
-              .changeView(AppRouter.kBannersView);
-        } else if (menuItems[selectedIndex].title == "Banners") {
-          BlocProvider.of<DashboardCubit>(context)
-              .changeView(AppRouter.kBannersView);
-        }
-      });
+      setState(
+        () {
+          selectedIndex = index;
+          context.read<DashboardCubit>().selectedIndex = selectedIndex;
+          if (menuItems[selectedIndex].title == "Dashboard") {
+            context.read<DashboardCubit>().changeView(
+                  const ResponsiveWidget(
+                    mobile: MobileLayout(),
+                    tablet: TabaletLayout(),
+                  ),
+                );
+          } else if (menuItems[selectedIndex].title == "Orders") {
+            context.read<DashboardCubit>().changeView(
+                  const ResponsiveWidget(
+                    mobile: OrdersView(),
+                    tablet: OrdersView(),
+                  ),
+                );
+          } else if (menuItems[selectedIndex].title == "Menu") {
+            context.read<DashboardCubit>().changeView(
+                  const ResponsiveWidget(
+                    mobile: FoodCategoriesView(),
+                    tablet: FoodCategoriesView(),
+                  ),
+                );
+          } else if (menuItems[selectedIndex].title == "Banners") {
+            context.read<DashboardCubit>().changeView(
+                  const ResponsiveWidget(
+                    mobile: BannersView(),
+                    tablet: BannersView(),
+                  ),
+                );
+          }
+        },
+      );
     }
   }
-
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = context.read<DashboardCubit>().selectedIndex;
+  }
   @override
   Widget build(BuildContext context) {
     return SliverList(

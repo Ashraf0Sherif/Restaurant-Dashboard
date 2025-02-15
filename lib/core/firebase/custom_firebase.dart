@@ -94,6 +94,7 @@ class CustomFirebase {
             extraIngredients: extraIngredients,
             arabicTitle: data[FirebaseConstants.arabicTitle],
             arabicDescription: data[FirebaseConstants.arabicDescription],
+            available: true,
           );
         },
       ).toList(),
@@ -241,10 +242,8 @@ class CustomFirebase {
       String downloadURL = await snapshot.ref.getDownloadURL();
       imagesUrls.add(downloadURL);
     }
-    await foodItemRef.update({
-      FirebaseConstants.images: imagesUrls,
-      'id': foodItemRef.id
-    });
+    await foodItemRef
+        .update({FirebaseConstants.images: imagesUrls, 'id': foodItemRef.id});
     foodItem.id = foodItemRef.id;
     foodItem.images = imagesUrls;
     return foodItem;
