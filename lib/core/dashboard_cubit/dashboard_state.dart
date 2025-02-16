@@ -21,15 +21,16 @@ class CategoryFoodItems extends DashboardState {
 }
 
 class ChangeView extends DashboardState {
-  final ResponsiveWidget widget;
+  final ResponsiveView view;
 
-  ChangeView({required this.widget});
+  ChangeView({required this.view});
 }
-class ResponsiveWidget {
+
+class ResponsiveView {
   final Widget mobile;
   final Widget tablet;
 
-  const ResponsiveWidget({
+  const ResponsiveView({
     required this.mobile,
     required this.tablet,
   });

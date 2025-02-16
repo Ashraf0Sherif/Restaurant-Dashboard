@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
+import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/category/category_model.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/views/category_food_items_view.dart';
 
@@ -36,15 +37,9 @@ class CategoryFoodItemsGrid extends StatelessWidget {
               hoverColor: Colors.transparent,
               onTap: () {
                 context.read<DashboardCubit>().changeView(
-                      ResponsiveWidget(
-                        mobile: CategoryFoodItemsView(
-                          categoryId: category.id,
-                          foodItems: category.foodItems,
-                        ),
-                        tablet: CategoryFoodItemsView(
-                          categoryId: category.id,
-                          foodItems: category.foodItems,
-                        ),
+                      ResponsiveViews.categoryFoodItems(
+                        categoryId: category.id,
+                        foodItems: category.foodItems,
                       ),
                     );
               },

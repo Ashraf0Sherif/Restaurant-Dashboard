@@ -4,8 +4,8 @@ import 'package:restaurant_admin_panel/core/utils/widgets/adaptive_layout.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/custom_drawer.dart';
-import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/mobile_layout.dart';
-import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/tabalet_layout.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/views/dashboard_mobile_layout.dart';
+import 'package:restaurant_admin_panel/features/dashboard/presentation/views/dashboard_tablet_layout.dart';
 
 class LandingView extends StatefulWidget {
   const LandingView({super.key});
@@ -46,19 +46,19 @@ class _LandingViewState extends State<LandingView> {
             builder: (context, state) {
               return AdaptiveLayout(
                 mobileLayout: (context) => state is ChangeView
-                    ? state.widget.mobile
-                    : const MobileLayout(),
+                    ? state.view.mobile
+                    : const DashboardMobileLayout(),
                 tabletLayout: (context) => state is ChangeView
-                    ? state.widget.tablet
-                    : const TabaletLayout(),
+                    ? state.view.tablet
+                    : const DashboardTabletLayout(),
                 desktopLayout: (context) => Row(
                   children: [
                     const CustomDrawer(),
                     horizontalSpace(16),
                     Expanded(
                       child: state is ChangeView
-                          ? state.widget.tablet
-                          : const TabaletLayout(),
+                          ? state.view.tablet
+                          : const DashboardTabletLayout(),
                     ),
                   ],
                 ),

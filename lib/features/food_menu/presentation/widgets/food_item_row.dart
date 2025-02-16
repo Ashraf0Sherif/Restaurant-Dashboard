@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
+import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/views/edit_food_view.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/views/food_item_details_view.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/views/food_item_details_tablet_layout.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/food_item_actions.dart';
 
 class FoodItemRow extends StatefulWidget {
@@ -116,33 +117,19 @@ class _FoodItemRowState extends State<FoodItemRow> {
             child: FoodItemActions(
               onEdit: () {
                 context.read<DashboardCubit>().changeView(
-                      ResponsiveWidget(
-                        mobile: EditFoodView(
-                          item: widget.item,
-                          categoryId: widget.categoryId,
-                          categoryItems: widget.categoryItems,
-                        ),
-                        tablet: EditFoodView(
-                          item: widget.item,
-                          categoryId: widget.categoryId,
-                          categoryItems: widget.categoryItems,
-                        ),
+                      ResponsiveViews.editFoodView(
+                        item: widget.item,
+                        categoryId: widget.categoryId,
+                        categoryItems: widget.categoryItems,
                       ),
                     );
               },
               onView: () {
                 context.read<DashboardCubit>().changeView(
-                      ResponsiveWidget(
-                        mobile: FoodItemDetailsView(
-                          item: widget.item,
-                          categoryId: widget.categoryId,
-                          categoryItems: widget.categoryItems,
-                        ),
-                        tablet: FoodItemDetailsView(
-                          item: widget.item,
-                          categoryId: widget.categoryId,
-                          categoryItems: widget.categoryItems,
-                        ),
+                      ResponsiveViews.foodItemDetails(
+                        item: widget.item,
+                        categoryId: widget.categoryId,
+                        categoryItems: widget.categoryItems,
                       ),
                     );
               },

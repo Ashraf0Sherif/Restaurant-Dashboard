@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/theming/colors.dart';
+import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/views/food_categories_view.dart';
@@ -38,16 +39,9 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                 ElevatedButton.icon(
                   onPressed: () {
                     context.read<DashboardCubit>().changeView(
-                          ResponsiveWidget(
-                            mobile: AddFoodView(
+                          ResponsiveViews.addFoodView(
                               categoryId: widget.categoryId,
-                              categoryItems: widget.foodItems,
-                            ),
-                            tablet: AddFoodView(
-                              categoryId: widget.categoryId,
-                              categoryItems: widget.foodItems,
-                            ),
-                          ),
+                              categoryItems: widget.foodItems),
                         );
                   },
                   icon: const Icon(Icons.add),
@@ -106,9 +100,9 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
         ),
         const Icon(Icons.chevron_right),
         TextButton(
-          onPressed: () => context.read<DashboardCubit>().changeView(
-              const ResponsiveWidget(
-                  mobile: FoodCategoriesView(), tablet: FoodCategoriesView())),
+          onPressed: () => context
+              .read<DashboardCubit>()
+              .changeView(ResponsiveViews.foodCategories),
           child: const Text('Food Categories'),
         ),
         const Icon(Icons.chevron_right),

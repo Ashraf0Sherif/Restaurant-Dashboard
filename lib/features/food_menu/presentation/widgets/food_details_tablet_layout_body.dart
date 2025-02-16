@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
 
-class FoodDetailsSection extends StatelessWidget {
-  const FoodDetailsSection({super.key, required this.item});
+class FoodDetailsTabletLayoutBody extends StatelessWidget {
+  const FoodDetailsTabletLayoutBody({super.key, required this.item});
 
   final FoodItem item;
 

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
+import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/views/food_item_details_view.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/views/food_item_details_tablet_layout.dart';
 
 class CategoryItemsList extends StatelessWidget {
   final List<FoodItem> items;
@@ -25,53 +26,42 @@ class CategoryItemsList extends StatelessWidget {
     if (otherItems.isEmpty) return const SizedBox.shrink();
 
     return BackGroundContainer(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'More from this Category',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'More from this Category',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
-            verticalSpace(16),
-            SizedBox(
-              height: 220,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: otherItems.length,
-                itemBuilder: (context, index) {
-                  final otherItem = otherItems[index];
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 16),
-                    child: InkWell(
-                      onTap: () {
-                        context.read<DashboardCubit>().changeView(
-                              ResponsiveWidget(
-                                mobile: FoodItemDetailsView(
-                                  item: otherItem,
-                                  categoryId: categoryId,
-                                  categoryItems: items,
-                                ),
-                                tablet: FoodItemDetailsView(
-                                  item: otherItem,
-                                  categoryId: categoryId,
-                                  categoryItems: items,
-                                ),
-                              ),
-                            );
-                      },
-                      child: _buildItemCard(otherItem),
-                    ),
-                  );
-                },
-              ),
+          ),
+          verticalSpace(16),
+          SizedBox(
+            height: 220,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: otherItems.length,
+              itemBuilder: (context, index) {
+                final otherItem = otherItems[index];
+                return Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: InkWell(
+                    onTap: () {
+                      context.read<DashboardCubit>().changeView(
+                            ResponsiveViews.foodItemDetails(
+                                item: otherItem,
+                                categoryId: categoryId,
+                                categoryItems: items),
+                          );
+                    },
+                    child: _buildItemCard(otherItem),
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

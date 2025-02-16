@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
+import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/views/category_food_items_view.dart';
 
@@ -26,16 +27,8 @@ class ActionButtons extends StatelessWidget {
         TextButton(
           onPressed: () {
             context.read<DashboardCubit>().changeView(
-                  ResponsiveWidget(
-                    mobile: CategoryFoodItemsView(
-                      categoryId: categoryId,
-                      foodItems: categoryItems,
-                    ),
-                    tablet: CategoryFoodItemsView(
-                      categoryId: categoryId,
-                      foodItems: categoryItems,
-                    ),
-                  ),
+                  ResponsiveViews.categoryFoodItems(
+                      categoryId: categoryId, foodItems: categoryItems),
                 );
           },
           child: const Text('Cancel'),

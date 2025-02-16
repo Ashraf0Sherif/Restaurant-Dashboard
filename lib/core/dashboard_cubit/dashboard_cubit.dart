@@ -18,8 +18,7 @@ class DashboardCubit extends Cubit<DashboardState> {
     emit(EditBannerView(banner: banner));
   }
 
-  void changeView(ResponsiveWidget view) {
-    
-    emit(ChangeView(widget: view));
+  void changeView(ResponsiveView view) {
+    emit(ChangeView(view: view));
   }
 }

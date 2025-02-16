@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:restaurant_admin_panel/core/theming/colors.dart';
+import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/core/utils/widgets/show_snack_bar.dart';
 import 'package:restaurant_admin_panel/features/banner/data/models/banner_model.dart';
 import 'package:restaurant_admin_panel/features/banner/logic/banners_cubit/banners_cubit.dart';
@@ -151,12 +152,9 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                       const Spacer(),
                       TextButton(
                         onPressed: () {
-                          context.read<DashboardCubit>().changeView(
-                                const ResponsiveWidget(
-                                  mobile: BannersView(),
-                                  tablet: BannersView(),
-                                ),
-                              );
+                          context
+                              .read<DashboardCubit>()
+                              .changeView(ResponsiveViews.banners);
                         },
                         child: const Row(
                           children: [
@@ -300,8 +298,8 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                                                   ),
                                                   subtitle: Text(
                                                     startDate,
-                                                    style:
-                                                        const TextStyle(fontSize: 18),
+                                                    style: const TextStyle(
+                                                        fontSize: 18),
                                                   ),
                                                   trailing: const Icon(
                                                       Icons.date_range),
@@ -335,8 +333,8 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                                                   ),
                                                   subtitle: Text(
                                                     endDate,
-                                                    style:
-                                                        const TextStyle(fontSize: 18),
+                                                    style: const TextStyle(
+                                                        fontSize: 18),
                                                   ),
                                                   trailing: const Icon(
                                                       Icons.date_range),
@@ -456,7 +454,7 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20), 
+                const SizedBox(height: 20),
               ],
             ),
     );

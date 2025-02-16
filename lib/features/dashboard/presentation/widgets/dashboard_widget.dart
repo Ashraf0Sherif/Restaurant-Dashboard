@@ -33,7 +33,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
                 banner: state.banner,
               );
             } else if (state is ChangeView) {
-              return AppRouter.views[state.widget]!;
+              return AppRouter.views[state.view]!;
             }
             return const OrdersView();
           },

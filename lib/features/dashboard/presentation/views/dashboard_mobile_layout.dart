@@ -6,8 +6,8 @@ import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/o
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/order_time_widget.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/revenue_widget.dart';
 
-class MobileLayout extends StatelessWidget {
-  const MobileLayout({super.key});
+class DashboardMobileLayout extends StatelessWidget {
+  const DashboardMobileLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
