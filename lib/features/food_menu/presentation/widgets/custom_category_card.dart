@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/scroll_button.dart';
 
@@ -186,13 +187,13 @@ class FoodItemPricing extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(4.0),
             decoration: BoxDecoration(
-              color: Colors.orange.shade100,
+              color: ColorsStyles.kPrimaryColor,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Text(
+            child: const Text(
               "5,00 €",
               style: TextStyle(
-                color: Colors.orange.shade600,
+                color: Colors.white,
               ),
             ),
           ),

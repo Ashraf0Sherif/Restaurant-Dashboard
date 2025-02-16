@@ -53,7 +53,6 @@ class _AddAdditionalIngredientsState extends State<AddAdditionalIngredients> {
             childAspectRatio: 3.3,
           ),
           itemBuilder: (BuildContext context, int index) {
-            // Add new ingredient/extra ingredient button
             if (index == totalItems - 1) {
               return InkWell(
                 onTap: () {
@@ -144,9 +143,7 @@ class _AddAdditionalIngredientsState extends State<AddAdditionalIngredients> {
               );
             }
 
-            // Determine if it's a main ingredient or extra ingredient
             if (index < widget.ingredients.length) {
-              // Main Ingredients
               return Container(
                 decoration: BoxDecoration(
                   color: Colors.blue.shade800,
@@ -189,7 +186,6 @@ class _AddAdditionalIngredientsState extends State<AddAdditionalIngredients> {
                 ),
               );
             } else {
-              // Extra Ingredients
               final extraIndex = index - widget.ingredients.length;
               return Container(
                 decoration: BoxDecoration(

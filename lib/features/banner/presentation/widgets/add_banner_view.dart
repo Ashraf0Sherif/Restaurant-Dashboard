@@ -168,7 +168,7 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 50), // Add some space before the form
+                const SizedBox(height: 50),
                 Row(
                   children: [
                     const SizedBox(
@@ -456,7 +456,7 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20), // Add some space after the form
+                const SizedBox(height: 20), 
               ],
             ),
     );

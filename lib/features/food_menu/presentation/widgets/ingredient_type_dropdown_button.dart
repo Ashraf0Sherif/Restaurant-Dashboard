@@ -25,9 +25,7 @@ class _IngredientTypeDropDownButtonState
     return DropdownButton(
       value: selectedValue,
       dropdownColor: Colors.grey[900],
-      // Dropdown background color
       style: const TextStyle(color: Colors.white),
-      // Dropdown text style
       items: items.map((String item) {
         return DropdownMenuItem<String>(
           value: item,

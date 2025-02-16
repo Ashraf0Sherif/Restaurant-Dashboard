@@ -1,33 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_admin_panel/adaptive_layout.dart';
+import 'package:restaurant_admin_panel/core/utils/widgets/adaptive_layout.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/custom_drawer.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/mobile_layout.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/tabalet_layout.dart';
 
-class LandingView extends StatefulWidget {
-  const LandingView({super.key});
+class Dashboard extends StatefulWidget {
+  const Dashboard({super.key});
 
   @override
-  State<LandingView> createState() => _LandingViewState();
+  State<Dashboard> createState() => _DashboardState();
 }
 
-class _LandingViewState extends State<LandingView> {
-  late final GlobalKey<ScaffoldState> _scaffoldKey;
-  @override
-  void initState() {
-    super.initState();
-    _scaffoldKey = GlobalKey<ScaffoldState>();
-  }
-
+class _DashboardState extends State<Dashboard> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DashboardCubit, DashboardState>(
       builder: (context, state) {
         return Scaffold(
-          key: _scaffoldKey,
+          key: MediaQuery.sizeOf(context).width < 1200 ? _scaffoldKey : null,
           drawer: MediaQuery.sizeOf(context).width < 1200
               ? const CustomDrawer()
               : null,

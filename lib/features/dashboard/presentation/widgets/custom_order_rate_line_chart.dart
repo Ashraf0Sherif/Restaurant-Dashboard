@@ -105,7 +105,6 @@ class _CustomOrderRateLineChartState extends State<CustomOrderRateLineChart> {
         minY: 0,
         maxY: 10,
         lineBarsData: [
-          // Current Week Line
           LineChartBarData(
             spots: List.generate(
               widget.orderRateData.weekOrders.length,
@@ -135,7 +134,6 @@ class _CustomOrderRateLineChartState extends State<CustomOrderRateLineChart> {
               color: ColorsStyles.kPrimaryColor.withOpacity(0.1),
             ),
           ),
-          // Last Week Line
           LineChartBarData(
             spots: List.generate(
               widget.orderRateData.weekOrders.length,

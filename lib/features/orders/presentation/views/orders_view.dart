@@ -86,11 +86,9 @@ class _OrdersViewState extends State<OrdersView> {
           const SizedBox(
             height: 16,
           ),
-          //const DailyMonthlyButton(),
           const SizedBox(
             height: 16,
           ),
-          //const CustomCardRow(),
           const SizedBox(
             height: 16,
           ),

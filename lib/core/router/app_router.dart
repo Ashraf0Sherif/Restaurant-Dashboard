@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_admin_panel/features/dashboard/presentation/views/landing_view.dart';
+import 'package:restaurant_admin_panel/landing_view.dart';
 import 'package:restaurant_admin_panel/features/orders/presentation/views/orders_view.dart';
 
 import '../../features/banner/presentation/views/banners_view.dart';

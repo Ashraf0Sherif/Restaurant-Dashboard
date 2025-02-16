@@ -5,6 +5,8 @@ import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/views/food_categories_view.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/views/add_food_view.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/food_item_row.dart';
 
 class CategoryFoodItemsView extends StatefulWidget {
   const CategoryFoodItemsView(
@@ -16,20 +18,8 @@ class CategoryFoodItemsView extends StatefulWidget {
 }
 
 class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
-  late final List<FoodItem> foodItems;
-
-  void updateStockStatus(int index, bool? newValue) {
-    if (newValue != null) {
-      setState(() {
-        foodItems[index].available = newValue;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    foodItems = widget.foodItems;
+  void updateStockStatus(int index, bool newValue) {
+    widget.foodItems[index].available = newValue;
   }
 
   @override
@@ -46,7 +36,20 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                 _buildBreadcrumb(),
                 const Spacer(),
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<DashboardCubit>().changeView(
+                          ResponsiveWidget(
+                            mobile: AddFoodView(
+                              categoryId: widget.categoryId,
+                              categoryItems: widget.foodItems,
+                            ),
+                            tablet: AddFoodView(
+                              categoryId: widget.categoryId,
+                              categoryItems: widget.foodItems,
+                            ),
+                          ),
+                        );
+                  },
                   icon: const Icon(Icons.add),
                   label: const Text('Add New Food'),
                   style: ElevatedButton.styleFrom(
@@ -71,15 +74,21 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                 children: [
                   Expanded(flex: 4, child: Text('Product')),
                   Expanded(flex: 2, child: Text('Price')),
-                  Expanded(flex: 2, child: Text('Stock Status')),
+                  Expanded(flex: 2, child: Text('Availability')),
                   Expanded(flex: 1, child: Text('Action')),
                 ],
               ),
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: foodItems.length,
-                itemBuilder: (context, index) => _buildFoodItem(index),
+                itemCount: widget.foodItems.length,
+                itemBuilder: (context, index) => FoodItemRow(
+                  item: widget.foodItems[index],
+                  index: index,
+                  categoryId: widget.categoryId,
+                  categoryItems: widget.foodItems,
+                  onStockStatusChanged: updateStockStatus,
+                ),
               ),
             ),
           ],
@@ -108,100 +117,6 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
           child: const Text('Food List'),
         ),
       ],
-    );
-  }
-
-  Widget _buildFoodItem(int index) {
-    final item = foodItems[index];
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.grey, width: 0.5)),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 4,
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(item.images[0]),
-                  radius: 20,
-                ),
-                const SizedBox(width: 12),
-                Text(item.title),
-              ],
-            ),
-          ),
-          Expanded(flex: 2, child: Text('\$${item.price}')),
-          Expanded(
-            flex: 2,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<bool>(
-                  value: item.available,
-                  isExpanded: true,
-                  icon: const Icon(Icons.arrow_drop_down),
-                  onChanged: (bool? newValue) =>
-                      updateStockStatus(index, newValue),
-                  items: [
-                    DropdownMenuItem(
-                      value: true,
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 8,
-                            height: 8,
-                            margin: const EdgeInsets.only(right: 8),
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.green,
-                            ),
-                          ),
-                          const Text('Available'),
-                        ],
-                      ),
-                    ),
-                    DropdownMenuItem(
-                      value: false,
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 8,
-                            height: 8,
-                            margin: const EdgeInsets.only(right: 8),
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.red,
-                            ),
-                          ),
-                          const Text('Unavailable'),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.edit_outlined),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: const Icon(Icons.visibility_outlined),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
