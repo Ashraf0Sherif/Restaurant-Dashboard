@@ -7,7 +7,7 @@ class FoodDetailsTabletLayoutBody extends StatelessWidget {
 
   final FoodItem item;
 
-  Widget _buildDetailRow(String label, String value) {
+  Padding _buildDetailRow(String label, String value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(

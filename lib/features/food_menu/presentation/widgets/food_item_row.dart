@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/views/edit_food_view.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/views/food_item_details_tablet_layout.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/food_item_actions.dart';
 
 class FoodItemRow extends StatefulWidget {

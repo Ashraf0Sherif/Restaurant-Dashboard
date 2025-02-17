@@ -6,7 +6,6 @@ import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/views/category_food_items_view.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/left_side_section.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/right_side_section.dart';
 

@@ -5,8 +5,6 @@ import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/views/food_categories_view.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/views/add_food_view.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/food_item_row.dart';
 
 class CategoryFoodItemsView extends StatefulWidget {

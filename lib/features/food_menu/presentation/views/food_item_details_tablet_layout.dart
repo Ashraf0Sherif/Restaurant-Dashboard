@@ -38,21 +38,21 @@ class FoodItemDetailsTabletLayout extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        children: [
-                          ClipRRect(
+                      Expanded(
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
                             child: Image.network(
                               item.images[0],
-                              height: 300,
-                              width: 400,
                               fit: BoxFit.cover,
                             ),
                           ),
-                        ],
+                        ),
                       ),
                       horizontalSpace(24),
                       Expanded(
+                        flex: 2,
                         child: FoodDetailsTabletLayoutBody(item: item),
                       ),
                     ],

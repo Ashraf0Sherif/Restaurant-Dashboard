@@ -5,7 +5,6 @@ import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/views/food_item_details_tablet_layout.dart';
 
 class CategoryItemsList extends StatelessWidget {
   final List<FoodItem> items;
@@ -38,7 +37,7 @@ class CategoryItemsList extends StatelessWidget {
           ),
           verticalSpace(16),
           SizedBox(
-            height: 220,
+            height: 230,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: otherItems.length,
@@ -88,14 +87,18 @@ class CategoryItemsList extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
           verticalSpace(4),
           Text(
-            '\$${item.price}',
+            item.description,
             style: const TextStyle(
               fontSize: 14,
               color: Colors.grey,
             ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
           ),
           Row(
             children: [

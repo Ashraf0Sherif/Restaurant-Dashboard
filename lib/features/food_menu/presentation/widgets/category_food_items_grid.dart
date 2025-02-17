@@ -5,7 +5,6 @@ import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/category/category_model.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/views/category_food_items_view.dart';
 
 class CategoryFoodItemsGrid extends StatelessWidget {
   final CategoryModel category;
