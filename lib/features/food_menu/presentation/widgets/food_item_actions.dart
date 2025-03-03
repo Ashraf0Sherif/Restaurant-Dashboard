@@ -1,26 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core/dashboard_cubit/dashboard_cubit.dart';
+import '../../../../core/utils/responsive_views.dart';
+import '../../data/models/food_item/food_item.dart';
 
 class FoodItemActions extends StatelessWidget {
-  final VoidCallback? onEdit;
-  final VoidCallback? onView;
-
   const FoodItemActions({
     super.key,
-    this.onEdit,
-    this.onView,
+    required this.item,
+    required this.categoryId,
+    required this.categoryItems,
   });
-
+  final FoodItem item;
+  final String categoryId;
+  final List<FoodItem> categoryItems;
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         IconButton(
           icon: const Icon(Icons.edit_outlined),
-          onPressed: onEdit,
+          onPressed: () {
+            context.read<DashboardCubit>().changeView(
+                  ResponsiveViews.editFoodView(
+                    item: item,
+                    categoryId: categoryId,
+                    categoryItems: categoryItems,
+                  ),
+                );
+          },
+          color: Colors.orange,
         ),
         IconButton(
           icon: const Icon(Icons.visibility_outlined),
-          onPressed: onView,
+          onPressed: () {
+            context.read<DashboardCubit>().changeView(
+                  ResponsiveViews.foodItemDetails(
+                    item: item,
+                    categoryId: categoryId,
+                    categoryItems: categoryItems,
+                  ),
+                );
+          },
+          color: Colors.blue,
         ),
       ],
     );

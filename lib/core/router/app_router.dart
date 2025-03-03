@@ -4,7 +4,7 @@ import 'package:restaurant_admin_panel/features/orders/presentation/views/orders
 
 import '../../features/banner/presentation/views/banners_view.dart';
 import '../../features/banner/presentation/widgets/add_banner_view.dart';
-import '../../features/food_menu/presentation/views/food_categories_view.dart';
+import '../../features/food_menu/presentation/views/food_categories/food_categories_tablet_layout.dart';
 
 abstract class AppRouter {
   static const kLandingView = "/landingView";
@@ -16,7 +16,7 @@ abstract class AppRouter {
 
   static final Map<String, Widget> views = {
     kOrdersView: const OrdersView(),
-    kFoodMenuView: const FoodCategoriesView(),
+    kFoodMenuView: const FoodCategoriesTabletLayout(),
     kBannersView: const BannersView(),
     kAddBannerView: const AddEditBannerView(),
     kLandingView: const LandingView(),

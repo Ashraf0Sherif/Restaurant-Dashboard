@@ -5,18 +5,21 @@ import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/food_item_row.dart';
 
-class CategoryFoodItemsView extends StatefulWidget {
-  const CategoryFoodItemsView(
+import '../../widgets/food_item/food_item_row.dart';
+
+class CategoryFoodItemsTabletLayout extends StatefulWidget {
+  const CategoryFoodItemsTabletLayout(
       {super.key, required this.foodItems, required this.categoryId});
   final String categoryId;
   final List<FoodItem> foodItems;
   @override
-  State<CategoryFoodItemsView> createState() => _CategoryFoodItemsViewState();
+  State<CategoryFoodItemsTabletLayout> createState() =>
+      _CategoryFoodItemsTabletLayoutState();
 }
 
-class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
+class _CategoryFoodItemsTabletLayoutState
+    extends State<CategoryFoodItemsTabletLayout> {
   void updateStockStatus(int index, bool newValue) {
     widget.foodItems[index].available = newValue;
   }
@@ -24,13 +27,12 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
   @override
   Widget build(BuildContext context) {
     return BackGroundContainer(
-      margin: const EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(left: 10),
       borderRadius: BorderRadius.zero,
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          children: [
-            Row(
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: Row(
               children: [
                 _buildBreadcrumb(),
                 const Spacer(),
@@ -42,7 +44,10 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                               categoryItems: widget.foodItems),
                         );
                   },
-                  icon: const Icon(Icons.add),
+                  icon: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
                   label: const Text('Add New Food'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: ColorsStyles.kPrimaryColor,
@@ -56,35 +61,42 @@ class _CategoryFoodItemsViewState extends State<CategoryFoodItemsView> {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
-            Container(
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(height: 24),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: const BoxDecoration(
                 border: Border(bottom: BorderSide(color: Colors.grey)),
               ),
               child: const Row(
                 children: [
-                  Expanded(flex: 4, child: Text('Product')),
-                  Expanded(flex: 2, child: Text('Price')),
-                  Expanded(flex: 2, child: Text('Availability')),
-                  Expanded(flex: 1, child: Text('Action')),
+                  Expanded(flex: 5, child: Text('Product')),
+                  Expanded(flex: 3, child: Text('Price')),
+                  Expanded(flex: 3, child: Text('Availability')),
+                  Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 30.0),
+                        child: Text('Action'),
+                      )),
                 ],
               ),
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: widget.foodItems.length,
-                itemBuilder: (context, index) => FoodItemRow(
-                  item: widget.foodItems[index],
-                  index: index,
-                  categoryId: widget.categoryId,
-                  categoryItems: widget.foodItems,
-                  onStockStatusChanged: updateStockStatus,
-                ),
-              ),
+          ),
+          SliverList.builder(
+            itemCount: widget.foodItems.length,
+            itemBuilder: (context, index) => FoodItemRow(
+              item: widget.foodItems[index],
+              index: index,
+              categoryId: widget.categoryId,
+              categoryItems: widget.foodItems,
+              onStockStatusChanged: updateStockStatus,
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/ingredient/extra_ingredient.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/add_edit_food_text_field.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/extra_ingredients_widget.dart';
+
+import '../food_item/add_edit_food_text_field.dart';
 
 class RightSideSection extends StatefulWidget {
   const RightSideSection({super.key, required this.categoryId, this.item});

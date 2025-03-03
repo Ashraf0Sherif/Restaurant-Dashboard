@@ -25,13 +25,3 @@ class ChangeView extends DashboardState {
 
   ChangeView({required this.view});
 }
-
-class ResponsiveView {
-  final Widget mobile;
-  final Widget tablet;
-
-  const ResponsiveView({
-    required this.mobile,
-    required this.tablet,
-  });
-}

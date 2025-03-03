@@ -62,6 +62,8 @@ class _LandingViewState extends State<LandingView> {
                     ),
                   ],
                 ),
+                mobileMaxWidth: state is ChangeView ? state.view.mobileMaxWidth : 760,
+                tabletMaxWidth: state is ChangeView ? state.view.tabletMaxWidth : 1200,
               );
             },
           ),

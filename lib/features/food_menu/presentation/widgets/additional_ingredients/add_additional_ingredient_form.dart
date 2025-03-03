@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/utils/widgets/custom_text_form_field.dart';
-import '../../logic/additional_ingredient_cubit/additional_ingredient_cubit.dart';
-import 'ingredient_type_dropdown_button.dart';
+import '../../../../../core/utils/widgets/custom_text_form_field.dart';
+import '../../../logic/additional_ingredient_cubit/additional_ingredient_cubit.dart';
+import '../food_details/ingredient_type_dropdown_button.dart';
 
 class AddAdditionalIngredientForm extends StatelessWidget {
   const AddAdditionalIngredientForm({

@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../core/utils/widgets/custom_text_form_field.dart';
+import '../../../../../core/utils/widgets/custom_text_form_field.dart';
 
 class AddFoodItemGeneralInfo extends StatefulWidget {
   const AddFoodItemGeneralInfo({

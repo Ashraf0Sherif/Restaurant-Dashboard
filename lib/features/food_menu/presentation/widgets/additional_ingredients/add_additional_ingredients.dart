@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/ingredient/extra_ingredient.dart';
 import 'package:restaurant_admin_panel/features/food_menu/logic/additional_ingredient_cubit/additional_ingredient_cubit.dart';
 
-import '../../data/models/ingredient/ingredient.dart';
+import '../../../data/models/ingredient/ingredient.dart';
 import 'add_additional_ingredient_form.dart';
 
 class AddAdditionalIngredients extends StatefulWidget {

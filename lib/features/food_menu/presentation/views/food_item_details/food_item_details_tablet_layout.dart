@@ -4,7 +4,7 @@ import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/b
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/category_items_list.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/food_details_header.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/food_details_tablet_layout_body.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/food_item_details/food_item_details_tablet_layout_body.dart';
 
 class FoodItemDetailsTabletLayout extends StatelessWidget {
   final FoodItem item;
@@ -21,17 +21,18 @@ class FoodItemDetailsTabletLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final otherItems = categoryItems.where((i) => i.id != item.id).toList();
-    return Column(
-      children: [
-        verticalSpace(10),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child:
-              FoodDetailsHeader(categoryId: categoryId, otherItems: otherItems),
-        ),
-        Expanded(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 10),
+      child: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: FoodDetailsHeader(
+                categoryId: categoryId, foodItems: [...otherItems, item]),
+          ),
+          SliverToBoxAdapter(
+            child: verticalSpace(10),
+          ),
+          SliverToBoxAdapter(
             child: Column(
               children: [
                 BackGroundContainer(
@@ -53,7 +54,7 @@ class FoodItemDetailsTabletLayout extends StatelessWidget {
                       horizontalSpace(24),
                       Expanded(
                         flex: 2,
-                        child: FoodDetailsTabletLayoutBody(item: item),
+                        child: FoodItemDetailsTabletLayoutBody(item: item),
                       ),
                     ],
                   ),
@@ -69,8 +70,11 @@ class FoodItemDetailsTabletLayout extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      ],
+          SliverToBoxAdapter(
+            child: verticalSpace(10),
+          ),
+        ],
+      ),
     );
   }
 }

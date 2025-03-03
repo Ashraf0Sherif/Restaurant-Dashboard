@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
-import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/food_item_actions.dart';
+
 
 class FoodItemRow extends StatefulWidget {
   final FoodItem item;
@@ -47,7 +45,7 @@ class _FoodItemRowState extends State<FoodItemRow> {
       child: Row(
         children: [
           Expanded(
-            flex: 4,
+            flex: 5,
             child: Row(
               children: [
                 CircleAvatar(
@@ -59,9 +57,9 @@ class _FoodItemRowState extends State<FoodItemRow> {
               ],
             ),
           ),
-          Expanded(flex: 2, child: Text('\$${widget.item.price}')),
+          Expanded(flex: 3, child: Text('\$${widget.item.price}')),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: DropdownButtonHideUnderline(
@@ -111,26 +109,14 @@ class _FoodItemRowState extends State<FoodItemRow> {
             ),
           ),
           Expanded(
-            flex: 1,
-            child: FoodItemActions(
-              onEdit: () {
-                context.read<DashboardCubit>().changeView(
-                      ResponsiveViews.editFoodView(
-                        item: widget.item,
-                        categoryId: widget.categoryId,
-                        categoryItems: widget.categoryItems,
-                      ),
-                    );
-              },
-              onView: () {
-                context.read<DashboardCubit>().changeView(
-                      ResponsiveViews.foodItemDetails(
-                        item: widget.item,
-                        categoryId: widget.categoryId,
-                        categoryItems: widget.categoryItems,
-                      ),
-                    );
-              },
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 30),
+              child: FoodItemActions(
+                item: widget.item,
+                categoryId: widget.categoryId,
+                categoryItems: widget.categoryItems,
+              ),
             ),
           ),
         ],
