@@ -38,7 +38,9 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
                       child: CircularProgressIndicator(),
                     );
                   } else {
-                    return const AddEditBannerForm();
+                    return AddEditBannerForm(
+                      banner: widget.banner,
+                    );
                   }
                 },
                 listener: (BuildContext context, BannersState state) {

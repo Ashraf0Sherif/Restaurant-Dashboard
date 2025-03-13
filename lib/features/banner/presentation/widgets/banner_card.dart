@@ -4,6 +4,7 @@ import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 
 import '../../../../core/dashboard_cubit/dashboard_cubit.dart';
 import '../../../../core/theming/colors.dart';
+import '../../../../core/utils/responsive_views.dart';
 import '../../data/models/banner_model.dart';
 import '../../logic/banners_cubit/banners_cubit.dart';
 
@@ -45,8 +46,8 @@ class BannerCard extends StatelessWidget {
                     ),
                     child: IconButton(
                       onPressed: () {
-                        BlocProvider.of<DashboardCubit>(context)
-                            .gotoEditBanner(banner: banner);
+                        context.read<DashboardCubit>().changeView(
+                            ResponsiveViews.addEditBannerView(banner: banner));
                       },
                       icon: const Icon(
                         Icons.edit,
