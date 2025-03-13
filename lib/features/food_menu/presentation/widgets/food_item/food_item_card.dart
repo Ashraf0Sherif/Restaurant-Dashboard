@@ -11,12 +11,13 @@ class FoodItemCard extends StatefulWidget {
     required this.index,
     required this.categoryId,
     required this.categoryItems,
-    required this.onStockStatusChanged,
+    required this.onStockStatusChanged, required this.category,
   });
 
   final FoodItem item;
   final int index;
   final String categoryId;
+  final String category;
   final List<FoodItem> categoryItems;
   final Function(int, bool) onStockStatusChanged;
 
@@ -153,7 +154,7 @@ class _FoodItemCardState extends State<FoodItemCard> {
                   child: FoodItemActions(
                     item: widget.item,
                     categoryId: widget.categoryId,
-                    categoryItems: widget.categoryItems,
+                    categoryItems: widget.categoryItems, category: widget.category,
                   ),
                 ),
               ],

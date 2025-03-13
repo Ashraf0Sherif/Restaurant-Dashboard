@@ -6,18 +6,17 @@ import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
-
-import '../widgets/sections/left_side_section.dart';
-import '../widgets/sections/right_side_section.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/sections/left_side_section.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/sections/right_side_section.dart';
 
 class AddFoodView extends StatelessWidget {
   final String categoryId;
   final List<FoodItem> categoryItems;
-
+  final String category;
   const AddFoodView({
     super.key,
     required this.categoryId,
-    required this.categoryItems,
+    required this.categoryItems, required this.category,
   });
 
   @override
@@ -41,7 +40,7 @@ class AddFoodView extends StatelessWidget {
                   context.read<DashboardCubit>().changeView(
                         ResponsiveViews.categoryFoodItems(
                           categoryId: categoryId,
-                          foodItems: categoryItems,
+                          foodItems: categoryItems, category: category
                         ),
                       );
                 },
@@ -85,7 +84,7 @@ class AddFoodView extends StatelessWidget {
                             context.read<DashboardCubit>().changeView(
                                   ResponsiveViews.categoryFoodItems(
                                     categoryId: categoryId,
-                                    foodItems: categoryItems,
+                                    foodItems: categoryItems, category: category,
                                   ),
                                 );
                           },

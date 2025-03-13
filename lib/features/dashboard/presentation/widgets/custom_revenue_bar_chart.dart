@@ -97,7 +97,7 @@ class _CustomRevenueBarChartState extends State<CustomRevenueBarChart> {
           horizontalInterval: 20,
           getDrawingHorizontalLine: (value) {
             return FlLine(
-              color: Colors.grey.withOpacity(0.1),
+              color: Colors.grey.withValues(alpha:0.1),
               strokeWidth: 1,
               dashArray: [5, 5],
             );
@@ -120,13 +120,13 @@ class _CustomRevenueBarChartState extends State<CustomRevenueBarChart> {
       barRods: [
         BarChartRodData(
           toY: monthData.currentYearRevenue,
-          color: ColorsStyles.kPrimaryColor.withOpacity(isSelected ? 1 : 0.8),
+          color: ColorsStyles.kPrimaryColor.withValues(alpha: isSelected ? 1 : 0.8),
           width: width,
           borderRadius: BorderRadius.zero,
         ),
         BarChartRodData(
           toY: monthData.previousYearRevenue,
-          color: Colors.grey[300]?.withOpacity(isSelected ? 1 : 0.8),
+          color: Colors.grey[300]?.withValues(alpha: isSelected ? 1 : 0.8),
           width: width,
           borderRadius: BorderRadius.zero,
         ),

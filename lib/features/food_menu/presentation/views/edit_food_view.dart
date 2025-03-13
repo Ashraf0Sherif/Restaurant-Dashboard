@@ -5,10 +5,9 @@ import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
-
-import '../widgets/food_details/action_buttons.dart';
-import '../widgets/sections/left_side_section.dart';
-import '../widgets/sections/right_side_section.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/food_details/action_buttons.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/sections/left_side_section.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/sections/right_side_section.dart';
 
 class EditFoodView extends StatelessWidget {
   final FoodItem item;
@@ -42,7 +41,7 @@ class EditFoodView extends StatelessWidget {
                 onPressed: () {
                   context.read<DashboardCubit>().changeView(
                         ResponsiveViews.categoryFoodItems(
-                            categoryId: categoryId, foodItems: categoryItems),
+                            categoryId: categoryId, foodItems: categoryItems, category: ''),
                       );
                 },
                 icon: const Icon(Icons.arrow_back),
@@ -81,7 +80,7 @@ class EditFoodView extends StatelessWidget {
                     ActionButtons(
                       categoryId: categoryId,
                       categoryItems: categoryItems,
-                      onSave: () {},
+                      onSave: () {}, category: '',
                     ),
                   ],
                 ),

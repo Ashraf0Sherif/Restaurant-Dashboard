@@ -17,7 +17,7 @@ abstract class AppRouter {
   static final Map<String, Widget> views = {
     kOrdersView: const OrdersView(),
     kFoodMenuView: const FoodCategoriesTabletLayout(),
-    kBannersView: const BannersViewBlocBuilder(),
+    kBannersView: const BannersView(),
     kAddBannerView: const AddEditBannerView(),
     kLandingView: const LandingView(),
   };

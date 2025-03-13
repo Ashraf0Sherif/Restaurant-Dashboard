@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/ingredient/extra_ingredient.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/extra_ingredients_widget.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/add_edit_food_item/extra_ingredients_widget.dart';
 
+import '../../../../../core/theming/colors.dart';
 import '../food_item/add_edit_food_text_field.dart';
 
 class RightSideSection extends StatefulWidget {
@@ -66,19 +67,49 @@ class _RightSideSectionState extends State<RightSideSection> {
           foodItem: widget.item,
         ),
         verticalSpace(16),
-        const Text(
-          'Please upload any file to see a preview',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey,
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(8),
           ),
-        ),
-        verticalSpace(8),
-        const Text(
-          '* Recommended resolution is 640*960 with file size',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey,
+          child: Column(
+            children: [
+              const Icon(
+                Icons.cloud_upload,
+                size: 50,
+                color: Colors.grey,
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Upload Food Item Image',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                'Recommended resolution: 640x960',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  // Implement image upload logic
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: ColorsStyles.kPrimaryColor,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('Select Image'),
+              ),
+            ],
           ),
         ),
       ],

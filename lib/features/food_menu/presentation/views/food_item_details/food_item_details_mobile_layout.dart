@@ -11,8 +11,9 @@ class FoodItemDetailsMobileLayout extends StatelessWidget {
     required this.item,
     required this.categoryId,
     required this.categoryItems,
+    required this.category,
   });
-
+  final String category;
   final FoodItem item;
   final String categoryId;
   final List<FoodItem> categoryItems;
@@ -24,8 +25,12 @@ class FoodItemDetailsMobileLayout extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          verticalSpace(16),
           FoodDetailsHeader(
-              categoryId: categoryId, foodItems: [...otherItems, item]),
+            categoryId: categoryId,
+            foodItems: [...otherItems, item],
+            category: category,
+          ),
           verticalSpace(10),
           FoodItemDetailsMobilelLayoutBody(item: item),
           if (otherItems.isNotEmpty) ...[
@@ -34,6 +39,7 @@ class FoodItemDetailsMobileLayout extends StatelessWidget {
               items: categoryItems,
               categoryId: categoryId,
               currentItem: item,
+              category: category,
             ),
           ],
         ],

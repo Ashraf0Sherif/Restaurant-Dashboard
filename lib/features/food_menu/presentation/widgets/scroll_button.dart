@@ -11,7 +11,7 @@ class ScrollButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: Colors.grey.shade200.withOpacity(0.5),
+        color: Colors.grey.shade200.withValues(alpha: 0.5),
       ),
       child: IconButton(
         onPressed: onPressed,

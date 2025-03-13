@@ -7,6 +7,7 @@ import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
 
 class ActionButtons extends StatelessWidget {
+  final String category;
   final String categoryId;
   final List<FoodItem> categoryItems;
   final VoidCallback? onSave;
@@ -15,7 +16,7 @@ class ActionButtons extends StatelessWidget {
     super.key,
     required this.categoryId,
     required this.categoryItems,
-    this.onSave,
+    this.onSave, required this.category,
   });
 
   @override
@@ -27,7 +28,10 @@ class ActionButtons extends StatelessWidget {
           onPressed: () {
             context.read<DashboardCubit>().changeView(
                   ResponsiveViews.categoryFoodItems(
-                      categoryId: categoryId, foodItems: categoryItems),
+                      categoryId: categoryId,
+                      foodItems: categoryItems,
+                      category: category,
+                    ),
                 );
           },
           child: const Text('Cancel'),

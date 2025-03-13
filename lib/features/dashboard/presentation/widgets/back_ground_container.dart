@@ -6,15 +6,17 @@ class BackGroundContainer extends StatelessWidget {
     required this.child,
     this.padding = const EdgeInsets.all(16),
     this.margin,
-    this.borderRadius,
+    this.borderRadius, this.width,
   });
   final Widget child;
   final EdgeInsets padding;
   final EdgeInsets? margin;
   final BorderRadiusGeometry? borderRadius;
+  final double? width;
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width,
       padding: padding,
       margin: margin,
       decoration: BoxDecoration(

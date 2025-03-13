@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/ingredient/ingredient.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/categories_drop_down_button.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/add_edit_food_item/categories_drop_down_button.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/custom_text_field.dart';
-import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/ingredients_list.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/add_edit_food_item/ingredients_list.dart';
 
 class LeftSideSection extends StatefulWidget {
   const LeftSideSection(

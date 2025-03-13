@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
-import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/category/category_model.dart';
 
@@ -24,7 +23,7 @@ class CategoryCard extends StatelessWidget {
           context.read<DashboardCubit>().changeView(
                 ResponsiveViews.categoryFoodItems(
                   categoryId: category.id,
-                  foodItems: category.foodItems,
+                  foodItems: category.foodItems, category: category.title,
                 ),
               );
         },

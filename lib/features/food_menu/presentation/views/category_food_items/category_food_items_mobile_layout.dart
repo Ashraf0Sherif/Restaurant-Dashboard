@@ -6,11 +6,13 @@ import '../../../../../core/theming/colors.dart';
 import '../../../../../core/utils/responsive_views.dart';
 import '../../../../dashboard/presentation/widgets/back_ground_container.dart';
 import '../../../data/models/food_item/food_item.dart';
+import '../../widgets/category_food_items_bread_crumb.dart';
 import '../../widgets/food_item/food_item_card.dart';
 
 class CategoryFoodItemsMobileLayout extends StatefulWidget {
   const CategoryFoodItemsMobileLayout(
-      {super.key, required this.categoryId, required this.foodItems});
+      {super.key, required this.categoryId, required this.foodItems, required this.category});
+      final String category;
   final String categoryId;
   final List<FoodItem> foodItems;
   @override
@@ -33,10 +35,10 @@ class _CategoryFoodItemsMobileLayoutState
       borderRadius: BorderRadius.zero,
       child: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _buildBreadcrumb(),
+              padding: EdgeInsets.all(8.0),
+              child: CategoryFoodItemsBreadCrumb(),
             ),
           ),
           SliverToBoxAdapter(
@@ -48,7 +50,7 @@ class _CategoryFoodItemsMobileLayoutState
                     context.read<DashboardCubit>().changeView(
                           ResponsiveViews.addFoodView(
                               categoryId: widget.categoryId,
-                              categoryItems: widget.foodItems),
+                              categoryItems: widget.foodItems, category: widget.category),
                         );
                   },
                   icon: const Icon(
@@ -80,37 +82,9 @@ class _CategoryFoodItemsMobileLayoutState
               categoryId: widget.categoryId,
               categoryItems: widget.foodItems,
               onStockStatusChanged: updateStockStatus,
+              category: widget.category,
             ),
           )
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBreadcrumb() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          TextButton(
-            onPressed: () {},
-            child: const Text('Foodie'),
-          ),
-          const Icon(Icons.chevron_right, size: 16),
-          TextButton(
-            onPressed: () => context
-                .read<DashboardCubit>()
-                .changeView(ResponsiveViews.foodCategories),
-            child: const Text('Food Categories'),
-          ),
-          const Icon(Icons.chevron_right, size: 16),
-          TextButton(
-            onPressed: () {},
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-            ),
-            child: const Text('Food List'),
-          ),
         ],
       ),
     );

@@ -7,6 +7,7 @@ import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/f
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/food_item_details/food_item_details_tablet_layout_body.dart';
 
 class FoodItemDetailsTabletLayout extends StatelessWidget {
+  final String category;
   final FoodItem item;
   final String categoryId;
   final List<FoodItem> categoryItems;
@@ -15,7 +16,7 @@ class FoodItemDetailsTabletLayout extends StatelessWidget {
     super.key,
     required this.item,
     required this.categoryId,
-    required this.categoryItems,
+    required this.categoryItems, required this.category,
   });
 
   @override
@@ -27,7 +28,7 @@ class FoodItemDetailsTabletLayout extends StatelessWidget {
         slivers: [
           SliverToBoxAdapter(
             child: FoodDetailsHeader(
-                categoryId: categoryId, foodItems: [...otherItems, item]),
+                categoryId: categoryId, foodItems: [...otherItems, item], category: category,),
           ),
           SliverToBoxAdapter(
             child: verticalSpace(10),
@@ -64,7 +65,7 @@ class FoodItemDetailsTabletLayout extends StatelessWidget {
                   CategoryItemsList(
                     items: categoryItems,
                     categoryId: categoryId,
-                    currentItem: item,
+                    currentItem: item, category: category,
                   ),
                 ],
               ],

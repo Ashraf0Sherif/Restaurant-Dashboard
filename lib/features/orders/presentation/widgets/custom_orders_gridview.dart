@@ -76,7 +76,7 @@ class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
     return InkWell(
       onTap: onTap,
       child: Container(
-        color: Colors.blue.shade300.withOpacity(0.6),
+        color: Colors.blue.shade300.withValues(alpha:0.6),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

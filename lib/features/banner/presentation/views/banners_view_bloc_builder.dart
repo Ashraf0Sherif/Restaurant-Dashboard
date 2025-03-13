@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/features/banner/logic/banners_cubit/banners_cubit.dart';
-import 'package:restaurant_admin_panel/features/banner/presentation/views/widgets/success_banners_view.dart';
+import 'package:restaurant_admin_panel/features/banner/presentation/views/banners_mobile_layout.dart';
+import 'banners_tablet_layout.dart';
 
-class BannersView extends StatefulWidget {
-  const BannersView({super.key});
-
+class BannersViewBlocBuilder extends StatefulWidget {
+  const BannersViewBlocBuilder({super.key, this.isMobile = false});
+  final bool isMobile;
   @override
-  State<BannersView> createState() => _BannersViewState();
+  State<BannersViewBlocBuilder> createState() => _BannersViewBlocBuilderState();
 }
 
-class _BannersViewState extends State<BannersView> {
+class _BannersViewBlocBuilderState extends State<BannersViewBlocBuilder> {
   @override
   void initState() {
     super.initState();
@@ -27,7 +28,7 @@ class _BannersViewState extends State<BannersView> {
               child: CircularProgressIndicator(),
             );
           } else if (state is BannersSuccess) {
-            return SuccessBannersView(banners: state.banners);
+            return widget.isMobile ?  BannersMobileLayout(banners: state.banners,) : BannersTabletLayout(banners: state.banners);
           } else if (state is BannersFailure) {
             return Center(
               child: Text(state.errorMessage),
@@ -42,5 +43,3 @@ class _BannersViewState extends State<BannersView> {
     );
   }
 }
-
-

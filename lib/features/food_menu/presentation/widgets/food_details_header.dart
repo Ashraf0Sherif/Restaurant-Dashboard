@@ -9,9 +9,9 @@ class FoodDetailsHeader extends StatelessWidget {
   const FoodDetailsHeader({
     super.key,
     required this.categoryId,
-    required this.foodItems,
+    required this.foodItems, required this.category,
   });
-
+  final String category;
   final String categoryId;
   final List<FoodItem> foodItems;
 
@@ -33,7 +33,11 @@ class FoodDetailsHeader extends StatelessWidget {
             onPressed: () {
               context.read<DashboardCubit>().changeView(
                   ResponsiveViews.categoryFoodItems(
-                      categoryId: categoryId, foodItems: foodItems));
+                      categoryId: categoryId,
+                      foodItems: foodItems,
+                      category: category,
+                    ),
+                );
             },
             icon: const Icon(Icons.arrow_back),
             label: const Text('Back to List'),

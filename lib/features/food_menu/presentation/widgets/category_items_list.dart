@@ -10,12 +10,13 @@ class CategoryItemsList extends StatelessWidget {
   final List<FoodItem> items;
   final String categoryId;
   final FoodItem currentItem;
-
+  final String category;
   const CategoryItemsList({
     super.key,
     required this.items,
     required this.categoryId,
     required this.currentItem,
+    required this.category,
   });
 
   @override
@@ -51,7 +52,7 @@ class CategoryItemsList extends StatelessWidget {
                             ResponsiveViews.foodItemDetails(
                                 item: otherItem,
                                 categoryId: categoryId,
-                                categoryItems: items),
+                                categoryItems: items, category: category),
                           );
                     },
                     child: _buildItemCard(otherItem),

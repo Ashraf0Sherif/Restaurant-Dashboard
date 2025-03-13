@@ -44,7 +44,7 @@ class _CustomOrderRateLineChartState extends State<CustomOrderRateLineChart> {
           horizontalInterval: 2,
           getDrawingHorizontalLine: (value) {
             return FlLine(
-              color: Colors.grey.withOpacity(0.15),
+              color: Colors.grey.withValues(alpha: 0.15),
               strokeWidth: 1,
             );
           },
@@ -131,7 +131,7 @@ class _CustomOrderRateLineChartState extends State<CustomOrderRateLineChart> {
             ),
             belowBarData: BarAreaData(
               show: true,
-              color: ColorsStyles.kPrimaryColor.withOpacity(0.1),
+              color: ColorsStyles.kPrimaryColor.withValues(alpha: 0.1),
             ),
           ),
           LineChartBarData(

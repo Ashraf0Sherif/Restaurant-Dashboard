@@ -92,7 +92,7 @@ class _ActiveMenuItemState extends State<ActiveMenuItem>
                   trailing: Container(
                     width: 3.27,
                     decoration: BoxDecoration(
-                      color: ColorsStyles.kSecondaryColor.withOpacity(0.3),
+                      color: ColorsStyles.kSecondaryColor.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(6),
                     ),
                   ),

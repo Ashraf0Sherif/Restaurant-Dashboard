@@ -5,13 +5,18 @@ import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
+import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/category_food_items_bread_crumb.dart';
 
 import '../../widgets/food_item/food_item_row.dart';
 
 class CategoryFoodItemsTabletLayout extends StatefulWidget {
   const CategoryFoodItemsTabletLayout(
-      {super.key, required this.foodItems, required this.categoryId});
+      {super.key,
+      required this.foodItems,
+      required this.categoryId,
+      required this.category});
   final String categoryId;
+  final String category;
   final List<FoodItem> foodItems;
   @override
   State<CategoryFoodItemsTabletLayout> createState() =>
@@ -34,14 +39,15 @@ class _CategoryFoodItemsTabletLayoutState
           SliverToBoxAdapter(
             child: Row(
               children: [
-                _buildBreadcrumb(),
+                const CategoryFoodItemsBreadCrumb(),
                 const Spacer(),
                 ElevatedButton.icon(
                   onPressed: () {
                     context.read<DashboardCubit>().changeView(
                           ResponsiveViews.addFoodView(
                               categoryId: widget.categoryId,
-                              categoryItems: widget.foodItems),
+                              categoryItems: widget.foodItems,
+                              category: widget.category),
                         );
                   },
                   icon: const Icon(
@@ -94,6 +100,7 @@ class _CategoryFoodItemsTabletLayoutState
               categoryId: widget.categoryId,
               categoryItems: widget.foodItems,
               onStockStatusChanged: updateStockStatus,
+              category: widget.category,
             ),
           )
         ],
@@ -101,26 +108,4 @@ class _CategoryFoodItemsTabletLayoutState
     );
   }
 
-  Widget _buildBreadcrumb() {
-    return Row(
-      children: [
-        TextButton(
-          onPressed: () {},
-          child: const Text('Foodie'),
-        ),
-        const Icon(Icons.chevron_right),
-        TextButton(
-          onPressed: () => context
-              .read<DashboardCubit>()
-              .changeView(ResponsiveViews.foodCategories),
-          child: const Text('Food Categories'),
-        ),
-        const Icon(Icons.chevron_right),
-        TextButton(
-          onPressed: () {},
-          child: const Text('Food List'),
-        ),
-      ],
-    );
-  }
 }

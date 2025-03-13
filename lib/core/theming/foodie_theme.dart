@@ -40,7 +40,7 @@ ThemeData foodieTheme(context) {
         overlayColor: WidgetStateProperty.resolveWith<Color>(
           (Set<WidgetState> states) {
             if (states.contains(WidgetState.pressed)) {
-              return ColorsStyles.kPrimaryColor.withOpacity(0.1);
+              return ColorsStyles.kPrimaryColor.withValues(alpha: 0.1);
             }
             return Colors.transparent;
           },
@@ -67,7 +67,7 @@ ThemeData foodieTheme(context) {
     ),
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: Colors.white,
-      selectionColor: ColorsStyles.kPrimaryColor.withOpacity(0.3),
+      selectionColor: ColorsStyles.kPrimaryColor.withValues(alpha: 0.3),
       selectionHandleColor: Colors.white,
     ),
   );

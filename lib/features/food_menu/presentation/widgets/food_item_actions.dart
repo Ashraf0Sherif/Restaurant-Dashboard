@@ -11,7 +11,9 @@ class FoodItemActions extends StatelessWidget {
     required this.item,
     required this.categoryId,
     required this.categoryItems,
+    required this.category,
   });
+  final String category;
   final FoodItem item;
   final String categoryId;
   final List<FoodItem> categoryItems;
@@ -27,7 +29,7 @@ class FoodItemActions extends StatelessWidget {
                   ResponsiveViews.editFoodView(
                     item: item,
                     categoryId: categoryId,
-                    categoryItems: categoryItems,
+                    categoryItems: categoryItems, category: category,
                   ),
                 );
           },
@@ -41,6 +43,7 @@ class FoodItemActions extends StatelessWidget {
                     item: item,
                     categoryId: categoryId,
                     categoryItems: categoryItems,
+                    category: category,
                   ),
                 );
           },
