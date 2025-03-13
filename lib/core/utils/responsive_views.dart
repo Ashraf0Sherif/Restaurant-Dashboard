@@ -36,11 +36,15 @@ abstract class ResponsiveViews {
     tablet: DashboardTabletLayout(),
   );
   static const ResponsiveView orders = ResponsiveView(
-    mobile: OrdersView(),
+    mobile: OrdersView(
+      isMobile: true,
+    ),
     tablet: OrdersView(),
   );
   static const ResponsiveView banners = ResponsiveView(
-    mobile: BannersViewBlocBuilder(isMobile: true,),
+    mobile: BannersViewBlocBuilder(
+      isMobile: true,
+    ),
     tablet: BannersViewBlocBuilder(),
   );
   static const ResponsiveView foodCategories = ResponsiveView(
@@ -48,22 +52,25 @@ abstract class ResponsiveViews {
     tablet: FoodCategoriesTabletLayout(),
   );
   static ResponsiveView categoryFoodItems(
-      {required String categoryId, required List<FoodItem> foodItems, required String category}) {
+      {required String categoryId,
+      required List<FoodItem> foodItems,
+      required String category}) {
     return ResponsiveView(
       mobile: CategoryFoodItemsMobileLayout(
         categoryId: categoryId,
-        foodItems: foodItems, category: category,
+        foodItems: foodItems,
+        category: category,
       ),
       tablet: CategoryFoodItemsTabletLayout(
         categoryId: categoryId,
-        foodItems: foodItems, category: category,
+        foodItems: foodItems,
+        category: category,
       ),
       mobileMaxWidth: 765,
     );
   }
 
-  static ResponsiveView addEditBannerView(
-      {BannerModel? banner}) {
+  static ResponsiveView addEditBannerView({BannerModel? banner}) {
     return ResponsiveView(
       mobile: AddEditBannerView(banner: banner),
       tablet: AddEditBannerView(banner: banner),
@@ -71,15 +78,19 @@ abstract class ResponsiveViews {
   }
 
   static ResponsiveView addFoodView(
-      {required String categoryId, required List<FoodItem> categoryItems, required String category}) {
+      {required String categoryId,
+      required List<FoodItem> categoryItems,
+      required String category}) {
     return ResponsiveView(
       mobile: AddFoodItemMobileLayout(
         categoryId: categoryId,
-        categoryItems: categoryItems, category: category,
+        categoryItems: categoryItems,
+        category: category,
       ),
       tablet: AddFoodItemTabletLayout(
         categoryId: categoryId,
-        categoryItems: categoryItems, category: category,
+        categoryItems: categoryItems,
+        category: category,
       ),
     );
   }
@@ -93,12 +104,14 @@ abstract class ResponsiveViews {
       mobile: EditFoodItemMobileLayout(
         item: item,
         categoryId: categoryId,
-        categoryItems: categoryItems, category: category,
+        categoryItems: categoryItems,
+        category: category,
       ),
       tablet: EditFoodItemTabletLayout(
         item: item,
         categoryId: categoryId,
-        categoryItems: categoryItems, category: category,
+        categoryItems: categoryItems,
+        category: category,
       ),
     );
   }
@@ -106,17 +119,20 @@ abstract class ResponsiveViews {
   static ResponsiveView foodItemDetails(
       {required FoodItem item,
       required String categoryId,
-      required List<FoodItem> categoryItems, required String category}) {
+      required List<FoodItem> categoryItems,
+      required String category}) {
     return ResponsiveView(
       mobile: FoodItemDetailsMobileLayout(
         item: item,
         categoryId: categoryId,
-        categoryItems: categoryItems, category: category,
+        categoryItems: categoryItems,
+        category: category,
       ),
       tablet: FoodItemDetailsTabletLayout(
         item: item,
         categoryId: categoryId,
-        categoryItems: categoryItems, category: category,
+        categoryItems: categoryItems,
+        category: category,
       ),
     );
   }
