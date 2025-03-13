@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin_panel/core/theming/colors.dart';
 
 import 'custom_info_card.dart';
 
@@ -38,8 +39,8 @@ class CustomCardRow extends StatelessWidget {
           title: 'Delivered Orders',
           value: '245',
           percentage: '20%',
-          color: Colors.orange.shade800.withOpacity(0.6),
-          verticalDividerColor: Colors.orange.shade300,
+          color: Color(ColorsStyles.kPrimaryColor.value).withOpacity(0.6),
+          verticalDividerColor: Color(ColorsStyles.kPrimaryColor.value),
         )),
       ],
     );

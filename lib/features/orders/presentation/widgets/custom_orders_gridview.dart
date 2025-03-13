@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 
 class CustomOrdersGridView extends StatefulWidget {
@@ -27,7 +28,8 @@ class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
           onPressed: onPressed,
           child: Text(
             text,
-            style: TextStyle(fontSize: FontStyles.getResponsiveFontSize(context, 18)),
+            style: TextStyle(
+                fontSize: FontStyles.getResponsiveFontSize(context, 18)),
           ),
         ),
         const SizedBox(
@@ -62,7 +64,8 @@ class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
           ),
           Text(
             text,
-            style: TextStyle(fontSize: FontStyles.getResponsiveFontSize(context, 16)),
+            style: TextStyle(
+                fontSize: FontStyles.getResponsiveFontSize(context, 16)),
           )
         ],
       ),
@@ -85,7 +88,8 @@ class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
                 : Container(),
             Text(
               text,
-              style: TextStyle(fontSize: FontStyles.getResponsiveFontSize(context, 16)),
+              style: TextStyle(
+                  fontSize: FontStyles.getResponsiveFontSize(context, 16)),
             ),
           ],
         ),
@@ -111,11 +115,12 @@ class _CustomOrdersGridViewState extends State<CustomOrdersGridView> {
               color: Colors.purple,
             )),
         buildOrderInfo(
-            "Ordered date",
-            const Icon(
-              Icons.calendar_month,
-              color: Colors.orange,
-            )),
+          "Ordered date",
+          const Icon(
+            Icons.calendar_month,
+            color: ColorsStyles.kPrimaryColor,
+          ),
+        ),
         buildOrderInfo(
             "Order Name", const Icon(Icons.inventory, color: Colors.green)),
         buildOrderInfo(

@@ -73,7 +73,6 @@ class MostOrderFoodWidget extends StatelessWidget {
                   item.price,
                   item.imageUrl,
                 ),
-                //is item is the last
                 if (foodData.indexOf(item) != foodData.length - 1)
                   const Divider(
                     color: Colors.grey,
