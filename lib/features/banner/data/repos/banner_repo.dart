@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import '../../../../core/firebase/firebase_result.dart';
+import '../../../../core/services/firebase/firebase_result.dart';
 import '../models/banner_model.dart';
 
 abstract class BannerRepo {

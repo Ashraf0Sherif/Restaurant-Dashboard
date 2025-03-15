@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
+import 'package:restaurant_admin_panel/features/dashboard/logic/cubit/dashboard_cubit.dart';
 
 class RevenueHeader extends StatelessWidget {
   const RevenueHeader({super.key});
@@ -16,12 +18,38 @@ class RevenueHeader extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        Text(
-          '3,456',
-          style: TextStyle(
-            fontSize: FontStyles.getResponsiveFontSize(context, 18),
-            fontWeight: FontWeight.bold,
-          ),
+        BlocBuilder<DashboardCubit, DashboardState>(
+          builder: (context, state) {
+            return state.maybeWhen(
+              orElse: () => const SizedBox(),
+              loading: () => const CircularProgressIndicator(),
+              loaded: (revenueData){
+                final currentWeekRevenue = revenueData.getCurrentWeekRevenue();
+                final lastWeekRevenue = revenueData.getLastWeekRevenue();
+                return Row(
+                  children: [
+                    Text(
+                      "Current Week Revenue : ${currentWeekRevenue.toStringAsFixed(2)}",
+                      style: TextStyle(
+                        fontSize: FontStyles.getResponsiveFontSize(context, 18),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    if(currentWeekRevenue > lastWeekRevenue)
+                      const Icon(
+                        Icons.arrow_upward,
+                        color: Colors.green,
+                      ),
+                    if(currentWeekRevenue < lastWeekRevenue)
+                      const Icon(
+                        Icons.arrow_downward,
+                        color: Colors.red,
+                      ),
+                  ],
+                );
+              }
+            );
+          },
         ),
       ],
     );

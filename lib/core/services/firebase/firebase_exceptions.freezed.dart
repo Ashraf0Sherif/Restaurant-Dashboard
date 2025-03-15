@@ -78,6 +78,9 @@ class _$FirebaseExceptionsCopyWithImpl<$Res, $Val extends FirebaseExceptions>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of FirebaseExceptions
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -94,6 +97,9 @@ class __$$FormatExceptionImplCopyWithImpl<$Res>
   __$$FormatExceptionImplCopyWithImpl(
       _$FormatExceptionImpl _value, $Res Function(_$FormatExceptionImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of FirebaseExceptions
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -202,6 +208,9 @@ class __$$NoInternetConnectionImplCopyWithImpl<$Res>
   __$$NoInternetConnectionImplCopyWithImpl(_$NoInternetConnectionImpl _value,
       $Res Function(_$NoInternetConnectionImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of FirebaseExceptions
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -311,6 +320,9 @@ class __$$UnexpectedErrorImplCopyWithImpl<$Res>
   __$$UnexpectedErrorImplCopyWithImpl(
       _$UnexpectedErrorImpl _value, $Res Function(_$UnexpectedErrorImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of FirebaseExceptions
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

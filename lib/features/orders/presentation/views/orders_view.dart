@@ -4,8 +4,8 @@ import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/b
 
 import '../../../../core/theming/colors.dart';
 import '../../data/models/order_model.dart';
-import '../widgets/orders_table_mobile_layout.dart';
-import '../widgets/orders_table_tablet_layout.dart';
+import 'orders_table_mobile_layout.dart';
+import 'orders_table_tablet_layout.dart';
 
 class OrdersView extends StatefulWidget {
   const OrdersView({

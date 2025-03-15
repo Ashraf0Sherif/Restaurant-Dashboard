@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
+import 'package:restaurant_admin_panel/core/dashboard_cubit/navigation_cubit.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/dashboard/data/models/drawer_item_model.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/drawer_item.dart';
@@ -39,21 +39,21 @@ class _DrawerSliverListState extends State<DrawerSliverList> {
       setState(
         () {
           selectedIndex = index;
-          context.read<DashboardCubit>().selectedIndex = selectedIndex;
+          context.read<NavigationCubit>().selectedIndex = selectedIndex;
           if (menuItems[selectedIndex].title == "Dashboard") {
-            context.read<DashboardCubit>().changeView(
+            context.read<NavigationCubit>().changeView(
                   ResponsiveViews.dashboard
                 );
           } else if (menuItems[selectedIndex].title == "Orders") {
-            context.read<DashboardCubit>().changeView(
+            context.read<NavigationCubit>().changeView(
                   ResponsiveViews.orders
                 );
           } else if (menuItems[selectedIndex].title == "Menu") {
-            context.read<DashboardCubit>().changeView(
+            context.read<NavigationCubit>().changeView(
                   ResponsiveViews.foodCategories
                 );
           } else if (menuItems[selectedIndex].title == "Banners") {
-            context.read<DashboardCubit>().changeView(
+            context.read<NavigationCubit>().changeView(
                   ResponsiveViews.banners
                 );
           }
@@ -65,7 +65,7 @@ class _DrawerSliverListState extends State<DrawerSliverList> {
   @override
   void initState() {
     super.initState();
-    selectedIndex = context.read<DashboardCubit>().selectedIndex;
+    selectedIndex = context.read<NavigationCubit>().selectedIndex;
   }
 
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/dashboard_cubit/dashboard_cubit.dart';
+import '../../../../core/dashboard_cubit/navigation_cubit.dart';
 import '../../../../core/utils/responsive_views.dart';
 
 class CategoryFoodItemsBreadCrumb extends StatelessWidget {
@@ -13,7 +13,7 @@ class CategoryFoodItemsBreadCrumb extends StatelessWidget {
       children: [
         TextButton(
           onPressed: () => context
-              .read<DashboardCubit>()
+              .read<NavigationCubit>()
               .changeView(ResponsiveViews.foodCategories),
           child: const Text('Food Categories'),
         ),

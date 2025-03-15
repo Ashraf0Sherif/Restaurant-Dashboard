@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/dashboard_cubit/dashboard_cubit.dart';
+import '../../../../../core/dashboard_cubit/navigation_cubit.dart';
 import '../../../../../core/theming/colors.dart';
 import '../../../../../core/utils/responsive_views.dart';
 import '../../../../dashboard/presentation/widgets/back_ground_container.dart';
@@ -47,7 +47,7 @@ class _CategoryFoodItemsMobileLayoutState
               child: Center(
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    context.read<DashboardCubit>().changeView(
+                    context.read<NavigationCubit>().changeView(
                           ResponsiveViews.addFoodView(
                               categoryId: widget.categoryId,
                               categoryItems: widget.foodItems, category: widget.category),

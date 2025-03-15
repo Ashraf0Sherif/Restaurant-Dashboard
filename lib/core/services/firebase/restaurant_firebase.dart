@@ -3,16 +3,17 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:restaurant_admin_panel/core/firebase/firebase_constants.dart';
+import 'package:restaurant_admin_panel/core/services/firebase/firebase_constants.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/ingredient/extra_ingredient.dart';
 
-import '../../features/banner/data/models/banner_model.dart';
-import '../../features/food_menu/data/models/category/category_model.dart';
-import '../../features/food_menu/data/models/food_item/food_item.dart';
-import '../../features/food_menu/data/models/ingredient/ingredient.dart';
-import '../../firebase_options.dart';
+import '../../../features/banner/data/models/banner_model.dart';
+import '../../../features/dashboard/data/models/revenue_model.dart';
+import '../../../features/food_menu/data/models/category/category_model.dart';
+import '../../../features/food_menu/data/models/food_item/food_item.dart';
+import '../../../features/food_menu/data/models/ingredient/ingredient.dart';
+import '../../../firebase_options.dart';
 
-class CustomFirebase {
+class RestaurantFirebase {
   static Future<void> initialize() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -386,5 +387,18 @@ class CustomFirebase {
     );
     banner.image = downloadURL;
     return banner;
+  }
+
+  Future<RevenueModel> getRevenue() async {
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('weekly_revenue').get();
+
+    List<Map<String, dynamic>> weeklyData = snapshot.docs
+        .map((doc) => {
+              'day': doc.id, // Firestore document ID (day name)
+              ...doc.data() as Map<String, dynamic>,
+            })
+        .toList();
+    return RevenueModel.fromFirestore(weeklyData);
   }
 }

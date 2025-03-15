@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:restaurant_admin_panel/features/banner/data/models/banner_model.dart';
 import 'package:restaurant_admin_panel/features/banner/data/repos/banner_repo_implementation.dart';
 
-import '../../../../core/firebase/firebase_exceptions.dart';
+import '../../../../core/services/firebase/firebase_exceptions.dart';
 
 part 'banners_state.dart';
 

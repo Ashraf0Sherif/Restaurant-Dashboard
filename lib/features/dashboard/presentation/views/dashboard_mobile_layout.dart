@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurant_admin_panel/core/dashboard_cubit/navigation_cubit.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/most_order_food_widget.dart';
@@ -11,32 +13,35 @@ class DashboardMobileLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const AspectRatio(
-              aspectRatio: 1.5,
-              child: RevenueWidget(),
-            ),
-            verticalSpace(10),
-            const MostOrderFoodWidget(),
-            verticalSpace(10),
-            const BackGroundContainer(
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: OrderTimeWidget(),
+    return BlocProvider<NavigationCubit>(
+      create: (context) => NavigationCubit(),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              const AspectRatio(
+                aspectRatio: 1.5,
+                child: RevenueWidget(),
               ),
-            ),
-            verticalSpace(10),
-            const BackGroundContainer(
-              child: AspectRatio(
-                aspectRatio: 1.3,
-                child: OrderRateWidget(),
+              verticalSpace(10),
+              const MostOrderFoodWidget(),
+              verticalSpace(10),
+              const BackGroundContainer(
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: OrderTimeWidget(),
+                ),
               ),
-            ),
-          ],
+              verticalSpace(10),
+              const BackGroundContainer(
+                child: AspectRatio(
+                  aspectRatio: 1.3,
+                  child: OrderRateWidget(),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -6,19 +6,11 @@ import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/
 
 import '../utils/responsive_views.dart';
 
-part 'dashboard_state.dart';
+part 'navigation_state.dart';
 
-class DashboardCubit extends Cubit<DashboardState> {
-  DashboardCubit() : super(DashboardInitial());
+class NavigationCubit extends Cubit<NavigationState> {
+  NavigationCubit() : super(NavigationInitial());
   int selectedIndex = 0;
-  void gotoCategoryFoodItems(
-      {required String categoryId, required List<FoodItem> foodItems}) {
-    emit(CategoryFoodItems(foodItems: foodItems, categoryId: categoryId));
-  }
-
-  void gotoEditBanner({required BannerModel banner}) {
-    emit(EditBannerView(banner: banner));
-  }
 
   void changeView(ResponsiveView view) {
     emit(ChangeView(view: view));

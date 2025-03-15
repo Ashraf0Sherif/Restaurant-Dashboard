@@ -5,12 +5,12 @@ import '../../data/models/banner_model.dart';
 import '../widgets/banners_sliver_grid.dart';
 import '../widgets/banners_view_header.dart';
 
-class BannersMobileLayout extends StatelessWidget {
-  const BannersMobileLayout({
+class BannersViewBody extends StatelessWidget {
+  const BannersViewBody({
     super.key,
-    required this.banners,
+    required this.banners,  this.isMobile=false,
   });
-
+  final bool isMobile;
   final List<BannerModel> banners;
 
   @override
@@ -28,7 +28,6 @@ class BannersMobileLayout extends StatelessWidget {
           ),
           BannersSliverGrid(
             banners: banners,
-            isMobile: true,
           ),
         ],
       ),

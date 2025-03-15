@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import '../../../../core/firebase/firebase_result.dart';
+import '../../../../core/services/firebase/firebase_result.dart';
 import '../models/category/category_model.dart';
 import '../models/food_item/food_item.dart';
 

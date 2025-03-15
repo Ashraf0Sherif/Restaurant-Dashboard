@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/dashboard_cubit/dashboard_cubit.dart';
+import '../../../../../core/dashboard_cubit/navigation_cubit.dart';
 import '../../../../../core/theming/colors.dart';
 import '../../../../../core/theming/spacing.dart';
 import '../../../../../core/utils/responsive_views.dart';
@@ -262,7 +262,7 @@ class _EditFoodItemMobileState extends State<EditFoodItemMobileLayout> {
         Expanded(
           child: OutlinedButton(
             onPressed: () {
-              context.read<DashboardCubit>().changeView(
+              context.read<NavigationCubit>().changeView(
                     ResponsiveViews.categoryFoodItems(
                       categoryId: widget.categoryId,
                       foodItems: widget.categoryItems,

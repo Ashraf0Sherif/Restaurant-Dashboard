@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
+import 'package:restaurant_admin_panel/core/dashboard_cubit/navigation_cubit.dart';
 import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
@@ -43,7 +43,7 @@ class _CategoryFoodItemsTabletLayoutState
                 const Spacer(),
                 ElevatedButton.icon(
                   onPressed: () {
-                    context.read<DashboardCubit>().changeView(
+                    context.read<NavigationCubit>().changeView(
                           ResponsiveViews.addFoodView(
                               categoryId: widget.categoryId,
                               categoryItems: widget.foodItems,

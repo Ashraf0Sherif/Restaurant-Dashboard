@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:restaurant_admin_panel/core/firebase/firebase_exceptions.dart';
+import 'package:restaurant_admin_panel/core/services/firebase/firebase_exceptions.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/category/category_model.dart';
 
 import '../../data/models/food_item/food_item.dart';

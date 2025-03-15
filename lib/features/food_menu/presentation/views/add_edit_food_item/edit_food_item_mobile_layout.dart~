@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/dashboard_cubit/navigation_cubit.dart';
+import '../../../../../core/dashboard_cubit/dashboard_cubit.dart';
 import '../../../../../core/theming/colors.dart';
 import '../../../../../core/theming/spacing.dart';
 import '../../../../../core/utils/responsive_views.dart';
@@ -14,66 +16,84 @@ import '../../widgets/add_edit_food_item/extra_ingredients_widget.dart';
 import '../../widgets/food_item/add_edit_food_text_field.dart';
 import '../../widgets/add_edit_food_item/ingredients_list.dart';
 
-class AddFoodItemMobileLayout extends StatefulWidget {
-  final String category;
+class EditFoodItemMobileLayout extends StatefulWidget {
+  final FoodItem item;
   final String categoryId;
   final List<FoodItem> categoryItems;
-  final FoodItem? existingItem;
+  final String category;
 
-  const AddFoodItemMobileLayout({
+  const EditFoodItemMobileLayout({
     super.key,
+    required this.item,
     required this.categoryId,
     required this.categoryItems,
-    this.existingItem,
     required this.category,
   });
 
   @override
-  State<AddFoodItemMobileLayout> createState() => _AddFoodViewMobileState();
+  State<EditFoodItemMobileLayout> createState() => _EditFoodItemMobileState();
 }
 
-class _AddFoodViewMobileState extends State<AddFoodItemMobileLayout> {
+class _EditFoodItemMobileState extends State<EditFoodItemMobileLayout> {
+  late TextEditingController _titleController;
+  late TextEditingController _descriptionController;
+  late TextEditingController _priceController;
+  late TextEditingController _arabicTitleController;
+  late TextEditingController _arabicDescriptionController;
+  late TextEditingController _deliveryTimeController;
+
+  @override
+  void initState() {
+    super.initState();
+    _titleController = TextEditingController(text: widget.item.title);
+    _descriptionController =
+        TextEditingController(text: widget.item.description);
+    _priceController =
+        TextEditingController(text: widget.item.price.toString());
+    _arabicTitleController =
+        TextEditingController(text: widget.item.arabicTitle);
+    _arabicDescriptionController =
+        TextEditingController(text: widget.item.arabicDescription);
+    _deliveryTimeController =
+        TextEditingController(text: widget.item.deliverTime);
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _priceController.dispose();
+    _arabicTitleController.dispose();
+    _arabicDescriptionController.dispose();
+    _deliveryTimeController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: BackGroundContainer(
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: verticalSpace(10),
+          child: SingleChildScrollView(
+        child: Column(
+          children: [
+            AddEditFoodItemBreadCrumb(
+              category: widget.category,
+              categoryItems: widget.categoryItems,
+              categoryId: widget.categoryId,
+              isEdit: true,
             ),
-            SliverToBoxAdapter(
-              child: AddEditFoodItemBreadCrumb(
-                category: widget.category,
-                categoryItems: widget.categoryItems,
-                categoryId: widget.categoryId,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: verticalSpace(10),
-            ),
-            SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _buildProductDetailsSection(),
-                  const SizedBox(height: 16),
-                  const Divider(),
-                  const SizedBox(height: 16),
-                  _buildArabicDetailsSection(),
-                  const SizedBox(height: 16),
-                  const Divider(),
-                  const SizedBox(height: 16),
-                  _buildExtraDetailsSection(),
-                  const SizedBox(height: 24),
-                  _buildActionButtons(),
-                ],
-              ),
-            ),
+            verticalSpace(10),
+            _buildProductDetailsSection(),
+            verticalSpace(24),
+            _buildArabicDetailsSection(),
+            verticalSpace(24),
+            _buildExtraDetailsSection(),
+            verticalSpace(24),
+            _buildActionButtons(),
           ],
         ),
-      ),
+      )),
     );
   }
 
@@ -91,24 +111,18 @@ class _AddFoodViewMobileState extends State<AddFoodItemMobileLayout> {
         const SizedBox(height: 16),
         CustomTextField(
           label: 'Product Name',
-          controller: TextEditingController(
-            text: widget.existingItem?.title,
-          ),
+          controller: _titleController,
         ),
         const SizedBox(height: 16),
         CustomTextField(
           label: 'Description',
-          controller: TextEditingController(
-            text: widget.existingItem?.description,
-          ),
+          controller: _descriptionController,
           maxLines: 4,
         ),
         const SizedBox(height: 16),
         CustomTextField(
           label: 'Price',
-          controller: TextEditingController(
-            text: widget.existingItem?.price.toString(),
-          ),
+          controller: _priceController,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           prefixText: '\$ ',
         ),
@@ -125,14 +139,17 @@ class _AddFoodViewMobileState extends State<AddFoodItemMobileLayout> {
           categoryId: widget.categoryId,
         ),
         const SizedBox(height: 16),
+        const Text(
+          'Ingredients',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         IngredientsList(
-          ingredients: widget.existingItem?.ingredients ?? [],
-          onAdd: (ingredient) {
-            // Implement add ingredient logic
-          },
-          onRemove: (index) {
-            // Implement remove ingredient logic
-          },
+          ingredients: widget.item.ingredients,
+          onAdd: (ingredient) {},
+          onRemove: (index) {},
         ),
       ],
     );
@@ -152,24 +169,18 @@ class _AddFoodViewMobileState extends State<AddFoodItemMobileLayout> {
         const SizedBox(height: 16),
         AddEditFoodTextField(
           label: 'Arabic Title',
-          controller: TextEditingController(
-            text: widget.existingItem?.arabicTitle,
-          ),
+          controller: _arabicTitleController,
         ),
         const SizedBox(height: 16),
         AddEditFoodTextField(
           label: 'Arabic Description',
-          controller: TextEditingController(
-            text: widget.existingItem?.arabicDescription,
-          ),
+          controller: _arabicDescriptionController,
           maxLines: 4,
         ),
         const SizedBox(height: 16),
         AddEditFoodTextField(
           label: 'Delivery Time',
-          controller: TextEditingController(
-            text: widget.existingItem?.deliverTime,
-          ),
+          controller: _deliveryTimeController,
         ),
         const SizedBox(height: 16),
         const Text(
@@ -180,7 +191,7 @@ class _AddFoodViewMobileState extends State<AddFoodItemMobileLayout> {
           ),
         ),
         ExtraIngredientsWidget(
-          foodItem: widget.existingItem,
+          foodItem: widget.item,
         ),
       ],
     );
@@ -214,7 +225,7 @@ class _AddFoodViewMobileState extends State<AddFoodItemMobileLayout> {
               ),
               const SizedBox(height: 16),
               const Text(
-                'Upload Food Item Image',
+                'Replace Food Item Image',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -231,9 +242,7 @@ class _AddFoodViewMobileState extends State<AddFoodItemMobileLayout> {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () {
-                  // Implement image upload logic
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: ColorsStyles.kPrimaryColor,
                   foregroundColor: Colors.white,
@@ -253,7 +262,7 @@ class _AddFoodViewMobileState extends State<AddFoodItemMobileLayout> {
         Expanded(
           child: OutlinedButton(
             onPressed: () {
-              context.read<NavigationCubit>().changeView(
+              context.read<DashboardCubit>().changeView(
                     ResponsiveViews.categoryFoodItems(
                       categoryId: widget.categoryId,
                       foodItems: widget.categoryItems,
@@ -268,16 +277,20 @@ class _AddFoodViewMobileState extends State<AddFoodItemMobileLayout> {
         Expanded(
           child: ElevatedButton(
             onPressed: () {
-              // Implement add/edit food item logic
+              _updateFoodItem();
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: ColorsStyles.kPrimaryColor,
               foregroundColor: Colors.white,
             ),
-            child: Text(widget.existingItem != null ? 'Update' : 'Add Food'),
+            child: const Text('Update'),
           ),
         ),
       ],
     );
+  }
+
+  void _updateFoodItem() {
+    log('Updating food item: ${widget.item.title}');
   }
 }
