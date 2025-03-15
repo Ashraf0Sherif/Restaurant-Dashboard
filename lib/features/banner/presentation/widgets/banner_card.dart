@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 
-import '../../../../core/dashboard_cubit/dashboard_cubit.dart';
+import '../../../../core/navigation_cubit/navigation_cubit.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/utils/responsive_views.dart';
 import '../../data/models/banner_model.dart';
@@ -46,7 +46,7 @@ class BannerCard extends StatelessWidget {
                     ),
                     child: IconButton(
                       onPressed: () {
-                        context.read<DashboardCubit>().changeView(
+                        context.read<NavigationCubit>().changeView(
                             ResponsiveViews.addEditBannerView(banner: banner));
                       },
                       icon: const Icon(

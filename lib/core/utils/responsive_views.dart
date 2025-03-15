@@ -17,16 +17,17 @@ import 'package:restaurant_admin_panel/features/orders/presentation/views/orders
 import '../../features/banner/data/models/banner_model.dart';
 import '../../features/food_menu/presentation/views/category_food_items/category_food_items_mobile_layout.dart';
 import '../../features/food_menu/presentation/views/food_categories/food_categories_tablet_layout.dart';
+import 'size_config.dart';
 
 class ResponsiveView {
   final Widget mobile;
   final Widget tablet;
-  final int mobileMaxWidth, tabletMaxWidth;
+  final double mobileMaxWidth, tabletMaxWidth;
   const ResponsiveView({
     required this.mobile,
     required this.tablet,
-    this.mobileMaxWidth = 760,
-    this.tabletMaxWidth = 1200,
+    this.mobileMaxWidth = SizeConfig.mobile,
+    this.tabletMaxWidth = SizeConfig.tablet,
   });
 }
 

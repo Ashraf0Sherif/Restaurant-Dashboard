@@ -12,7 +12,7 @@ class ThisLastWeek extends StatelessWidget {
       children: [
         _buildLegendItem(context, 'This Week', ColorsStyles.kPrimaryColor),
         const SizedBox(width: 8),
-        _buildLegendItem(context, 'Last Week', ColorsStyles.kSecondaryColor),
+        _buildLegendItem(context, 'Last Week', Colors.grey[300]!),
       ],
     );
   }
@@ -32,7 +32,7 @@ class ThisLastWeek extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            color: Colors.grey[400],
+            color: Colors.grey[300],
             fontSize: FontStyles.getResponsiveFontSize(context, 14),
           ),
         ),

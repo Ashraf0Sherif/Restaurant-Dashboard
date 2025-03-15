@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
@@ -8,6 +7,7 @@ import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/b
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
 import 'package:restaurant_admin_panel/features/food_menu/presentation/widgets/add_edit_food_item_bread_crumb.dart';
 
+import '../../../../../core/navigation_cubit/navigation_cubit.dart';
 import '../../widgets/sections/left_side_section.dart';
 import '../../widgets/sections/right_side_section.dart';
 
@@ -116,7 +116,7 @@ class _AddFoodItemTabletLayoutState extends State<AddFoodItemTabletLayout> {
       children: [
         OutlinedButton(
           onPressed: () {
-            context.read<DashboardCubit>().changeView(
+            context.read<NavigationCubit>().changeView(
                   ResponsiveViews.categoryFoodItems(
                     categoryId: widget.categoryId,
                     foodItems: widget.categoryItems,

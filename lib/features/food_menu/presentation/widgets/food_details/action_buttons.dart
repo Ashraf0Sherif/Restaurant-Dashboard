@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
+
+import '../../../../../core/navigation_cubit/navigation_cubit.dart';
 
 class ActionButtons extends StatelessWidget {
   final String category;
@@ -26,7 +27,7 @@ class ActionButtons extends StatelessWidget {
       children: [
         TextButton(
           onPressed: () {
-            context.read<DashboardCubit>().changeView(
+            context.read<NavigationCubit>().changeView(
                   ResponsiveViews.categoryFoodItems(
                       categoryId: categoryId,
                       foodItems: categoryItems,

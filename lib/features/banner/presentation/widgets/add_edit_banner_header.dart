@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 
-import '../../../../core/dashboard_cubit/dashboard_cubit.dart';
+import '../../../../core/navigation_cubit/navigation_cubit.dart';
 import '../../../../core/utils/responsive_views.dart';
 
 class AddEditBannerHeader extends StatelessWidget {
@@ -22,7 +22,7 @@ class AddEditBannerHeader extends StatelessWidget {
             TextButton(
               onPressed: () {
                 context
-                    .read<DashboardCubit>()
+                    .read<NavigationCubit>()
                     .changeView(ResponsiveViews.banners);
               },
               child: const Row(
