@@ -1,45 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 import 'package:restaurant_admin_panel/features/dashboard/data/models/most_ordered_food_model.dart';
+import 'package:restaurant_admin_panel/features/dashboard/logic/most_ordered_food_cubit/most_ordered_food_cubit.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 
 class MostOrderFoodWidget extends StatelessWidget {
-  final List<MostOrderedFoodModel> foodData;
-
   const MostOrderFoodWidget({
     super.key,
-    this.foodData = const [
-      MostOrderedFoodModel(
-        name: 'Fresh Salad Bowl',
-        price: 'IDR 45.000',
-        imageUrl: 'assets/images/turkey-burger-index-64873e8770b34.jpg',
-        orderCount: 120,
-      ),
-      MostOrderedFoodModel(
-        name: 'Fresh Salad Bowl',
-        price: 'IDR 45.000',
-        imageUrl: 'assets/images/turkey-burger-index-64873e8770b34.jpg',
-        orderCount: 120,
-      ),
-      MostOrderedFoodModel(
-        name: 'Fresh Salad Bowl',
-        price: 'IDR 45.000',
-        imageUrl: 'assets/images/turkey-burger-index-64873e8770b34.jpg',
-        orderCount: 120,
-      ),
-      MostOrderedFoodModel(
-        name: 'Fresh Salad Bowl',
-        price: 'IDR 45.000',
-        imageUrl: 'assets/images/turkey-burger-index-64873e8770b34.jpg',
-        orderCount: 120,
-      ),
-      MostOrderedFoodModel(
-        name: 'Fresh Sa2xlad Bowl',
-        price: 'IDR 45.000',
-        imageUrl: 'assets/images/turkey-burger-index-64873e8770b34.jpg',
-        orderCount: 120,
-      ),
-    ],
   });
 
   @override
@@ -57,71 +25,83 @@ class MostOrderFoodWidget extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Adipiscing elit, sed do eiusmod tempor',
+            'These are the most ordered foods in the restaurant.',
             style: TextStyle(
               color: Colors.grey[400],
               fontSize: FontStyles.getResponsiveFontSize(context, 14),
             ),
           ),
           const SizedBox(height: 20),
-          for (var item in foodData)
-            Column(
-              children: [
-                _buildFoodItem(
-                  context,
-                  item.name,
-                  item.price,
-                  item.imageUrl,
+          BlocBuilder<MostOrderedFoodCubit, MostOrderedFoodState>(
+              builder: (context, state) {
+            return state.maybeWhen(orElse: () {
+              return const SizedBox();
+            }, loading: () {
+              return const SizedBox(
+                height: 250,
+                child: Center(
+                  child: CircularProgressIndicator(),
                 ),
-                if (foodData.indexOf(item) != foodData.length - 1)
-                  const Divider(
-                    color: Colors.grey,
-                    thickness: 1,
-                  ),
-              ],
-            ),
+              );
+            }, loaded: (data) {
+              return Column(
+                children: [
+                  for (var item in data)
+                    Column(
+                      children: [
+                        _buildFoodItem(
+                          context,
+                          item
+                        ),
+                        if (data.indexOf(item) != data.length - 1)
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 1,
+                          ),
+                      ],
+                    ),
+                ],
+              );
+            });
+          }),
         ],
       ),
     );
   }
 
   Widget _buildFoodItem(
-      BuildContext context, String name, String price, String imageUrl) {
+      BuildContext context, MostOrderedFoodModel item) {
     return Row(
       children: [
-        Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            image: DecorationImage(
-              image: AssetImage(imageUrl),
-              fit: BoxFit.cover,
-            ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.network(
+            item.imageUrl,
+            fit: BoxFit.cover,
+            height: 60,
+            width: 60,
           ),
         ),
         const SizedBox(width: 16),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: TextStyle(
-                  fontSize: FontStyles.getResponsiveFontSize(context, 16),
-                  fontWeight: FontWeight.bold,
-                ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              item.title,
+              style: TextStyle(
+                fontSize: FontStyles.getResponsiveFontSize(context, 16),
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(height: 4),
-              Text(
-                price,
-                style: TextStyle(
-                  color: Colors.grey[400],
-                  fontSize: FontStyles.getResponsiveFontSize(context, 14),
-                ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              item.orderCount.toString(),
+              style: TextStyle(
+                color: Colors.grey[400],
+                fontSize: FontStyles.getResponsiveFontSize(context, 14),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );

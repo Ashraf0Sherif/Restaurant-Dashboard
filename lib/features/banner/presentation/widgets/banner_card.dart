@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 
-import '../../../../core/dashboard_cubit/navigation_cubit.dart';
+import '../../../../core/navigation_cubit/navigation_cubit.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/utils/responsive_views.dart';
 import '../../data/models/banner_model.dart';

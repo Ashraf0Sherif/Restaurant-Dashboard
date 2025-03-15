@@ -11,7 +11,7 @@ class AdaptiveLayout extends StatelessWidget {
       this.mobileMaxWidth = 760,
       this.tabletMaxWidth = 1200});
   final WidgetBuilder mobileLayout, tabletLayout, desktopLayout;
-  final int mobileMaxWidth, tabletMaxWidth;
+  final double mobileMaxWidth, tabletMaxWidth;
 
   @override
   Widget build(BuildContext context) {

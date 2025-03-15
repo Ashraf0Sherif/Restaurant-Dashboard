@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/theming/foodie_theme.dart';
 import 'package:restaurant_admin_panel/landing_view.dart';
 import 'package:restaurant_admin_panel/features/banner/data/repos/banner_repo_implementation.dart';
-import 'core/dashboard_cubit/navigation_cubit.dart';
+import 'core/navigation_cubit/navigation_cubit.dart';
 import 'core/services/firebase/restaurant_firebase.dart';
 import 'features/banner/logic/banners_cubit/banners_cubit.dart';
 import 'features/food_menu/logic/food_menu_cubit/food_menu_cubit.dart';

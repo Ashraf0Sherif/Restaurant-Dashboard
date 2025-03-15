@@ -3,10 +3,14 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:restaurant_admin_panel/core/services/firebase/firebase_constants.dart';
+import 'package:restaurant_admin_panel/features/dashboard/data/models/order_time_model.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/ingredient/extra_ingredient.dart';
 
 import '../../../features/banner/data/models/banner_model.dart';
+import '../../../features/dashboard/data/models/most_ordered_food_model.dart';
+import '../../../features/dashboard/data/models/order_rate_model.dart';
 import '../../../features/dashboard/data/models/revenue_model.dart';
 import '../../../features/food_menu/data/models/category/category_model.dart';
 import '../../../features/food_menu/data/models/food_item/food_item.dart';
@@ -400,5 +404,74 @@ class RestaurantFirebase {
             })
         .toList();
     return RevenueModel.fromFirestore(weeklyData);
+  }
+
+  Future<List<MostOrderedFoodModel>> getMostOrderedFoods() async {
+    Query query = FirebaseFirestore.instance
+        .collectionGroup('foodItems')
+        .orderBy('number_of_orders', descending: true)
+        .limit(5);
+
+    QuerySnapshot querySnapshot = await query.get();
+
+    List<MostOrderedFoodModel> mostOrderedFoods = [];
+
+    for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+      Map<String, dynamic> data =
+          documentSnapshot.data() as Map<String, dynamic>;
+
+      String title = data['title'];
+      String price = data['price'];
+      int numberOfOrders = data['number_of_orders'];
+      String imageUrl = data['images'][0];
+      mostOrderedFoods.add(
+        MostOrderedFoodModel(
+          title: title,
+          price: price,
+          orderCount: numberOfOrders,
+          imageUrl: imageUrl,
+        ),
+      );
+    }
+
+    return mostOrderedFoods;
+  }
+
+  Future<OrderTimeModel> getOrderTime() async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('order_times')
+        .limit(1)
+        .get();
+    Map<String, dynamic> data =
+        snapshot.docs.first.data() as Map<String, dynamic>;
+    return OrderTimeModel(
+      title: data['title'],
+      dateRange: data['dateRange'],
+      timeSlots: (data['timeSlots'] as List)
+          .map((slot) => TimeSlot(
+                time: slot['time'],
+                percentage: slot['percentage'].toDouble(),
+                color: Color(slot['color']),
+              ))
+          .toList(),
+    );
+  }
+
+  Future<OrderRateModel> getOrderRate() async {
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('order_rates').limit(1).get();
+    Map<String, dynamic> data =
+        snapshot.docs.first.data() as Map<String, dynamic>;
+    return OrderRateModel(
+      totalOrders: data['totalOrders'],
+      percentageChange: data['percentageChange'].toDouble(),
+      weekOrders: (data['weekOrders'] as List)
+          .map((order) => DailyOrder(
+                day: order['day'],
+                currentWeekOrders: order['currentWeekOrders'].toDouble(),
+                lastWeekOrders: order['lastWeekOrders'].toDouble(),
+              ))
+          .toList(),
+    );
   }
 }

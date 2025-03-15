@@ -1,4 +1,4 @@
-mport 'package:bloc/bloc.dart';
+import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 
 class SimpleBlocObserver implements BlocObserver {

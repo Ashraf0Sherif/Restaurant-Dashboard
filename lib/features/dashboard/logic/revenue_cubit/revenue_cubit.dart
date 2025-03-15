@@ -1,29 +1,32 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:restaurant_admin_panel/core/services/firebase/firebase_exceptions.dart';
 
+import '../../../../core/services/firebase/firebase_exceptions.dart';
 import '../../data/models/revenue_model.dart';
 import '../../data/repos/dashboard_repo.dart';
 
-part 'dashboard_state.dart';
-part 'dashboard_cubit.freezed.dart';
+part 'revenue_state.dart';
 
-class DashboardCubit extends Cubit<DashboardState> {
+part 'revenue_cubit.freezed.dart';
+
+class RevenueCubit extends Cubit<RevenueState> {
   final DashboardRepo dashboardRepo;
-  DashboardCubit(this.dashboardRepo) : super(const DashboardState.initial());
+
+  RevenueCubit(this.dashboardRepo) : super(const RevenueState.initial());
   late final double currentWeekRevenue;
   late final double lastWeekRevenue;
+
   void fetchWeeklyRevenueData() async {
-    emit(const DashboardState.loading());
+    emit(const RevenueState.loading());
     final response = await dashboardRepo.fetchWeeklyRevenueData();
     response.when(
       success: (revenueData) {
         currentWeekRevenue = revenueData.getCurrentWeekRevenue();
         lastWeekRevenue = revenueData.getLastWeekRevenue();
-        emit(DashboardState.loaded(revenueData: revenueData));
+        emit(RevenueState.loaded(revenueData: revenueData));
       },
       failure: (error) {
-        emit(DashboardState.error(
+        emit(RevenueState.error(
             message: FirebaseExceptions.getErrorMessage(error)));
       },
     );

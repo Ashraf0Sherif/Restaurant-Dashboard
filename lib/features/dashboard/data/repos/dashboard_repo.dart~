@@ -1,6 +1,5 @@
 import 'package:restaurant_admin_panel/core/services/firebase/firebase_exceptions.dart';
 import 'package:restaurant_admin_panel/core/services/firebase/firebase_result.dart';
-import 'package:restaurant_admin_panel/features/dashboard/data/models/order_rate_model.dart';
 import 'package:restaurant_admin_panel/features/dashboard/data/models/order_time_model.dart';
 
 import '../../../../core/services/firebase/restaurant_firebase.dart';
@@ -43,13 +42,5 @@ class DashboardRepo {
           FirebaseExceptions.getFirebaseException(error));
     }
   }
-  Future<FirebaseResult<OrderRateModel>> fetchOrderRate()async{
-    try {
-      OrderRateModel orderRateModel = await restaurantFirebase.getOrderRate();
-      return FirebaseResult.success(orderRateModel);
-    } catch (error) {
-      return FirebaseResult.failure(
-          FirebaseExceptions.getFirebaseException(error));
-    }
-  }
+  
 }
