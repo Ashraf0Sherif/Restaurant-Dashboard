@@ -38,7 +38,7 @@ class FoodItemDetailsTabletLayoutBody extends StatelessWidget {
         _buildDetailRow('Description', item.description),
         _buildDetailRow('Arabic Description', item.arabicDescription),
         _buildDetailRow('Price', '\$${item.price}'),
-        _buildDetailRow('Delivery Time', item.deliverTime),
+        // _buildDetailRow('Delivery Time', item.deliverTime),
         _buildDetailRow('Status', item.available ? 'Available' : 'Unavailable'),
         verticalSpace(16),
         const Text(
@@ -52,7 +52,7 @@ class FoodItemDetailsTabletLayoutBody extends StatelessWidget {
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: item.ingredients
+          children: item.mainIngredients
               .map((ingredient) => Chip(
                     label: Text(ingredient.title),
                     backgroundColor: Colors.grey[800],

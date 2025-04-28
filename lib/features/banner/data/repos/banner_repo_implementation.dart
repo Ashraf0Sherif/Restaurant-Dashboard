@@ -1,13 +1,13 @@
 import 'dart:typed_data';
 
-import '../../../../core/firebase/custom_firebase.dart';
-import '../../../../core/firebase/firebase_exceptions.dart';
-import '../../../../core/firebase/firebase_result.dart';
+import '../../../../core/services/firebase/restaurant_firebase.dart';
+import '../../../../core/services/firebase/firebase_exceptions.dart';
+import '../../../../core/services/firebase/firebase_result.dart';
 import '../models/banner_model.dart';
 import 'banner_repo.dart';
 
 class BannerRepoImplementation implements BannerRepo {
-  final CustomFirebase customFirebase;
+  final RestaurantFirebase customFirebase;
 
   BannerRepoImplementation(this.customFirebase);
 
@@ -15,8 +15,9 @@ class BannerRepoImplementation implements BannerRepo {
   Future<FirebaseResult<BannerModel>> addBanner(
       {required BannerModel banner, required Uint8List imageFile}) async {
     try {
-      var response = await customFirebase.addBanner(banner: banner, imageFile: imageFile);
-      return  FirebaseResult.success(response);
+      var response =
+          await customFirebase.addBanner(banner: banner, imageFile: imageFile);
+      return FirebaseResult.success(response);
     } catch (error) {
       return FirebaseResult.failure(
           FirebaseExceptions.getFirebaseException(error));
@@ -38,8 +39,9 @@ class BannerRepoImplementation implements BannerRepo {
   Future<FirebaseResult<BannerModel>> updateBanner(
       {required BannerModel banner, required Uint8List imageFile}) async {
     try {
-      var response = await customFirebase.updateBanner(banner: banner, imageFile: imageFile);
-      return  FirebaseResult.success(response);
+      var response = await customFirebase.updateBanner(
+          banner: banner, imageFile: imageFile);
+      return FirebaseResult.success(response);
     } catch (error) {
       return FirebaseResult.failure(
           FirebaseExceptions.getFirebaseException(error));

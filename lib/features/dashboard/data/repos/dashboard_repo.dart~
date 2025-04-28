@@ -1,0 +1,46 @@
+import 'package:restaurant_admin_panel/core/services/firebase/firebase_exceptions.dart';
+import 'package:restaurant_admin_panel/core/services/firebase/firebase_result.dart';
+import 'package:restaurant_admin_panel/features/dashboard/data/models/order_time_model.dart';
+
+import '../../../../core/services/firebase/restaurant_firebase.dart';
+import '../models/most_ordered_food_model.dart';
+import '../models/revenue_model.dart';
+
+class DashboardRepo {
+  final RestaurantFirebase restaurantFirebase;
+
+  DashboardRepo(this.restaurantFirebase);
+
+  Future<FirebaseResult<RevenueModel>> fetchWeeklyRevenueData() async {
+    try {
+      RevenueModel revenueModel = await restaurantFirebase.getRevenue();
+      return FirebaseResult.success(revenueModel);
+    } catch (error) {
+      return FirebaseResult.failure(
+          FirebaseExceptions.getFirebaseException(error));
+    }
+  }
+
+  Future<FirebaseResult<List<MostOrderedFoodModel>>>
+      fetchMostOrderedFood() async {
+    try {
+      List<MostOrderedFoodModel> mostOrderedFoods =
+          await restaurantFirebase.getMostOrderedFoods();
+      return FirebaseResult.success(mostOrderedFoods);
+    } catch (error) {
+      return FirebaseResult.failure(
+          FirebaseExceptions.getFirebaseException(error));
+    }
+  }
+
+  Future<FirebaseResult<OrderTimeModel>> fetchOrderTime() async {
+    try {
+      OrderTimeModel orderTimes = await restaurantFirebase.getOrderTime();
+      return FirebaseResult.success(orderTimes);
+    } catch (error) {
+      return FirebaseResult.failure(
+          FirebaseExceptions.getFirebaseException(error));
+    }
+  }
+  
+}

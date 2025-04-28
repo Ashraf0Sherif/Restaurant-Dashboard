@@ -14,7 +14,7 @@ class OrderTimeHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              orderTimeData.title,
+              "Order Time",
               style: TextStyle(
                 fontSize: FontStyles.getResponsiveFontSize(context, 18),
                 fontWeight: FontWeight.bold,

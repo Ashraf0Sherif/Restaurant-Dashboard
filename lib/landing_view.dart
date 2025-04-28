@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurant_admin_panel/core/utils/size_config.dart';
 import 'package:restaurant_admin_panel/core/utils/widgets/adaptive_layout.dart';
-import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/custom_drawer.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/views/dashboard_mobile_layout.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/views/dashboard_tablet_layout.dart';
+
+import 'core/navigation_cubit/navigation_cubit.dart';
 
 class LandingView extends StatefulWidget {
   const LandingView({super.key});
@@ -24,14 +26,14 @@ class _LandingViewState extends State<LandingView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DashboardCubit, DashboardState>(
+    return BlocBuilder<NavigationCubit, NavigationState>(
       builder: (context, state) {
         return Scaffold(
           key: _scaffoldKey,
-          drawer: MediaQuery.sizeOf(context).width < 1200
+          drawer: MediaQuery.sizeOf(context).width < SizeConfig.tablet
               ? const CustomDrawer()
               : null,
-          appBar: MediaQuery.sizeOf(context).width < 1200
+          appBar: MediaQuery.sizeOf(context).width < SizeConfig.tablet
               ? AppBar(
                   elevation: 0,
                   leading: IconButton(
@@ -42,7 +44,7 @@ class _LandingViewState extends State<LandingView> {
                   ),
                 )
               : null,
-          body: BlocBuilder<DashboardCubit, DashboardState>(
+          body: BlocBuilder<NavigationCubit, NavigationState>(
             builder: (context, state) {
               return AdaptiveLayout(
                 mobileLayout: (context) => state is ChangeView
@@ -62,8 +64,8 @@ class _LandingViewState extends State<LandingView> {
                     ),
                   ],
                 ),
-                mobileMaxWidth: state is ChangeView ? state.view.mobileMaxWidth : 760,
-                tabletMaxWidth: state is ChangeView ? state.view.tabletMaxWidth : 1200,
+                mobileMaxWidth: state is ChangeView ? state.view.mobileMaxWidth : SizeConfig.mobile,
+                tabletMaxWidth: state is ChangeView ? state.view.tabletMaxWidth : SizeConfig.tablet,
               );
             },
           ),

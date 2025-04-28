@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/food_item/food_item.dart';
+
+import '../../../../core/navigation_cubit/navigation_cubit.dart';
 
 class FoodDetailsHeader extends StatelessWidget {
   const FoodDetailsHeader({
@@ -31,7 +32,7 @@ class FoodDetailsHeader extends StatelessWidget {
           const Spacer(),
           TextButton.icon(
             onPressed: () {
-              context.read<DashboardCubit>().changeView(
+              context.read<NavigationCubit>().changeView(
                   ResponsiveViews.categoryFoodItems(
                       categoryId: categoryId,
                       foodItems: foodItems,

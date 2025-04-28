@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/dashboard_cubit/dashboard_cubit.dart';
+import '../../../../core/navigation_cubit/navigation_cubit.dart';
 import '../../../../core/utils/responsive_views.dart';
 import '../../data/models/food_item/food_item.dart';
 
@@ -25,7 +25,7 @@ class FoodItemActions extends StatelessWidget {
         IconButton(
           icon: const Icon(Icons.edit_outlined),
           onPressed: () {
-            context.read<DashboardCubit>().changeView(
+            context.read<NavigationCubit>().changeView(
                   ResponsiveViews.editFoodView(
                     item: item,
                     categoryId: categoryId,
@@ -38,7 +38,7 @@ class FoodItemActions extends StatelessWidget {
         IconButton(
           icon: const Icon(Icons.visibility_outlined),
           onPressed: () {
-            context.read<DashboardCubit>().changeView(
+            context.read<NavigationCubit>().changeView(
                   ResponsiveViews.foodItemDetails(
                     item: item,
                     categoryId: categoryId,

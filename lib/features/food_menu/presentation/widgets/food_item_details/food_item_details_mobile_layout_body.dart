@@ -92,7 +92,7 @@ class FoodItemDetailsMobilelLayoutBody extends StatelessWidget {
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: item.ingredients
+                children: item.mainIngredients
                     .map((ingredient) => Chip(
                           label: Text(ingredient.title),
                           backgroundColor: Colors.grey[800],

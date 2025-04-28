@@ -1,11 +1,11 @@
 final class MostOrderedFoodModel {
-  final String name;
+  final String title;
   final String price;
   final String imageUrl;
   final int orderCount;
 
   const MostOrderedFoodModel({
-    required this.name,
+    required this.title,
     required this.price,
     required this.imageUrl,
     required this.orderCount,

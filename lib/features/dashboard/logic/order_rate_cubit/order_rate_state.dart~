@@ -1,0 +1,14 @@
+part of 'order_rate_cubit.dart';
+
+@freezed
+class OrderRateState with _$OrderRateState {
+  const factory OrderRateState.initial() = _OrderRateInitial;
+
+  const factory OrderRateState.loading() = OrderRateLoading;
+
+  const factory OrderRateState.loaded(
+      {required List<OrderRateModel> orderRate}) = OrderRateLoaded;
+
+  const factory OrderRateState.error({required String message}) =
+      OrderRateError;
+}

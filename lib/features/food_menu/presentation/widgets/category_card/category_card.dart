@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_admin_panel/core/dashboard_cubit/dashboard_cubit.dart';
 import 'package:restaurant_admin_panel/core/utils/responsive_views.dart';
 import 'package:restaurant_admin_panel/features/food_menu/data/models/category/category_model.dart';
 
+import '../../../../../core/navigation_cubit/navigation_cubit.dart';
 import 'category_card_body.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -20,7 +20,7 @@ class CategoryCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: () {
-          context.read<DashboardCubit>().changeView(
+          context.read<NavigationCubit>().changeView(
                 ResponsiveViews.categoryFoodItems(
                   categoryId: category.id,
                   foodItems: category.foodItems, category: category.title,

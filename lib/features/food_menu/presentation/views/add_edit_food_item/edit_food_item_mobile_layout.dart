@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/dashboard_cubit/dashboard_cubit.dart';
+import '../../../../../core/navigation_cubit/navigation_cubit.dart';
 import '../../../../../core/theming/colors.dart';
 import '../../../../../core/theming/spacing.dart';
 import '../../../../../core/utils/responsive_views.dart';
@@ -54,8 +54,8 @@ class _EditFoodItemMobileState extends State<EditFoodItemMobileLayout> {
         TextEditingController(text: widget.item.arabicTitle);
     _arabicDescriptionController =
         TextEditingController(text: widget.item.arabicDescription);
-    _deliveryTimeController =
-        TextEditingController(text: widget.item.deliverTime);
+    // _deliveryTimeController =
+    //     TextEditingController(text: widget.item.deliverTime);
   }
 
   @override
@@ -147,7 +147,7 @@ class _EditFoodItemMobileState extends State<EditFoodItemMobileLayout> {
           ),
         ),
         IngredientsList(
-          ingredients: widget.item.ingredients,
+          ingredients: widget.item.mainIngredients,
           onAdd: (ingredient) {},
           onRemove: (index) {},
         ),
@@ -262,7 +262,7 @@ class _EditFoodItemMobileState extends State<EditFoodItemMobileLayout> {
         Expanded(
           child: OutlinedButton(
             onPressed: () {
-              context.read<DashboardCubit>().changeView(
+              context.read<NavigationCubit>().changeView(
                     ResponsiveViews.categoryFoodItems(
                       categoryId: widget.categoryId,
                       foodItems: widget.categoryItems,
