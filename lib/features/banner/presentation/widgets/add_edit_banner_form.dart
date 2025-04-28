@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 
+import '../../../../core/helpers/assets.dart';
 import '../../../../core/utils/widgets/custom_text_form_field.dart';
 import '../../../../core/utils/widgets/show_snack_bar.dart';
 import '../../data/models/banner_model.dart';
@@ -169,7 +171,8 @@ class _AddEditBannerFormState extends State<AddEditBannerForm> {
     return BackGroundContainer(
       width: double.infinity,
       child: isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ?  Center(child: Lottie.asset(AssetsData.kLoadingLottieAnimation,
+                  animate: true, width: 100))
           : SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(24.0),

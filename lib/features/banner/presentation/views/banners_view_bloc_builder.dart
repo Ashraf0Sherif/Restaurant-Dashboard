@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:restaurant_admin_panel/features/banner/logic/banners_cubit/banners_cubit.dart';
+import '../../../../core/helpers/assets.dart';
 import 'banners_view_body.dart';
 
 class BannersViewBlocBuilder extends StatefulWidget {
@@ -23,11 +25,14 @@ class _BannersViewBlocBuilderState extends State<BannersViewBlocBuilder> {
       body: BlocBuilder<BannersCubit, BannersState>(
         builder: (context, state) {
           if (state is BannersLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Center(
+              child: Lottie.asset(AssetsData.kLoadingLottieAnimation,
+                  animate: true, width: 100),
             );
           } else if (state is BannersSuccess) {
-            return widget.isMobile ?  BannersViewBody(banners: state.banners,isMobile: true) : BannersViewBody(banners: state.banners);
+            return widget.isMobile
+                ? BannersViewBody(banners: state.banners, isMobile: true)
+                : BannersViewBody(banners: state.banners);
           } else if (state is BannersFailure) {
             return Center(
               child: Text(state.errorMessage),

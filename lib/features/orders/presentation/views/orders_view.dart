@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:restaurant_admin_panel/core/di/dependency_injection.dart';
 import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
 import 'package:restaurant_admin_panel/features/orders/logic/orders_cubit/orders_cubit.dart';
 
+import '../../../../core/helpers/assets.dart';
 import '../../../../core/theming/colors.dart';
 import 'orders_table_mobile_layout.dart';
 import 'orders_table_tablet_layout.dart';
@@ -47,8 +49,9 @@ class _OrdersViewState extends State<OrdersView> {
         child: BlocBuilder<OrdersCubit, OrdersState>(
           builder: (context, state) {
             return state.maybeWhen(
-              orElse: () => const Center(
-                child: CircularProgressIndicator(),
+              orElse: () => Center(
+                child: Lottie.asset(AssetsData.kLoadingLottieAnimation,
+                    animate: true, width: 100),
               ),
               loaded: (receipts) {
                 return CustomScrollView(

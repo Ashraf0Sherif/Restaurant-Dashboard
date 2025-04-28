@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:restaurant_admin_panel/core/di/dependency_injection.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/features/dashboard/logic/revenue_cubit/revenue_cubit.dart';
@@ -9,6 +10,7 @@ import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/o
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/order_time_widget.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/revenue_widget.dart';
 
+import '../../../../core/helpers/assets.dart';
 import '../../logic/most_ordered_food_cubit/most_ordered_food_cubit.dart';
 import '../../logic/order_rate_cubit/order_rate_cubit.dart';
 import '../../logic/order_time_cubit/order_time_cubit.dart';
@@ -75,7 +77,9 @@ class DashboardMobileLayout extends StatelessWidget {
               ),
             );
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+                child: Lottie.asset(AssetsData.kLoadingLottieAnimation,
+                    animate: true, width: 100));
           }
         },
       ),

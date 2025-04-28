@@ -31,7 +31,7 @@ class ResponsiveView {
   });
 }
 
-abstract class ResponsiveViews {
+class ResponsiveViews {
   static const ResponsiveView dashboard = ResponsiveView(
     mobile: DashboardMobileLayout(),
     tablet: DashboardTabletLayout(),

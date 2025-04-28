@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
 import 'package:restaurant_admin_panel/core/utils/widgets/show_snack_bar.dart';
 import 'package:restaurant_admin_panel/features/banner/data/models/banner_model.dart';
 import 'package:restaurant_admin_panel/features/banner/logic/banners_cubit/banners_cubit.dart';
 
+import '../../../../core/helpers/assets.dart';
 import 'add_edit_banner_form.dart';
 import 'add_edit_banner_header.dart';
 
@@ -34,8 +36,9 @@ class _AddEditBannerViewState extends State<AddEditBannerView> {
               child: BlocConsumer<BannersCubit, BannersState>(
                 builder: (context, state) {
                   if (state is BannersLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return  Center(
+                      child: Lottie.asset(AssetsData.kLoadingLottieAnimation,
+                  animate: true, width: 100),
                     );
                   } else {
                     return AddEditBannerForm(

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 import 'package:restaurant_admin_panel/features/dashboard/data/models/most_ordered_food_model.dart';
 import 'package:restaurant_admin_panel/features/dashboard/logic/most_ordered_food_cubit/most_ordered_food_cubit.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/back_ground_container.dart';
+
+import '../../../../core/helpers/assets.dart';
 
 class MostOrderFoodWidget extends StatelessWidget {
   const MostOrderFoodWidget({
@@ -37,10 +40,11 @@ class MostOrderFoodWidget extends StatelessWidget {
             return state.maybeWhen(orElse: () {
               return const SizedBox();
             }, loading: () {
-              return const SizedBox(
+              return SizedBox(
                 height: 250,
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: Lottie.asset(AssetsData.kLoadingLottieAnimation,
+                      animate: true, width: 100),
                 ),
               );
             }, loaded: (data) {
@@ -49,10 +53,7 @@ class MostOrderFoodWidget extends StatelessWidget {
                   for (var item in data)
                     Column(
                       children: [
-                        _buildFoodItem(
-                          context,
-                          item
-                        ),
+                        _buildFoodItem(context, item),
                         if (data.indexOf(item) != data.length - 1)
                           const Divider(
                             color: Colors.grey,
@@ -69,8 +70,7 @@ class MostOrderFoodWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildFoodItem(
-      BuildContext context, MostOrderedFoodModel item) {
+  Widget _buildFoodItem(BuildContext context, MostOrderedFoodModel item) {
     return Row(
       children: [
         ClipRRect(

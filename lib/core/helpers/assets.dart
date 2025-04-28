@@ -18,4 +18,5 @@ abstract class AssetsData{
   static const kMasterCardSVG = "assets/svgs/master_card.svg";
   static const kInvalidCardSVG = "assets/svgs/invalid_card.svg";
   static const kNoUserImageSVG = "assets/images/user.png";
+  static const kLoadingLottieAnimation = "assets/animations/loading.json";
 }
