@@ -55,8 +55,11 @@ dependencies:
   flutter_svg: ^2.0.17
   flutter_svg_provider: ^1.0.7
   get_it: ^8.0.3
+<<<<<<< HEAD
   dio: ^5.8.0+1
   flutter_dotenv: ^5.2.1
+=======
+>>>>>>> 0297c5245157796f12688b061e1a6579bf6a20e5
 dev_dependencies:
   flutter_test:
     sdk: flutter
