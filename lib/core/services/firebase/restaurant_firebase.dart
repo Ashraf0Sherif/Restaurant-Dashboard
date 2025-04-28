@@ -15,10 +15,7 @@ import '../../../features/dashboard/data/models/revenue_model.dart';
 import '../../../features/food_menu/data/models/category/category_model.dart';
 import '../../../features/food_menu/data/models/food_item/food_item.dart';
 import '../../../features/food_menu/data/models/ingredient/ingredient.dart';
-<<<<<<< HEAD
 import '../../../features/orders/data/models/receipt.dart';
-=======
->>>>>>> 0297c5245157796f12688b061e1a6579bf6a20e5
 import '../../../firebase_options.dart';
 
 class RestaurantFirebase {
@@ -450,15 +447,10 @@ class RestaurantFirebase {
   }
 
   Future<OrderRateModel> getOrderRate() async {
-<<<<<<< HEAD
     QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('order_rates')
         .limit(1)
         .get();
-=======
-    QuerySnapshot snapshot =
-        await FirebaseFirestore.instance.collection('order_rates').limit(1).get();
->>>>>>> 0297c5245157796f12688b061e1a6579bf6a20e5
     Map<String, dynamic> data =
         snapshot.docs.first.data() as Map<String, dynamic>;
     return OrderRateModel(
@@ -473,7 +465,6 @@ class RestaurantFirebase {
           .toList(),
     );
   }
-<<<<<<< HEAD
 
   Future<List<Receipt>> fetchReceipts() async {
     QuerySnapshot receiptsSnapshot =
@@ -538,6 +529,4 @@ class RestaurantFirebase {
     }
     return fetchedFoodItems;
   }
-=======
->>>>>>> 0297c5245157796f12688b061e1a6579bf6a20e5
 }
