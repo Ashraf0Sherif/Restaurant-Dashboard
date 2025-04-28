@@ -126,7 +126,7 @@ class _AddFoodViewMobileState extends State<AddFoodItemMobileLayout> {
         ),
         const SizedBox(height: 16),
         IngredientsList(
-          ingredients: widget.existingItem?.ingredients ?? [],
+          ingredients: widget.existingItem?.mainIngredients ?? [],
           onAdd: (ingredient) {
             // Implement add ingredient logic
           },
@@ -165,12 +165,12 @@ class _AddFoodViewMobileState extends State<AddFoodItemMobileLayout> {
           maxLines: 4,
         ),
         const SizedBox(height: 16),
-        AddEditFoodTextField(
-          label: 'Delivery Time',
-          controller: TextEditingController(
-            text: widget.existingItem?.deliverTime,
-          ),
-        ),
+        // AddEditFoodTextField(
+        //   label: 'Delivery Time',
+        //   controller: TextEditingController(
+        //     text: widget.existingItem?.deliverTime,
+        //   ),
+        // ),
         const SizedBox(height: 16),
         const Text(
           'Extra Ingredients',

@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 import 'package:restaurant_admin_panel/features/banner/data/models/banner_model.dart';
 import 'package:restaurant_admin_panel/features/banner/data/repos/banner_repo_implementation.dart';
 

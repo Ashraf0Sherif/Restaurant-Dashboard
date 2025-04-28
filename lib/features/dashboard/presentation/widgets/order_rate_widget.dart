@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_admin_panel/core/theming/spacing.dart';
-import 'package:restaurant_admin_panel/features/dashboard/data/models/order_rate_model.dart';
 import 'package:restaurant_admin_panel/features/dashboard/logic/order_rate_cubit/order_rate_cubit.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/custom_order_rate_line_chart.dart';
 import 'package:restaurant_admin_panel/features/dashboard/presentation/widgets/order_rate_header.dart';

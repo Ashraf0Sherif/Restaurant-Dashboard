@@ -54,8 +54,8 @@ class _EditFoodItemMobileState extends State<EditFoodItemMobileLayout> {
         TextEditingController(text: widget.item.arabicTitle);
     _arabicDescriptionController =
         TextEditingController(text: widget.item.arabicDescription);
-    _deliveryTimeController =
-        TextEditingController(text: widget.item.deliverTime);
+    // _deliveryTimeController =
+    //     TextEditingController(text: widget.item.deliverTime);
   }
 
   @override
@@ -147,7 +147,7 @@ class _EditFoodItemMobileState extends State<EditFoodItemMobileLayout> {
           ),
         ),
         IngredientsList(
-          ingredients: widget.item.ingredients,
+          ingredients: widget.item.mainIngredients,
           onAdd: (ingredient) {},
           onRemove: (index) {},
         ),

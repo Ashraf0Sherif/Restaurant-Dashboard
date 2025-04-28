@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
-import '../../data/models/order_model.dart';
+import '../../data/models/receipt.dart';
 
 class OrdersTableMobileLayout extends StatelessWidget {
-  final List<OrderModel> orders;
+  final List<Receipt> receipts;
 
   const OrdersTableMobileLayout({
     super.key,
-    required this.orders,
+    required this.receipts,
   });
 
   @override
@@ -16,23 +16,23 @@ class OrdersTableMobileLayout extends StatelessWidget {
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: orders.length,
+      itemCount: receipts.length,
       separatorBuilder: (context, index) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
-        final order = orders[index];
+        final order = receipts[index];
         return buildOrderCard(context, order);
       },
     );
   }
 
-  Widget buildOrderCard(BuildContext context, OrderModel order) {
+  Widget buildOrderCard(BuildContext context, Receipt receipt) {
     return Card(
       elevation: 3,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(
-          color: _getStatusColor(order.status).withValues(alpha: 0.5),
+          color: _getStatusColor(receipt.status!).withValues(alpha: 0.5),
           width: 2,
         ),
       ),
@@ -42,7 +42,7 @@ class OrdersTableMobileLayout extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.blueGrey.shade100,
+              color: _getStatusColor(receipt.status!).withValues(alpha: 0.1),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
@@ -56,7 +56,7 @@ class OrdersTableMobileLayout extends StatelessWidget {
                     const Icon(Icons.receipt_long, color: Colors.blueGrey),
                     const SizedBox(width: 8),
                     Text(
-                      order.id,
+                      receipt.orderId!,
                       style: TextStyle(
                         fontSize: FontStyles.getResponsiveFontSize(context, 16),
                         fontWeight: FontWeight.bold,
@@ -66,14 +66,15 @@ class OrdersTableMobileLayout extends StatelessWidget {
                 ),
                 Chip(
                   label: Text(
-                    order.status,
+                    receipt.status!,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: FontStyles.getResponsiveFontSize(context, 14),
                     ),
                   ),
-                  backgroundColor: _getStatusColor(order.status),
-                  avatar: _getStatusIcon(order.status),
+                  backgroundColor:
+                      _getStatusColor(receipt.status!).withValues(alpha: 0.4),
+                  avatar: _getStatusIcon(receipt.status!),
                 ),
               ],
             ),
@@ -87,7 +88,7 @@ class OrdersTableMobileLayout extends StatelessWidget {
                 buildOrderDetailRow(
                   context,
                   'Order Name',
-                  order.name,
+                  receipt.foodItems![0].title,
                   Icons.inventory,
                   Colors.green,
                 ),
@@ -95,7 +96,7 @@ class OrdersTableMobileLayout extends StatelessWidget {
                 buildOrderDetailRow(
                   context,
                   'Order Price',
-                  order.price,
+                  receipt.amountCents.toString(),
                   Icons.attach_money_outlined,
                   Colors.blue,
                 ),
@@ -103,7 +104,7 @@ class OrdersTableMobileLayout extends StatelessWidget {
                 buildOrderDetailRow(
                   context,
                   'Ordered Date',
-                  order.date,
+                  receipt.date!,
                   Icons.calendar_month,
                   ColorsStyles.kPrimaryColor,
                 ),
@@ -120,24 +121,12 @@ class OrdersTableMobileLayout extends StatelessWidget {
                 TextButton.icon(
                   onPressed: () {
                     // View details action
-                    debugPrint('View details for: ${order.id}');
+                    debugPrint('View details for: ${receipt.orderId}');
                   },
                   icon: const Icon(Icons.visibility),
                   label: const Text('View Details'),
                 ),
                 const SizedBox(width: 8),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // Update status action
-                    debugPrint('Update status for: ${order.id}');
-                  },
-                  icon: const Icon(Icons.edit),
-                  label: const Text('Update Status'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorsStyles.kPrimaryColor,
-                    foregroundColor: Colors.white,
-                  ),
-                ),
               ],
             ),
           ),
@@ -179,22 +168,22 @@ class OrdersTableMobileLayout extends StatelessWidget {
 
   Icon? _getStatusIcon(String status) {
     switch (status.toLowerCase()) {
-      case 'delivered':
-        return const Icon(Icons.done_outline_rounded, color: Colors.white);
+      case 'success':
+        return const Icon(Icons.done_outline_rounded, color: Colors.green);
       case 'pending':
-        return const Icon(Icons.pending_outlined, color: Colors.white);
+        return const Icon(Icons.pending_outlined, color: Colors.orange);
       case 'cancelled':
-        return const Icon(Icons.cancel_outlined, color: Colors.white);
+        return const Icon(Icons.cancel_outlined, color: Colors.red);
       case 'processing':
-        return const Icon(Icons.sync, color: Colors.white);
+        return const Icon(Icons.sync, color: Colors.blue);
       default:
-        return null;
+        return const Icon(Icons.sync, color: Colors.blue);
     }
   }
 
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
-      case 'delivered':
+      case 'success':
         return Colors.green;
       case 'pending':
         return Colors.orange;
@@ -203,7 +192,7 @@ class OrdersTableMobileLayout extends StatelessWidget {
       case 'processing':
         return Colors.blue;
       default:
-        return Colors.grey;
+        return Colors.blue;
     }
   }
 }

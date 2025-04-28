@@ -15,6 +15,7 @@ import '../../../features/dashboard/data/models/revenue_model.dart';
 import '../../../features/food_menu/data/models/category/category_model.dart';
 import '../../../features/food_menu/data/models/food_item/food_item.dart';
 import '../../../features/food_menu/data/models/ingredient/ingredient.dart';
+import '../../../features/orders/data/models/receipt.dart';
 import '../../../firebase_options.dart';
 
 class RestaurantFirebase {
@@ -88,19 +89,9 @@ class RestaurantFirebase {
           for (var image in doc[FirebaseConstants.images]) {
             images.add(image);
           }
-          return FoodItem(
-            price: data[FirebaseConstants.price],
-            deliverTime: data[FirebaseConstants.deliveryTime],
-            images: images,
-            ingredients: ingredients,
-            title: data[FirebaseConstants.title],
-            description: data[FirebaseConstants.description],
-            id: id,
-            extraIngredients: extraIngredients,
-            arabicTitle: data[FirebaseConstants.arabicTitle],
-            arabicDescription: data[FirebaseConstants.arabicDescription],
-            available: true,
-          );
+          FoodItem foodItem = FoodItem.fromJson(data);
+          foodItem.id = id;
+          return foodItem;
         },
       ).toList(),
     );
@@ -218,7 +209,7 @@ class RestaurantFirebase {
         FirebaseConstants.arabicTitle: foodItem.arabicTitle,
         FirebaseConstants.description: foodItem.description,
         FirebaseConstants.arabicDescription: foodItem.arabicDescription,
-        FirebaseConstants.deliveryTime: foodItem.deliverTime,
+        // FirebaseConstants.deliveryTime: foodItem.deliverTime,
         FirebaseConstants.price: foodItem.price,
         FirebaseConstants.images: [],
         FirebaseConstants.createdAt: DateTime.now(),
@@ -228,7 +219,7 @@ class RestaurantFirebase {
                   FirebaseConstants.price: e.price,
                   FirebaseConstants.arabicTitle: e.arabicTitle,
                 }),
-        FirebaseConstants.ingredients: foodItem.ingredients
+        FirebaseConstants.ingredients: foodItem.mainIngredients
             .map((e) => {
                   FirebaseConstants.title: e.title,
                   FirebaseConstants.arabicTitle: e.arabicTitle,
@@ -250,7 +241,6 @@ class RestaurantFirebase {
     await foodItemRef
         .update({FirebaseConstants.images: imagesUrls, 'id': foodItemRef.id});
     foodItem.id = foodItemRef.id;
-    foodItem.images = imagesUrls;
     return foodItem;
   }
 
@@ -297,7 +287,7 @@ class RestaurantFirebase {
       FirebaseConstants.title: foodItem.title,
       FirebaseConstants.arabicTitle: foodItem.arabicTitle,
       FirebaseConstants.description: foodItem.description,
-      FirebaseConstants.deliveryTime: foodItem.deliverTime,
+      // FirebaseConstants.deliveryTime: foodItem.deliverTime,
       FirebaseConstants.price: foodItem.price,
       FirebaseConstants.images: imagesUrls,
       FirebaseConstants.extraIngredients: foodItem.extraIngredients
@@ -309,7 +299,7 @@ class RestaurantFirebase {
             },
           )
           .toList(),
-      FirebaseConstants.ingredients: foodItem.ingredients
+      FirebaseConstants.ingredients: foodItem.mainIngredients
           .map(
             (e) => {
               FirebaseConstants.title: e.title,
@@ -318,7 +308,6 @@ class RestaurantFirebase {
           )
           .toList(),
     });
-    foodItem.images = imagesUrls;
     return foodItem;
   }
 
@@ -458,8 +447,10 @@ class RestaurantFirebase {
   }
 
   Future<OrderRateModel> getOrderRate() async {
-    QuerySnapshot snapshot =
-        await FirebaseFirestore.instance.collection('order_rates').limit(1).get();
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('order_rates')
+        .limit(1)
+        .get();
     Map<String, dynamic> data =
         snapshot.docs.first.data() as Map<String, dynamic>;
     return OrderRateModel(
@@ -473,5 +464,69 @@ class RestaurantFirebase {
               ))
           .toList(),
     );
+  }
+
+  Future<List<Receipt>> fetchReceipts() async {
+    QuerySnapshot receiptsSnapshot =
+        await FirebaseFirestore.instance.collection('receipts').get();
+
+    List<Future<Receipt>> receiptFutures = receiptsSnapshot.docs.map(
+      (doc) async {
+        final receipt = Receipt();
+        receipt.orderId = doc.id;
+        receipt.foodItems = await fetchFoodItemsForReceipt(receipt.orderId!);
+        return receipt;
+      },
+    ).toList();
+
+    return await Future.wait(receiptFutures);
+  }
+
+  Future<List<FoodItem>> fetchFoodItemsForReceipt(String receiptId) async {
+    DocumentSnapshot receiptSnapshot = await FirebaseFirestore.instance
+        .collection('receipts')
+        .doc(receiptId)
+        .get();
+
+    List<dynamic> foodItemsData =
+        (receiptSnapshot.data() as Map<String, dynamic>)['foodItems'] ?? [];
+
+    Map<String, int> foodItemQuantities = {
+      for (var item in foodItemsData)
+        if (item['id'] != null && item['quantity'] != null)
+          item['id'] as String: item['quantity'] as int,
+    };
+
+    List<String> foodItemIds = foodItemQuantities.keys.toList();
+
+    const int batchSize = 10;
+
+    List<FoodItem> fetchedFoodItems = [];
+
+    for (int i = 0; i < foodItemIds.length; i += batchSize) {
+      List<String> batchIds = foodItemIds.sublist(
+        i,
+        i + batchSize > foodItemIds.length ? foodItemIds.length : i + batchSize,
+      );
+
+      QuerySnapshot foodItemsSnapshot = await FirebaseFirestore.instance
+          .collectionGroup('foodItems')
+          .where('id', whereIn: batchIds)
+          .get();
+
+      fetchedFoodItems.addAll(
+        foodItemsSnapshot.docs.map((doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          final foodItem = FoodItem.fromJson(data);
+          foodItem.id = doc.id;
+          foodItem.categoryId = doc.reference.parent.parent?.id ?? '';
+          foodItem.quantity = foodItemQuantities[foodItem.id] ?? 0;
+          foodItem.totalPrice =
+              (int.tryParse(foodItem.price) ?? 0) * foodItem.quantity;
+          return foodItem;
+        }),
+      );
+    }
+    return fetchedFoodItems;
   }
 }

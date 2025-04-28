@@ -29,7 +29,7 @@ class _LeftSideSectionState extends State<LeftSideSection> {
         TextEditingController(text: widget.item?.description);
     _priceController =
         TextEditingController(text: widget.item?.price.toString());
-    _ingredients = List.from(widget.item?.ingredients ?? []);
+    _ingredients = List.from(widget.item?.mainIngredients ?? []);
   }
 
   void _removeIngredient(int index) {

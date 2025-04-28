@@ -3,14 +3,14 @@ import 'package:restaurant_admin_panel/core/theming/colors.dart';
 import 'package:restaurant_admin_panel/core/theming/font_styles.dart';
 
 import '../../data/models/header_model.dart';
-import '../../data/models/order_model.dart';
+import '../../data/models/receipt.dart';
 
 class OrdersTableTabletLayout extends StatefulWidget {
-  final List<OrderModel> orders;
+  final List<Receipt> receipts;
 
   const OrdersTableTabletLayout({
     super.key,
-    required this.orders,
+    required this.receipts,
   });
 
   @override
@@ -66,8 +66,7 @@ class _OrdersTableTabletLayoutState extends State<OrdersTableTabletLayout> {
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         return SlideTransition(
           position: Tween<Offset>(
-            begin:
-                Offset(fromRight ? 1 : -1, 0), // Start from right or left edge
+            begin: Offset(fromRight ? 1 : -1, 0),
             end: Offset.zero,
           ).animate(CurvedAnimation(
             parent: animation,
@@ -78,7 +77,7 @@ class _OrdersTableTabletLayoutState extends State<OrdersTableTabletLayout> {
             child: Container(
               height: double.infinity,
               width: width,
-              color: Theme.of(context).dialogBackgroundColor,
+              color: Theme.of(context).dialogTheme.backgroundColor,
               child: child,
             ),
           ),
@@ -159,7 +158,7 @@ class _OrdersTableTabletLayoutState extends State<OrdersTableTabletLayout> {
           ),
           children: headers.map((header) => buildHeaderCell(header)).toList(),
         ),
-        ...widget.orders.map((order) => _buildOrderRow(order)),
+        ...widget.receipts.map((order) => _buildOrderRow(order)),
       ],
     );
   }
@@ -174,13 +173,13 @@ class _OrdersTableTabletLayoutState extends State<OrdersTableTabletLayout> {
     };
   }
 
-  TableRow _buildOrderRow(OrderModel order) {
+  TableRow _buildOrderRow(Receipt receipt) {
     return TableRow(
       children: [
-        buildDataCell(order.id),
-        buildDataCell(order.date),
+        buildDataCell(receipt.orderId!),
+        buildDataCell(receipt.date!),
         buildDataCell(
-          order.name,
+          receipt.foodItems![0].title,
           onTap: () {
             showSideSheet(
               context: context,
@@ -191,15 +190,15 @@ class _OrdersTableTabletLayoutState extends State<OrdersTableTabletLayout> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Order #${order.id}',
+                        'Order #${receipt.orderId}',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Text('Date: ${order.date}'),
-                      Text('Total: ${order.price}'),
+                      Text('Date: ${receipt.date}'),
+                      Text('Total: ${receipt.amountCents}'),
                       const SizedBox(height: 16),
                       Row(
                         children: [
@@ -209,36 +208,20 @@ class _OrdersTableTabletLayoutState extends State<OrdersTableTabletLayout> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 4),
                             decoration: BoxDecoration(
-                              color: order.status.toLowerCase() == 'delivered'
+                              color: receipt.status!.toLowerCase() == 'success'
                                   ? Colors.green
-                                  : order.status.toLowerCase() == 'pending'
+                                  : receipt.status!.toLowerCase() == 'pending'
                                       ? Colors.orange
-                                      : order.status.toLowerCase() ==
+                                      : receipt.status!.toLowerCase() ==
                                               'cancelled'
                                           ? Colors.red
                                           : Colors.blue,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Text(
-                              order.status,
+                              receipt.status!.toUpperCase(),
                               style: const TextStyle(color: Colors.white),
                             ),
-                          ),
-                        ],
-                      ),
-                      const Divider(height: 32),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ElevatedButton.icon(
-                            onPressed: () {},
-                            icon: const Icon(Icons.edit),
-                            label: const Text('Edit'),
-                          ),
-                          ElevatedButton.icon(
-                            onPressed: () {},
-                            icon: const Icon(Icons.print),
-                            label: const Text('Print'),
                           ),
                         ],
                       ),
@@ -249,10 +232,10 @@ class _OrdersTableTabletLayoutState extends State<OrdersTableTabletLayout> {
             );
           },
         ),
-        buildDataCell(order.price),
+        buildDataCell(receipt.amountCents!.toString()),
         buildDataCell(
-          order.status,
-          icon: _getStatusIcon(order.status),
+          receipt.status!.toUpperCase(),
+          icon: _getStatusIcon(receipt.status!),
           onTap: () {},
         ),
       ],
@@ -261,7 +244,7 @@ class _OrdersTableTabletLayoutState extends State<OrdersTableTabletLayout> {
 
   Icon? _getStatusIcon(String status) {
     switch (status.toLowerCase()) {
-      case 'delivered':
+      case 'success':
         return const Icon(Icons.done_outline_rounded, color: Colors.green);
       case 'pending':
         return const Icon(Icons.pending_outlined, color: Colors.orange);
@@ -270,7 +253,7 @@ class _OrdersTableTabletLayoutState extends State<OrdersTableTabletLayout> {
       case 'processing':
         return const Icon(Icons.sync, color: Colors.blue);
       default:
-        return null;
+        return const Icon(Icons.sync, color: Colors.blue);
     }
   }
 }
